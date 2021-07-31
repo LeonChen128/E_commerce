@@ -1,0 +1,72 @@
+#header {
+  width: 100%;
+  height: 60px;
+  background-color: #00ccb4;
+  position: fixed;
+}
+
+#content {
+  width: 1400px;
+  height: 40px;
+  margin: 10px auto;
+}
+
+#menu, #search-frame {
+  float: left;
+  width: 50%;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+}
+
+.menu-sun {
+  float: left;
+  height: 100%;
+  width: 15%;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.menu-sun:hover {
+  background-color: #009e8c;
+}
+
+#search-frame form {
+  position: relative;
+}
+
+#search-frame form, #search-frame input {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  line-height: 100%;
+}
+
+#search-frame input {
+  border-radius: 2px;
+  border: 0px;
+  padding: 0 10px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  outline: none;
+}
+
+#search-frame button {
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  right: 4px;
+  top: 5px;
+  background-color: #00ccb4;
+  border: 0px;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+#search-frame button:hover {
+  background-color: #009e8c;
+}
