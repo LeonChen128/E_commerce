@@ -55,17 +55,48 @@
     </div>
   </div>
 
+  <div id="body" style="position: absolute;top: 200px">
+    <template v-if="products.length">
+      <div v-for="product in products">
+        @{{ product.title }}
+      </div>
+    </template>
+  </div>
+
 
 
   <script type="text/javascript">
     let app = new Vue({
-        el: '#header',
+        el: '#body',
         data: {
-          keyWord: null
+          page: null,
+          keyWord: null,
+          products: [],
+        },
+        created() {
+
+          let url = new URL(location.href)
+          this.page = url.searchParams.get('page')
+
+          $.ajax({
+            method: 'GET',
+            // data: {
+            //   page: 
+            // },
+            dataType: 'json',
+            url: 'http://127.0.0.1:8000/api/product',
+            success: (data) => {
+              this.products = data
+            },
+            error: () => {
+
+            }
+
+          })
         },
         methods: {
           search() {
-            console.log(123)
+            
           }
         }
 

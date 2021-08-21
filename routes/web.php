@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'user'], function() {
+Route::prefix('user')->group(function() {
     Route::get('', 'UserController@index');
 });
+
+Route::prefix('api')->namespace('API')->group(function() {
+
+    Route::prefix('product')->group(function() {
+        Route::get('', 'ProductController@index');
+    });
+});
+
