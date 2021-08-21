@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 
 // table model
 use App\Model\User;
+use App\Model\Product;
 
 class Fake extends Command
 {
@@ -31,7 +32,7 @@ class Fake extends Command
      */
     public function __construct()
     {
-        Artisan::call('migrate:refresh');
+        parent::__construct();
     }
 
     /**
@@ -42,11 +43,33 @@ class Fake extends Command
      */
     public function handle()
     {
+        // DB init
+        Artisan::call('migrate:refresh');
+
+        // User
         User::insert([
             'name' => 'super administrator',
             'account' => 'aaa',
             'password' => md5(1234),
             'token' => md5('aaa' . config('app.user_token_hash') . '1234')
+        ]);
+
+        // Product
+        Product::insert([
+            [
+                'user_id' => 1,
+                'title' => 'iphone 12',
+                'description' => '',
+                'category' => '3c',
+                'price' => '15000',
+            ],
+            [
+                'user_id' => 1,
+                'title' => 'ASUS zenfone 5Z',
+                'description' => '',
+                'category' => '3c',
+                'price' => '6000',
+            ],
         ]);
     }
 }

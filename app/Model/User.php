@@ -2,24 +2,14 @@
 
 namespace App\Model;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
+    protected $table = 'user';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'account', 'password',
-    ];
-
-    protected $hidden = [
-        'password', 'token',
-    ];
+    public function products()
+    {
+        return $this->hasMany('App\Model\Product');
+    }
 }
