@@ -16,28 +16,39 @@
 
   <div id="header">
     <div id="content">
+      <!-- header 左 -->
       <div id="menu">
         <div class="menu-sun">
           <i class="fas fa-home"></i>
           <span>賣得好</span>
+          <div class="menu-bar"></div>
         </div>
         <div class="menu-sun">
           <i class="fas fa-user-circle"></i>
           <span>會員中心</span>
+          <div class="menu-bar"></div>
         </div>
         <div class="menu-sun">
           <i class="fas fa-shopping-cart"></i>
           <span>購物車</span>
+          <div class="menu-bar"></div>
         </div>
         <div class="menu-sun">
           <i class="fas fa-shopping-bag"></i>
-          <span>去買單</span>
+          <span>買單去</span>
+          <div class="menu-bar"></div>
         </div>
       </div>
 
+      <div id="buger">
+        <p>
+          <i class="fas fa-bars"></i>
+        </p>
+      </div>
+      <!-- header 右 -->
       <div id="search-frame">
         <form @submit.prevent="search">
-          <input type="text" v-model="keyWord" placeholder="我要找商品...">
+          <input type="text" v-model="keyWord" placeholder="找商品...">
           <button><i class="fas fa-search"></i></button>
         </form>
       </div>

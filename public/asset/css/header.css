@@ -6,9 +6,25 @@
 }
 
 #content {
-  width: 1400px;
   height: 40px;
   margin: 10px auto;
+}
+
+#buger {
+  display: none;
+}
+
+#buger > p {
+  text-align: center;
+  font-size: 28px;
+  color: #064e46;
+  margin: 0px auto;
+  width: 80%;
+  border-radius: 4px;
+}
+
+#buger > p:hover {
+  background-color: #09a592;
 }
 
 #menu, #search-frame {
@@ -22,15 +38,24 @@
 .menu-sun {
   float: left;
   height: 100%;
-  width: 15%;
   color: white;
   text-align: center;
   cursor: pointer;
   transition: all .3s;
+  margin-right: 20px;
 }
 
-.menu-sun:hover {
-  background-color: #009e8c;
+.menu-bar {
+  border-bottom: 2px solid white;
+  position: relative;
+  top: 0px;
+  transition: all .3s;
+  opacity: 0;
+}
+
+.menu-sun:hover .menu-bar {
+  top: -2px;
+  opacity: 1;
 }
 
 #search-frame form {
@@ -69,4 +94,68 @@
 
 #search-frame button:hover {
   background-color: #009e8c;
+}
+
+
+
+/*RWD*/
+@media (max-width: 575px) {
+  #buger {
+    display: block;
+    float: left;
+    width: 10%;
+    text-align: center;
+  }
+  #menu {
+    background-color: pink;
+    position: absolute;
+    height: 200px;
+    z-index: 100;
+    left: 0px;
+    top: 0px;
+    display: none;
+  }
+  #search-frame {
+    width: 90%;
+  }
+  .menu-sun {
+    width: 100%;
+  }
+}
+@media (min-width: 576px) {
+  #header {
+    height: 100px;
+  }
+  #content {
+    width: 576px;
+  }
+  #menu, #search-frame {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  #content {
+    width: 768px;
+  }
+}
+@media (min-width: 992px) {
+  #content {
+    width: 992px;
+  }
+}
+@media (min-width: 1200px) {
+  #header {
+    height: 60px;
+  }
+  #content {
+    width: 1200px;
+  }
+  #menu, #search-frame {
+    width: 50%;
+  }
+}
+@media (min-width: 1400px) {
+  #content {
+    width: 1400px;
+  }
 }
