@@ -66,40 +66,46 @@
 
 
   <script type="text/javascript">
-    let app = new Vue({
-        el: '#body',
-        data: {
-          page: null,
-          keyWord: null,
-          products: [],
-        },
-        created() {
+    let header = new Vue({
+      el: '#header',
+      data: {
+        keyWord: null
+      },
+      created() {
+      },
+      methods: {
+      }
+    })
 
-          let url = new URL(location.href)
-          this.page = url.searchParams.get('page')
+    let body = new Vue({
+      el: '#body',
+      data: {
+        page: null,
+        products: [],
+      },
+      created() {
 
-          $.ajax({
-            method: 'GET',
-            // data: {
-            //   page: 
-            // },
-            dataType: 'json',
-            url: 'http://127.0.0.1:8000/api/product',
-            success: (data) => {
-              this.products = data
-            },
-            error: () => {
+        let url = new URL(location.href)
+        this.page = url.searchParams.get('page')
 
-            }
+        $.ajax({
+          method: 'GET',
+          // data: {
+          //   page: 
+          // },
+          dataType: 'json',
+          url: 'http://127.0.0.1:8000/api/product',
+          success: (data) => {
+            this.products = data
+          },
+          error: () => {
 
-          })
-        },
-        methods: {
-          search() {
-            
           }
-        }
 
+        })
+      },
+      methods: {
+      }
     })
       
   </script>
