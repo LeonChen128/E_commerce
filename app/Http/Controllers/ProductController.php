@@ -15,7 +15,6 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        dd(Storage::disk('user')->exists('file.jpg'));
         return view('product/index');
     }
 }

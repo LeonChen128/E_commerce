@@ -62,6 +62,7 @@ class Fake extends Command
                 'description' => '',
                 'category' => '3c',
                 'price' => '15000',
+                'img' => 'iphone.jpg'
             ],
             [
                 'user_id' => 1,
@@ -69,6 +70,31 @@ class Fake extends Command
                 'description' => '',
                 'category' => '3c',
                 'price' => '6000',
+                'img' => 'zenfone5z.jpg'
+            ],
+            [
+                'user_id' => 1,
+                'title' => 'Play Station 4 Pro',
+                'description' => '',
+                'category' => '3c',
+                'price' => '7000',
+                'img' => 'ps4.jpg'
+            ],
+            [
+                'user_id' => 1,
+                'title' => 'Switch',
+                'description' => '',
+                'category' => '3c',
+                'price' => '8000',
+                'img' => 'switch.jpg'
+            ],
+            [
+                'user_id' => 1,
+                'title' => 'mac Pro 13"',
+                'description' => '',
+                'category' => '3c',
+                'price' => '23000',
+                'img' => 'macbook_pro.jpg'
             ],
         ]);
     }

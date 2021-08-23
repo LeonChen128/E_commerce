@@ -9,7 +9,7 @@
     <template v-if="products.length">
       <div id="product-frame" v-for="product in products" style="border: 1px solid green;">
         <p id="product-title"><b>@{{ product.title }}</b></p>
-        <div id="product-picture"><img src="../storage./user/1/iphone.jpg"></div>
+        <div id="product-picture"><img :src="product.img"></div>
       </div>
     </template>
   </div>
