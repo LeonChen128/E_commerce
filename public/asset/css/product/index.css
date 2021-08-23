@@ -1,0 +1,24 @@
+#body {
+    margin: 40px auto;
+}
+
+#product-frame {
+    width: 20%;
+    height: 300px;
+    display: inline-block;
+    background: white;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+#product-title {
+    margin: 0px auto;
+}
+
+
+/*RWD*/
+@media (min-width: 1400px) {
+    #body {
+        width: 1400px;
+    }
+} 
