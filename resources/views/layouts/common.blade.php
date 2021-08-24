@@ -70,13 +70,25 @@
     let header = new Vue({
       el: '#header',
       data: {
-        keyWord: null
+        keyWord: '',
+        url: null
       },
       created() {
+        this.url = new URL(location.href)
+        this.keyWord = this.url.searchParams.get('key')
       },
       methods: {
         redirect(uri) {
           window.location = '{{ config("app.url") }}/' + uri
+        },
+        search() {
+          if (this.url.href != ('{{ config("app.url") }}/' + 'product')) {
+            window.location = '{{ config("app.url") }}/' + uri + (this.keyWord ? ('?=' + this.keyWord) : '')
+          }
+          body.params.keyWord = this.keyWord
+          body.params.offset = 0
+          body.products = []
+          body.search()
         },
       }
     })

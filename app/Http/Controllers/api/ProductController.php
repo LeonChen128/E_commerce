@@ -14,14 +14,21 @@ class ProductController extends \App\Http\Controllers\Controller
 
     public function index(Request $request)
     {
-        $params = $request->validate([
-            'page' => '',
-            'limit' => '',
-            'category' => ''
+        $params = $this->validate($request, [
+            'keyWord' => '',
+            'offset' => ''
         ]);
 
-        return response()->json(
-            Product::orderBy('updated_at', 'desc')->get()->map(function($product) {
+        $build = Product::orderBy('updated_at', 'desc');
+
+        $build = $params['keyWord'] ? $build->where('title', 'like', '%' . $params['keyWord'] . '%') : $build;
+        
+        $allCount = $build->count();
+        
+        $build = ($params['offset'] && is_numeric($params['offset'])) ? $build->skip($params['offset']) : $build;
+
+        return response()->json([
+            'products' => ($products = $build->take(10)->get()->map(function($product) {
                 return [
                     'id' => $product->id,
                     'user_id' => $product->user_id,
@@ -32,7 +39,9 @@ class ProductController extends \App\Http\Controllers\Controller
                     'img' => config('app.user_root') . $product->user_id . '/' . $product->img,
                     'date' => $product->updated_at->format('U'),
                 ];
-            })
-        );
+            })),
+            'offset' => $offect = ($params['offset'] ? ($params['offset'] + $products->count()) : $products->count()),
+            'more' => ($offect >= $allCount) ? false : true
+        ]);
     }
 }
