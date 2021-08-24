@@ -5,7 +5,6 @@
 #product-outer {
     padding: 8px 4px;
     float: left;
-    width: 20%;
     height: 350px;
 }
 
@@ -14,6 +13,16 @@
     padding: 8px 16px;
     height: 100%;
     cursor: pointer;
+    transition: all .3s;
+    position: relative;
+    right: 0px;
+    bottom: 0px;
+}
+
+#product-frame:hover {
+    box-shadow: 6px 6px 8px gray;
+    right: 4px;
+    bottom: 4px;
 }
 
 #product-title {
@@ -60,6 +69,53 @@
 
 
 /*RWD*/
+
+@media (min-width: 0px) {
+    #body {
+        width: 80%;
+    }
+
+    #product-outer {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    #body {
+        width: 576px;
+    }
+    #product-outer {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) {
+    #body {
+        width: 768px;
+    }
+    #product-outer {
+        width: 33.3%;
+    }
+}
+
+@media (min-width: 992px) {
+    #body {
+        width: 992px;
+    }
+    #product-outer {
+        width: 25%;
+    }
+}
+
+@media (min-width: 1200px) {
+    #body {
+        width: 1200px;
+    }
+    #product-outer {
+        width: 20%;
+    }
+}
+
 @media (min-width: 1400px) {
     #body {
         width: 1400px;

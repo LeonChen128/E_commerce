@@ -21,24 +21,29 @@
       <div id="header-content">
         <!-- header 左 -->
         <div id="menu">
-          <div class="menu-sun">
+          <div class="menu-sun" @click="redirect('product')">
             <i class="fas fa-home"></i>
             <span>賣得好</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun">
+          <div class="menu-sun" @click="redirect('user')">
             <i class="fas fa-user-circle"></i>
             <span>會員中心</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun">
+          <div class="menu-sun" @click="redirect('cart')">
             <i class="fas fa-shopping-cart"></i>
             <span>購物車</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun">
+          <div class="menu-sun" @click="redirect('pay')">
             <i class="fas fa-shopping-bag"></i>
             <span>買單去</span>
+            <div class="menu-bar"></div>
+          </div>
+          <div class="menu-sun" @click="redirect('login')">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>登入 / 註冊</span>
             <div class="menu-bar"></div>
           </div>
         </div>
@@ -70,6 +75,9 @@
       created() {
       },
       methods: {
+        redirect(uri) {
+          window.location = '{{ config("app.url") }}/' + uri
+        },
       }
     })
   </script>
