@@ -7,9 +7,13 @@
 @section('content')
   <div id="body" style="border: 1px solid red;">
     <template v-if="products.length">
-      <div id="product-frame" v-for="product in products" style="border: 1px solid green;">
-        <p id="product-title"><b>@{{ product.title }}</b></p>
-        <div id="product-picture"><img :src="product.img"></div>
+      <div id="product-outer" v-for="product in products" style="border: 1px solid green;">
+        <div id="product-frame">
+          <p id="product-title"><b>@{{ product.title }}</b></p>
+          <div id="product-picture"><img :src="product.img"></div>
+          <div id="product-desc" style="border: 1px solid yellow;"><span>@{{ product.description }}</span></div>
+          <p id="product-price"><span>$@{{ product.price }}</span></p>
+        </div>
       </div>
     </template>
   </div>

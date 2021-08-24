@@ -59,7 +59,7 @@ class Fake extends Command
             [
                 'user_id' => 1,
                 'title' => 'iphone 12',
-                'description' => '',
+                'description' => '全新，可面交',
                 'category' => '3c',
                 'price' => '15000',
                 'img' => 'iphone.jpg'
@@ -67,31 +67,31 @@ class Fake extends Command
             [
                 'user_id' => 1,
                 'title' => 'ASUS zenfone 5Z',
-                'description' => '',
+                'description' => '正常使用一年，全程使用犀牛盾，外觀無損',
                 'category' => '3c',
-                'price' => '6000',
+                'price' => '4000',
                 'img' => 'zenfone5z.jpg'
             ],
             [
                 'user_id' => 1,
                 'title' => 'Play Station 4 Pro',
-                'description' => '',
+                'description' => '購買日期 2020/5，可面交',
                 'category' => '3c',
-                'price' => '7000',
+                'price' => '6000',
                 'img' => 'ps4.jpg'
             ],
             [
                 'user_id' => 1,
                 'title' => 'Switch',
-                'description' => '',
+                'description' => '公司尾牙獎項，全新',
                 'category' => '3c',
-                'price' => '8000',
+                'price' => '10000',
                 'img' => 'switch.jpg'
             ],
             [
                 'user_id' => 1,
                 'title' => 'mac Pro 13"',
-                'description' => '',
+                'description' => '2020 機型，有 touch bar，不喜勿入',
                 'category' => '3c',
                 'price' => '23000',
                 'img' => 'macbook_pro.jpg'
