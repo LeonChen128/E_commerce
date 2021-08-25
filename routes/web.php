@@ -21,6 +21,10 @@ Route::prefix('product')->group(function() {
     Route::get('', 'ProductController@index');
 });
 
+Route::prefix('auth')->group(function() {
+    
+});
+
 Route::prefix('api')->namespace('API')->group(function() {
 
     Route::prefix('product')->group(function() {

@@ -4,11 +4,11 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="./asset/css/layouts/common.css">
-  <link rel="stylesheet" type="text/css" href="./asset/css/layouts/header.css">
-  <link rel="stylesheet" type="text/css" href="./asset/icon/fontawesome/css/all.css">
-  <script type="text/javascript" src="./asset/js/vue.js"></script>
-  <script type="text/javascript" src="./asset/js/jQuery/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="/asset/css/layouts/common.css">
+  <link rel="stylesheet" type="text/css" href="/asset/css/layouts/header.css">
+  <link rel="stylesheet" type="text/css" href="/asset/icon/fontawesome/css/all.css">
+  <script type="text/javascript" src="/asset/js/vue.js"></script>
+  <script type="text/javascript" src="/asset/js/jQuery/jquery.js"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
   <script type="text/javascript" src="@yield('js')"></script>
@@ -41,7 +41,7 @@
             <span>買單去</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun" @click="redirect('login')">
+          <div class="menu-sun" @click="showLogin()">
             <i class="fas fa-sign-in-alt"></i>
             <span>登入 / 註冊</span>
             <div class="menu-bar"></div>
@@ -64,6 +64,31 @@
     </div>
   </div>
 
+  <div v-if="show" id="login-frame">
+    <div id="login">
+      <div id="cross">
+        <i class="fas fa-times" @click="showLogin()"></i>
+      </div>
+      <form @submit.prevent="doLogin">
+        <div class="input-frame">
+          <input type="text" v-model="account" placeholder="請輸入帳號...">
+        </div>
+
+        <div class="input-frame">
+          <input type="password" v-model="password" placeholder="請輸入密碼...">
+        </div>
+        
+        <div id="button-frame">
+          <button>確定</button>
+        </div>
+      </form>
+
+      <div>
+        <a href="">註冊新帳號</a>
+      </div>
+    </div>
+  </div>
+
   @yield('content')
 
   <script type="text/javascript">
@@ -71,7 +96,7 @@
       el: '#header',
       data: {
         keyWord: '',
-        url: null
+        url: null,
       },
       created() {
         this.url = new URL(location.href)
@@ -90,7 +115,28 @@
           body.products = []
           body.search()
         },
+        showLogin() {
+          loginFrame.show = !loginFrame.show
+        }
       }
+    })
+
+    let loginFrame = new Vue({
+      el: '#login-frame',
+      data: {
+        show: true,
+        account: '',
+        password: '',
+      },
+      methods: {
+        doLogin() {
+
+        },
+        showLogin() {
+          loginFrame.show = !loginFrame.show
+        },
+      }
+
     })
   </script>
   @yield('script')
