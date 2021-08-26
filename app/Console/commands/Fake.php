@@ -51,7 +51,7 @@ class Fake extends Command
             'name' => 'super administrator',
             'account' => 'aaa',
             'password' => md5(1234),
-            'token' => md5('aaa' . config('app.user_token_hash') . '1234')
+            // 'token' => md5('aaa' . config('app.user_token_hash') . '1234')
         ]);
 
         // Product

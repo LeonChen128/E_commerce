@@ -21,14 +21,16 @@ Route::prefix('product')->group(function() {
     Route::get('', 'ProductController@index');
 });
 
-Route::prefix('auth')->group(function() {
-    
-});
-
-Route::prefix('api')->namespace('API')->group(function() {
+Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
 
     Route::prefix('product')->group(function() {
         Route::get('', 'ProductController@index');
+    });
+
+    Route::prefix('auth')->group(function() {
+        Route::post('login', 'AuthController@login');
+        Route::post('logout', 'AuthController@logout');
+        Route::get('check', 'AuthController@check');
     });
 });
 

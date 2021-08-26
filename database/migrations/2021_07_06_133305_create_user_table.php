@@ -19,7 +19,7 @@ class CreateUserTable extends Migration
             $table->string('name', 190)->comment('使用者名稱');
             $table->string('account', 190)->unique()->comment('使用者帳號');
             $table->string('password', 190)->comment('使用者密碼');
-            $table->string('token', 190)->comment('使用者 token');
+            $table->rememberToken();
 
             $table->timestamp('updated_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
