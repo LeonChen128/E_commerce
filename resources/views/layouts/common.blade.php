@@ -64,26 +64,28 @@
     </div>
   </div>
 
-  <div v-if="show" id="login-frame">
+  <div v-if="show" id="login-frame" :style="'height: ' + height + 'px'">
     <div id="login">
       <div id="cross">
-        <i class="fas fa-times" @click="showLogin()"></i>
+        <i class="fas fa-times" @click="showLogin"></i>
       </div>
       <form @submit.prevent="doLogin">
+        <div v-if="message" id="login-message">@{{ message }}</div>
         <div class="input-frame">
           <input type="text" v-model="account" placeholder="請輸入帳號...">
         </div>
 
         <div class="input-frame">
-          <input type="password" v-model="password" placeholder="請輸入密碼...">
+          <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
+          <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
         </div>
         
         <div id="button-frame">
-          <button>確定</button>
+          <button type="sumit" @click="doLogin">確定</button>
         </div>
       </form>
 
-      <div>
+      <div id="register-ancor">
         <a href="">註冊新帳號</a>
       </div>
     </div>
@@ -116,6 +118,7 @@
           body.search()
         },
         showLogin() {
+          loginFrame.height = document.body.clientHeight
           loginFrame.show = !loginFrame.show
         }
       }
@@ -124,17 +127,45 @@
     let loginFrame = new Vue({
       el: '#login-frame',
       data: {
-        show: true,
+        show: false,
         account: '',
         password: '',
+        eyeShow: 'fas fa-eye-slash',
+        passwordType: 'password',
+        message: '',
+        height: 0
       },
       methods: {
+        reset() {
+          this.account = ''
+          this.password = ''
+          this.eyeShow = 'fas fa-eye-slash'
+          this.passwordType = 'password'
+          this.message = ''
+        },
         doLogin() {
+          this.message = ''
+          if(!this.account || !this.password) {
+            this.message = '欄位不得為空'
+            return true
+          }
 
+          setTimeout(function() {
+            this.message = '帳密錯誤'
+            console.log(this.message)
+          }, 1000)
+          // ajax
         },
         showLogin() {
-          loginFrame.show = !loginFrame.show
+          this.height = document.body.clientHeight
+          
+          this.show = !this.show
+          if (this.show == false) { this.reset() }
         },
+        showPassword() {
+          this.eyeShow = this.eyeShow == 'fas fa-eye-slash' ? 'fas fa-eye' : 'fas fa-eye-slash'
+          this.passwordType = this.passwordType == 'password' ? 'text' : 'password'
+        }
       }
 
     })

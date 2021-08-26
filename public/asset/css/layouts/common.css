@@ -11,7 +11,6 @@ body {
     position: absolute;
     z-index: 60;
     width: 100%;
-    height: 100%;
     background: rgba(0, 0, 0, .7);
 }
 
@@ -55,12 +54,36 @@ body {
 .input-frame {
     width: 80%;
     margin: 20px auto;
+    position: relative;
+}
+
+@keyframes shake {
+    0% { transform:translate(25px, 0px); }
+    20% { transform:translate(-20px, 0px); }
+    40% { transform:translate(15px, 0px); }
+    60% { transform:translate(-10px, 0px); }
+    80% { transform:translate(5px, 0px); }
+    100% { transform:translate(0px, 0px); }
+}
+
+#login-message {
+    border: 1px solid #bf0000;
+    width: 80%;
+    margin: 20px auto;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 20px;
+    background: #f9dbe0;
+    color: #bf0000;
+    animation: shake .2s;
 }
 
 .input-frame input {
     width: 100%;
     height: 40px;
-    border: 1px solid #a29c9c;
+    border: 1px solid #dad8d8;
     border-radius: 4px;
     outline: none;
     transition: all .3s;
@@ -70,7 +93,18 @@ body {
 }
 
 .input-frame input:focus {
-    background: #ffe5dd;
+    box-shadow: 0px 0px 6px #2196f3;
+}
+
+.password-input {
+    padding-right: 32px !important;
+}
+
+.password-eye {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
 }
 
 #button-frame {
@@ -82,7 +116,7 @@ body {
     width: 100%;
     height: 40px;
     background: #36ccb4;
-    border: 1px solid #a29c9c;
+    border: 0px solid #a29c9c;
     border-radius: 4px;
     color: white;
     cursor: pointer;
@@ -92,4 +126,18 @@ body {
 
 #button-frame button:hover {
     background: #2dad98;
+}
+
+#register-ancor {
+    width: 80%;
+    margin: 0px auto;
+}
+
+#register-ancor > a {
+    text-decoration: none;
+    color: #3a60f3;
+}
+
+#register-ancor > a:hover {
+    text-decoration: underline;
 }
