@@ -3,5 +3,5 @@
 
 <hr>
 
-## A E-commerce web made by `PHP-Laravel` & `Vue.js`
+## A E-commerce web made of `PHP-Laravel` & `Vue.js`
 > completion 5%

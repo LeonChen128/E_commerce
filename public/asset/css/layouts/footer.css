@@ -1,0 +1,100 @@
+#footer {
+    background: #16584e;
+    overflow: auto;
+    color: white;
+    height: 330px;
+}
+
+#info-frame {
+    width: 80%;
+    margin: 0px auto;
+    padding: 20px;
+    /*overflow: auto;*/
+}
+
+
+#info-frame > div {
+    height: 200px;
+    /*border: 1px solid green;*/
+    float: left;
+}
+
+#info {
+    width: 100%;
+}
+
+#info-frame .title {
+    margin: 12px auto;
+    padding: 0 40px;
+    font-size: 20px;
+}
+
+.info-desc {
+    /*border: 2px solid gray;*/
+    padding: 0 40px;
+    margin: 8px auto;
+}
+
+.info-desc span {
+    padding: 2px 4px;
+    background: #000000;
+    border-radius: 6px;
+}
+
+.info-desc a {
+    color: white;
+    text-decoration: none;
+}
+
+.info-desc a:hover {
+    text-decoration: underline;
+}
+
+#contact {
+    width: 30%;
+    /*text-align: center;*/
+}
+
+.link {
+    margin: 0px;
+    padding: 0px 20px;
+    padding: 0 40px;
+    margin: 8px auto;
+}
+
+.link > a {
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    color: white;
+    transition: all .3s;
+}
+
+@media (min-width: 0px) {
+    #info-frame {
+        width: 100%;
+    }
+    .title, #info > p {
+        padding: 0px !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .title, #info > p {
+        padding: 0 40px !important;
+    }
+}
+
+
+@media (min-width: 768px) {
+    #info-frame {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1400px) {
+    #info-frame {
+        width: 1400px;
+    }
+}

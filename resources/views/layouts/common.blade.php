@@ -6,6 +6,7 @@
 
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/common.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/header.css">
+  <link rel="stylesheet" type="text/css" href="/asset/css/layouts/footer.css">
   <link rel="stylesheet" type="text/css" href="/asset/icon/fontawesome/css/all.css">
   <script type="text/javascript" src="/asset/js/vue.js"></script>
   <script type="text/javascript" src="/asset/js/jQuery/jquery.js"></script>
@@ -16,7 +17,7 @@
 </head>
 <body>
 
-  <div id="header">
+  <header id="header">
     <div id="header-frame">
       <div id="header-content">
         <!-- header 左 -->
@@ -67,7 +68,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </header>
 
   <div v-if="loginTable || logoutTable" id="login-frame">
     <div v-if="loginTable" id="login">
@@ -108,6 +109,36 @@
   </div>
 
   @yield('content')
+
+  <footer id="footer">
+    <div id="info-frame">
+      <div id="info">
+        <em class="title">-- About --</em>
+        <p class="info-desc">
+          <b>author：Leon Chen</b>
+        </p>
+        <p class="info-desc">
+          <b>email：<a href = "mailto: a781282000@gmail.com">a781282000@gmail.com</a></b>
+        </p>
+        <p class="info-desc">
+          <b>based：<span>PHP / Laravel</span> | <span>Js / jQuery / Vue.js</span> | <span>Mysql</span></b>
+        </p>
+        <em class="title">-- contact --</em>
+        <p class="link">
+          <a href="https://github.com/LeonChen128" target="_blank"><i class="fab fa-github-square"></i></a>
+          <b>Github</b>
+        </p>
+        <p class="link">
+          <a href="https://www.facebook.com/jinyi.chen1/" target="_blank"><i class="fab fa-facebook-square"></i></a>
+          <b>Facebook</b>
+        </p>
+        <p class="link">
+          <a href="https://www.instagram.com/jin.yi3345678/" target="_blank"><i class="fab fa-instagram-square"></i></a>
+          <b>Instagram</b>
+        </p>
+      </div>
+    </div>
+  </footer>
 
   <script type="text/javascript">
     let header = new Vue({
@@ -227,13 +258,12 @@
             url: '{{ config("app.url") }}' + '/api/auth/logout',
             success: (data) => {
               this.user = null
+              window.location = '{{ config("app.url") }}/product'
             },
             error: (data) => {
               this.user = null
             }
           })
-
-          window.location = '{{ config("app.url") }}/product'
         }
       }
 
