@@ -41,7 +41,12 @@
             <span>買單去</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun" @click="showLogin()">
+          <div v-if="user" class="menu-sun" @click="showLogout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>登出</span>
+            <div class="menu-bar"></div>
+          </div>
+          <div v-else class="menu-sun" @click="showLogin()">
             <i class="fas fa-sign-in-alt"></i>
             <span>登入 / 註冊</span>
             <div class="menu-bar"></div>
@@ -64,11 +69,14 @@
     </div>
   </div>
 
-  <div v-if="show" id="login-frame" :style="'height: ' + height + 'px'">
-    <div id="login">
+  <div v-if="loginTable || logoutTable" id="login-frame">
+    <div v-if="loginTable" id="login">
       <div id="cross">
-        <i class="fas fa-times" @click="showLogin"></i>
+        <i class="fas fa-times" @click="closeLogin"></i>
       </div>
+
+      <div id="login-title">使用者登入</div>
+
       <form @submit.prevent="doLogin">
         <div v-if="message" id="login-message">@{{ message }}</div>
         <div class="input-frame">
@@ -81,12 +89,20 @@
         </div>
         
         <div id="button-frame">
-          <button type="sumit" @click="doLogin">確定</button>
+          <button type="sumit">確定</button>
         </div>
       </form>
 
       <div id="register-ancor">
         <a href="">註冊新帳號</a>
+      </div>
+    </div>
+
+    <div v-if="logoutTable" id="logout">
+      <div id="logout-title">是否確定要登出？</div>
+      <div id="logout-button-frame">
+        <button id="cancel-btn" @click="cancelLogout">取消</button>
+        <button id="submit-btn" @click="doLogout">確定</button>
       </div>
     </div>
   </div>
@@ -99,12 +115,27 @@
       data: {
         keyWord: '',
         url: null,
+        user: null,
       },
       created() {
         this.url = new URL(location.href)
         this.keyWord = this.url.searchParams.get('key')
+        this.userCheck()
       },
       methods: {
+        userCheck() {
+          $.ajax({
+            method: 'GET',
+            dataType: 'json',
+            url: '{{ config("app.url") }}' + '/api/auth/check',
+            success: (data) => {
+              this.user = data.id == undefined ? null : data
+            },
+            error: (data) => {
+              this.user = null
+            }
+          })
+        },
         redirect(uri) {
           window.location = '{{ config("app.url") }}/' + uri
         },
@@ -118,8 +149,11 @@
           body.search()
         },
         showLogin() {
-          loginFrame.height = document.body.clientHeight
-          loginFrame.show = !loginFrame.show
+          loginFrame.loginTable = !loginFrame.loginTable
+          loginFrame.reset()
+        },
+        showLogout() {
+          loginFrame.logoutTable = !loginFrame.logoutTable
         }
       }
     })
@@ -127,13 +161,13 @@
     let loginFrame = new Vue({
       el: '#login-frame',
       data: {
-        show: false,
+        loginTable: false,
+        logoutTable: false,
         account: '',
         password: '',
         eyeShow: 'fas fa-eye-slash',
         passwordType: 'password',
         message: '',
-        height: 0
       },
       methods: {
         reset() {
@@ -150,21 +184,56 @@
             return true
           }
 
-          setTimeout(function() {
-            this.message = '帳密錯誤'
-            console.log(this.message)
-          }, 1000)
-          // ajax
+          //ajax
+          $.ajax({
+            method: 'POST',
+            data: {
+              account: this.account,
+              password: this.password,
+            },
+            dataType: 'json',
+            url: '{{ config("app.url") }}' + '/api/auth/login',
+            beforeSend: _ => {
+              
+            },
+            complete: _ => {
+              
+            },
+            success: (data) => {
+              window.location = '{{ config("app.url") }}/product'
+            },
+            error: (data) => {
+              if (message = data.responseJSON.message) {
+                this.message = message
+              }
+            }
+          })
         },
-        showLogin() {
-          this.height = document.body.clientHeight
-          
-          this.show = !this.show
-          if (this.show == false) { this.reset() }
+        closeLogin() {
+          this.loginTable = false
+          this.reset()
         },
         showPassword() {
           this.eyeShow = this.eyeShow == 'fas fa-eye-slash' ? 'fas fa-eye' : 'fas fa-eye-slash'
           this.passwordType = this.passwordType == 'password' ? 'text' : 'password'
+        },
+        cancelLogout() {
+          this.logoutTable = false
+        },
+        doLogout() {
+          $.ajax({
+            method: 'POST',
+            dataType: 'json',
+            url: '{{ config("app.url") }}' + '/api/auth/logout',
+            success: (data) => {
+              this.user = null
+            },
+            error: (data) => {
+              this.user = null
+            }
+          })
+
+          window.location = '{{ config("app.url") }}/product'
         }
       }
 

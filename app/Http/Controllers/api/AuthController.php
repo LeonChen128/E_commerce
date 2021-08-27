@@ -45,7 +45,7 @@ class AuthController extends \App\Http\Controllers\Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'account' => $user->account,
-            ] : []
+            ] : null
         );
     }
 }

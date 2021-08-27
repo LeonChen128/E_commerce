@@ -8,10 +8,20 @@ body {
 }
 
 #login-frame {
-    position: absolute;
+    position: fixed;
+    height: 100%;
     z-index: 60;
     width: 100%;
     background: rgba(0, 0, 0, .7);
+}
+
+#login-title {
+    width: 80%;
+    margin: 0px auto;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 10px;
 }
 
 @keyframes move {
@@ -140,4 +150,72 @@ body {
 
 #register-ancor > a:hover {
     text-decoration: underline;
+}
+
+@keyframes logout {
+    /*0% { transform:translate(0px, -100px); }
+    100% { transform:translate(0px, 100px); }*/
+
+    0% { transform:scale(0);}
+    100% { transform:scale(1);}
+}
+
+#logout {
+    width: 300px;
+    height: 120px;
+    /*transform:translate(0px, 100px);*/
+    background: white;
+    margin: 200px auto;
+    padding: 20px 0px;
+    border-radius: 20px;
+    position: relative;
+    top: 100px;
+    animation: logout .3s;
+}
+
+#logout-title {
+    width: 80%;
+    margin: 20px auto;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 10px;
+}
+
+#logout-button-frame {
+    width: 100%;
+    margin: 20px auto;
+    margin-bottom: 0px;
+    border-top: 1px solid #c7c6c6;
+    overflow: auto;
+    position: absolute;
+    bottom: 0px;
+}
+
+#logout-button-frame > button {
+    float: left;
+    width: 50%;
+    height: 40px;
+    border: 0px;
+    cursor: pointer;
+    transition: all .3s;
+    color: white;
+}
+
+#cancel-btn {
+    background: #e63757;
+    border-radius: 0 0 0 20px;
+}
+
+#cancel-btn:hover {
+    background: #db1b3f
+}
+
+#submit-btn {
+    background: #2c7be5;
+    border-radius: 0 0 20px 0;
+}
+
+#submit-btn:hover {
+    background: #1862c6;
 }
