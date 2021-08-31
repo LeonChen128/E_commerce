@@ -51,6 +51,8 @@ class Fake extends Command
             'name' => 'super administrator',
             'account' => 'aaa',
             'password' => md5(1234),
+            'address' => '台北市大安區',
+            'phone' => '0958123123',
             // 'token' => md5('aaa' . config('app.user_token_hash') . '1234')
         ]);
 

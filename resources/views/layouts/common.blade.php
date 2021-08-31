@@ -47,7 +47,7 @@
             <span>登出</span>
             <div class="menu-bar"></div>
           </div>
-          <div v-else class="menu-sun" @click="showLogin()">
+          <div v-else class="menu-sun" @click="showLogin">
             <i class="fas fa-sign-in-alt"></i>
             <span>登入 / 註冊</span>
             <div class="menu-bar"></div>
@@ -70,16 +70,16 @@
     </div>
   </header>
 
-  <div v-if="loginTable || logoutTable" id="login-frame">
+  <div v-if="loginTable || logoutTable || registerTable" id="auth-frame">
     <div v-if="loginTable" id="login">
-      <div id="cross">
+      <div class="cross">
         <i class="fas fa-times" @click="closeLogin"></i>
       </div>
 
-      <div id="login-title">使用者登入</div>
+      <div class="login-title">使用者登入</div>
 
       <form @submit.prevent="doLogin">
-        <div v-if="message" id="login-message">@{{ message }}</div>
+        <div v-if="message" class="auth-message">@{{ message }}</div>
         <div class="input-frame">
           <input type="text" v-model="account" placeholder="請輸入帳號...">
         </div>
@@ -94,8 +94,48 @@
         </div>
       </form>
 
-      <div id="register-ancor">
-        <a href="">註冊新帳號</a>
+      <div class="switch-table">
+        <span @click="showRegister">註冊新帳號</span>
+      </div>
+    </div>
+
+    <div v-if="registerTable" id="register">
+      <div class="cross">
+        <i class="fas fa-times" @click="closeRegister"></i>
+      </div>
+
+      <div class="login-title">註冊新帳號</div>
+
+      <form @submit.prevent="doRegister">
+        <div v-if="message" class="auth-message">@{{ message }}</div>
+        <div class="input-frame">
+          <input type="text" v-model="account" placeholder="請輸入帳號...">
+        </div>
+
+        <div class="input-frame">
+          <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
+          <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
+        </div>
+
+        <div class="input-frame">
+          <input type="text" v-model="name" placeholder="請輸入名字...">
+        </div>
+
+        <div class="input-frame">
+          <input type="text" v-model="address" placeholder="請輸入地址...">
+        </div>
+
+        <div class="input-frame">
+          <input type="text" v-model="phone" placeholder="請輸入電話...">
+        </div>
+        
+        <div id="button-frame">
+          <button type="sumit">確定</button>
+        </div>
+      </form>
+
+      <div class="switch-table">
+        <span @click="showLogin">已有帳號去登入</span>
       </div>
     </div>
 
@@ -180,17 +220,18 @@
           body.search()
         },
         showLogin() {
-          loginFrame.loginTable = !loginFrame.loginTable
-          loginFrame.reset()
+          authFrame.loginTable = !authFrame.loginTable
+          authFrame.registerTable = false
+          authFrame.reset()
         },
         showLogout() {
-          loginFrame.logoutTable = !loginFrame.logoutTable
+          authFrame.logoutTable = !authFrame.logoutTable
         }
       }
     })
 
-    let loginFrame = new Vue({
-      el: '#login-frame',
+    let authFrame = new Vue({
+      el: '#auth-frame',
       data: {
         loginTable: false,
         logoutTable: false,
@@ -199,6 +240,11 @@
         eyeShow: 'fas fa-eye-slash',
         passwordType: 'password',
         message: '',
+
+        registerTable: true,
+        name: '',
+        address: '',
+        phone: ''
       },
       methods: {
         reset() {
@@ -207,6 +253,9 @@
           this.eyeShow = 'fas fa-eye-slash'
           this.passwordType = 'password'
           this.message = ''
+          this.name = ''
+          this.address = ''
+          this.phone = ''
         },
         doLogin() {
           this.message = ''
@@ -264,6 +313,23 @@
               this.user = null
             }
           })
+        },
+        showRegister() {
+          this.loginTable = false
+          this.reset()
+          this.registerTable = true
+        },
+        closeRegister() {
+          this.registerTable = false
+          this.reset()
+        },
+        doRegister() {
+          
+        },
+        showLogin() {
+          this.registerTable = false
+          this.reset()
+          this.loginTable = true
         }
       }
 
