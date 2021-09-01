@@ -31,6 +31,8 @@ Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
         Route::post('login', 'AuthController@login');
         Route::post('logout', 'AuthController@logout');
         Route::get('check', 'AuthController@check');
+        Route::post('register-check', 'AuthController@registerCheck');
+        Route::post('create', 'AuthController@create');
     });
 });
 

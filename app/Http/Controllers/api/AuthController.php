@@ -16,8 +16,8 @@ class AuthController extends \App\Http\Controllers\Controller
     public function login(Request $request)
     {
         $params = $this->validate($request, [
-            'account' => '',
-            'password' => ''
+            'account' => 'required',
+            'password' => 'required'
         ]);
 
         if (!$user = User::where('account', $params['account'])->where('password', md5($params['password']))->first()) {
@@ -47,5 +47,34 @@ class AuthController extends \App\Http\Controllers\Controller
                 'account' => $user->account,
             ] : null
         );
+    }
+
+    public function registerCheck(Request $request)
+    {
+        $params = $this->validate($request, [
+            'account' => 'required',
+        ]);
+
+        return User::where('account', $params['account'])->count() ? 0 : 1;
+    }
+
+    public function create(Request $request)
+    {
+        $params = $this->validate($request, [
+            'account' => 'required|string|max:190',
+            'password' => 'required|string|max:190',
+            'name' => 'string|nullable|max:190',
+            'address' => 'string|nullable|max:190',
+            'phone' => 'string|nullable|max:50',
+        ]);
+
+        if (User::where('account', $params['account'])->count()) {
+            return response()->json(['message' => '帳號已存在'], 400);
+        }
+
+        $params['password'] = md5($params['password']);
+        User::create($params);
+
+        return response()->json(['message' => '成功']);
     }
 }
