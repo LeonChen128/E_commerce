@@ -1,0 +1,58 @@
+.loading-frame {
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    z-index: 60;
+    width: 100%;
+}
+
+.loading-frame > div {
+    width: 125px;
+    height: 35px;
+    line-height: 35px;
+    background: gray;
+    margin: 400px auto;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.loading {
+    display: inline;
+    color: white;
+    font-size: 18px;
+}
+
+.loading-frame > div > span:not(.loading) {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: white;
+    position: relative;
+    transition: all .3s;
+    opacity: 0;
+}
+
+.loading-frame > div > span:nth-child(2) {
+    animation: firstDot 1s infinite;
+}
+
+.loading-frame > div > span:nth-child(3) {
+    animation: secondDot 1s infinite;
+}
+
+.loading-frame > div > span:nth-child(4) {
+    animation: thirdDot 1s infinite;
+}
+
+@keyframes firstDot {
+    33% {opacity: 1;}
+}
+
+@keyframes secondDot {
+    66% {opacity: 1;}
+}
+
+@keyframes thirdDot {
+    99% {opacity: 1;}
+}
