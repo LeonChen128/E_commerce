@@ -72,87 +72,97 @@
     </div>
   </header>
 
-  <div v-if="loginTable || logoutTable || registerTable" id="auth-frame">
-    <div v-if="loginTable" id="login">
-      <div class="cross">
-        <i class="fas fa-times" @click="closeLogin"></i>
+  <div id="auth-frame">
+    <template v-if="loginTable || logoutTable || registerTable">
+      <div class="auth-frame">
+        <template v-if="loginTable">
+          <div id="login">
+            <div class="cross">
+              <i class="fas fa-times" @click="closeLogin"></i>
+            </div>
+
+            <div class="login-title">使用者登入</div>
+
+            <form @submit.prevent="doLogin">
+              <div v-if="message" class="auth-message">@{{ message }}</div>
+              <div v-if="success" class="auth-success">@{{ success }}</div>
+              <div class="input-frame">
+                <input type="text" v-model="account" placeholder="請輸入帳號...">
+              </div>
+
+              <div class="input-frame">
+                <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
+                <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
+              </div>
+              
+              <div id="button-frame">
+                <button type="submit">確定</button>
+              </div>
+            </form>
+
+            <div class="switch-table">
+              <span @click="showRegister">註冊新帳號</span>
+            </div>
+          </div>
+        </template>
+
+        <template v-if="registerTable">
+          <div id="register">
+            <div class="cross">
+              <i class="fas fa-times" @click="closeRegister"></i>
+            </div>
+
+            <div class="login-title">註冊新帳號</div>
+
+            <form @submit.prevent="doRegister">
+              <div v-if="message" class="auth-message">@{{ message }}</div>
+              <div class="input-frame">
+                <span class="required"><i class="fas fa-star"></i></span>
+                <span v-if="accountConfirm" class="account-result result-green"><i class="fas fa-check-circle"></i></span>
+                <span v-if="accountConfirm == 0" class="account-result result-red"><i class="fas fa-times-circle"></i></span>
+                <input type="text" v-model="account" placeholder="請輸入帳號..." @keyup="checkAccount">
+              </div>
+
+              <div class="input-frame">
+                <span class="required"><i class="fas fa-star"></i></span>
+                <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
+                <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
+              </div>
+
+              <div class="input-frame">
+                <input type="text" v-model="name" placeholder="請輸入名字...">
+              </div>
+
+              <div class="input-frame">
+                <input type="text" v-model="address" placeholder="請輸入地址...">
+              </div>
+
+              <div class="input-frame">
+                <input type="text" v-model="phone" placeholder="請輸入電話...">
+              </div>
+              
+              <div id="button-frame">
+                <button type="submit">確定</button>
+              </div>
+            </form>
+
+            <div class="switch-table">
+              <span @click="showLogin">已有帳號去登入</span>
+            </div>
+          </div>
+        </template>
+
+        <template v-if="logoutTable">
+          <div id="logout">
+            <div id="logout-title">是否確定要登出？</div>
+            <div id="logout-button-frame">
+              <button id="cancel-btn" @click="cancelLogout">取消</button>
+              <button id="submit-btn" @click="doLogout">確定</button>
+            </div>
+          </div>
+        </template>
       </div>
-
-      <div class="login-title">使用者登入</div>
-
-      <form @submit.prevent="doLogin">
-        <div v-if="message" class="auth-message">@{{ message }}</div>
-        <div v-if="success" class="auth-success">@{{ success }}</div>
-        <div class="input-frame">
-          <input type="text" v-model="account" placeholder="請輸入帳號...">
-        </div>
-
-        <div class="input-frame">
-          <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
-          <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
-        </div>
-        
-        <div id="button-frame">
-          <button type="submit">確定</button>
-        </div>
-      </form>
-
-      <div class="switch-table">
-        <span @click="showRegister">註冊新帳號</span>
-      </div>
-    </div>
-
-    <div v-if="registerTable" id="register">
-      <div class="cross">
-        <i class="fas fa-times" @click="closeRegister"></i>
-      </div>
-
-      <div class="login-title">註冊新帳號</div>
-
-      <form @submit.prevent="doRegister">
-        <div v-if="message" class="auth-message">@{{ message }}</div>
-        <div class="input-frame">
-          <span class="required"><i class="fas fa-star"></i></span>
-          <span v-if="accountConfirm" class="account-result result-green"><i class="fas fa-check-circle"></i></span>
-          <span v-if="accountConfirm == 0" class="account-result result-red"><i class="fas fa-times-circle"></i></span>
-          <input type="text" v-model="account" placeholder="請輸入帳號..." @keyup="checkAccount">
-        </div>
-
-        <div class="input-frame">
-          <span class="required"><i class="fas fa-star"></i></span>
-          <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
-          <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
-        </div>
-
-        <div class="input-frame">
-          <input type="text" v-model="name" placeholder="請輸入名字...">
-        </div>
-
-        <div class="input-frame">
-          <input type="text" v-model="address" placeholder="請輸入地址...">
-        </div>
-
-        <div class="input-frame">
-          <input type="text" v-model="phone" placeholder="請輸入電話...">
-        </div>
-        
-        <div id="button-frame">
-          <button type="submit">確定</button>
-        </div>
-      </form>
-
-      <div class="switch-table">
-        <span @click="showLogin">已有帳號去登入</span>
-      </div>
-    </div>
-
-    <div v-if="logoutTable" id="logout">
-      <div id="logout-title">是否確定要登出？</div>
-      <div id="logout-button-frame">
-        <button id="cancel-btn" @click="cancelLogout">取消</button>
-        <button id="submit-btn" @click="doLogout">確定</button>
-      </div>
-    </div>
+    </template>
   </div>
 
   @yield('content')

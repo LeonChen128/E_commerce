@@ -11,7 +11,7 @@ body {
     background-color: #f4f7f6;
 }
 
-#auth-frame {
+.auth-frame {
     position: fixed;
     height: 100%;
     z-index: 60;
