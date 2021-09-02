@@ -277,3 +277,56 @@ body {
     position: relative;
 }
 
+#body {
+    margin: 40px auto;
+    overflow: auto;
+    min-height: 100%;
+    margin-top: -20px;
+    margin-bottom: -330px;
+}
+
+
+
+
+
+
+/*RWD*/
+
+@media (min-width: 0px) {
+    #body {
+        margin-top: 0px;
+        width: 80%;
+    }
+}
+
+@media (min-width: 576px) {
+    #body {
+        margin-top: -60px;
+        width: 576px;
+    }
+}
+
+@media (min-width: 768px) {
+    #body {
+        width: 768px;
+    }
+}
+
+@media (min-width: 992px) {
+    #body {
+        width: 992px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #body {
+        margin-top: -20px;
+    }
+}
+
+@media (min-width: 1400px) {
+    #body {
+        width: 1400px;
+    }
+}
+

@@ -5,30 +5,30 @@
 @section('title', '商品頁')
 
 @section('content')
-<div id="body">
-  <div>
-    <template v-if="products.length">
-        <div id="product-outer" v-for="product in products">
-          <div id="product-frame">
-            <p id="product-title"><b>@{{ product.title }}</b></p>
-            <div id="product-picture"><img :src="product.img"></div>
-            <div id="product-desc"><span>@{{ product.description }}</span></div>
-            <p id="product-price"><span>$@{{ product.price }}</span></p>
-          </div>
+<div id="index">
+  <template v-if="products.length">
+    <a :href="'/product/info/' + product.id" v-for="product in products">
+      <div class="product-outer">
+        <div id="product-frame">
+          <p id="product-title"><b>@{{ product.title }}</b></p>
+          <div id="product-picture"><img :src="product.img"></div>
+          <div id="product-desc"><span>@{{ product.description }}</span></div>
+          <p id="product-price"><span>$@{{ product.price }}</span></p>
         </div>
-    </template>
+      </div>
+    </a>
+  </template>
 
-    <template v-else>
-      <div id="no-products"><i>尚無資料...</i></div>
-    </template>
+  <template v-else>
+    <div id="no-products"><i>尚無資料...</i></div>
+  </template>
 
-    <div id="load-products">
-      <template v-if="more">
-        <div id="more-product" @click="search()">
-          <span>更多商品...</span>
-        </div>
-      </template>
-    </div>
+  <div id="load-products">
+    <template v-if="more">
+      <div id="more-product" @click="search()">
+        <span>更多商品...</span>
+      </div>
+    </template>
   </div>
 </div>
 
@@ -36,8 +36,8 @@
 
 @section('script')
 <script>
-  let body = new Vue({
-    el: '#body',
+  let index = new Vue({
+    el: '#index',
     data: {
       params: {
         keyWord: null,

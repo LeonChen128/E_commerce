@@ -1,18 +1,9 @@
-#body {
-    margin: 40px auto;
-    overflow: auto;
-    min-height: 100%;
-
-    margin-top: -20px;
-    margin-bottom: -330px;
-}
-
-#body > div {
+#index {
     padding-top: 60px;
     padding-bottom: 330px; 
 }
 
-#product-outer {
+.product-outer {
     padding: 8px 4px;
     float: left;
     height: 350px;
@@ -117,71 +108,62 @@
 /*RWD*/
 
 @media (min-width: 0px) {
-    #body {
-        margin-top: 0px;
-    }
-    #body > div {
+    #index {
         padding-top: 40px;
     }
-    #body, #load-products {
+    #load-products {
         width: 80%;
     }
 
-    #product-outer {
+    .product-outer {
         width: 100%;
     }
 }
 
 @media (min-width: 576px) {
-    #body {
-        margin-top: -60px;
-    }
-    #body > div {
+    #index {
         padding-top: 100px;
     }
-    #body, #load-products {
+    #load-products {
         width: 576px;
     }
-    #product-outer {
+    .product-outer {
         width: 50%;
     }
 }
 
 @media (min-width: 768px) {
-    #body, #load-products {
+    #load-products {
         width: 768px;
     }
-    #product-outer {
+    .product-outer {
         width: 33.3%;
     }
 }
 
 @media (min-width: 992px) {
-    #body, #load-products {
+    #load-products {
         width: 992px;
     }
-    #product-outer {
+    .product-outer {
         width: 25%;
     }
 }
 
 @media (min-width: 1200px) {
-    #body {
-        margin-top: -20px;
-    }
-    #body > div {
+    #index {
         padding-top: 60px;
     }
-    #body, #load-products {
+    #load-products {
         width: 1200px;
     }
-    #product-outer {
+    .product-outer {
         width: 20%;
     }
 }
 
 @media (min-width: 1400px) {
-    #body, #load-products {
+    #load-products {
         width: 1400px;
     }
 } 

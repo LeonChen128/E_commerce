@@ -165,7 +165,9 @@
     </template>
   </div>
 
-  @yield('content')
+  <div id="body">
+    @yield('content')
+  </div>
 
   <mission-loading id="loading" v-if="show"></mission-loading>
 
@@ -283,6 +285,7 @@
         },
         doLogin() {
           this.message = ''
+          this.success = ''
           if(!this.account || !this.password) {
             this.message = '欄位不得為空'
             return true
