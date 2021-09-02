@@ -22,7 +22,7 @@ class ProductController extends \App\Http\Controllers\Controller
         $build = isset($params['keyWord']) && $params['keyWord']
             ? Product::where('title', 'like', '%' . $params['keyWord'] . '%') : new Product();
         
-        $allCount = $build->count();
+        $filterCount = $build->count();
         
         $build = isset($params['offset']) && $params['offset']
             ? $build->skip($params['offset']) : $build;
@@ -41,7 +41,7 @@ class ProductController extends \App\Http\Controllers\Controller
                 ];
             }),
             'offset' => $offect = isset($params['offset']) && $params['offset'] ? ($params['offset'] + $products->count()) : $products->count(),
-            'more' => ($offect >= $allCount) ? false : true
+            'more' => ($offect >= $filterCount) ? false : true
         ]);
     }
 }

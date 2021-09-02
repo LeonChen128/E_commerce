@@ -7,8 +7,10 @@
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/common.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/header.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/footer.css">
+  <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/loading.css">
   <link rel="stylesheet" type="text/css" href="/asset/icon/fontawesome/css/all.css">
-  <script type="text/javascript" src="/asset/js/vue.js"></script>
+  <script type="text/javascript" src="/asset/js/vue/vue.js"></script>
+  <script type="text/javascript" src="/asset/js/vue/component/loading.js"></script>
   <script type="text/javascript" src="/asset/js/jQuery/jquery.js"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
@@ -80,6 +82,7 @@
 
       <form @submit.prevent="doLogin">
         <div v-if="message" class="auth-message">@{{ message }}</div>
+        <div v-if="success" class="auth-success">@{{ success }}</div>
         <div class="input-frame">
           <input type="text" v-model="account" placeholder="請輸入帳號...">
         </div>
@@ -90,7 +93,7 @@
         </div>
         
         <div id="button-frame">
-          <button type="sumit">確定</button>
+          <button type="submit">確定</button>
         </div>
       </form>
 
@@ -109,10 +112,14 @@
       <form @submit.prevent="doRegister">
         <div v-if="message" class="auth-message">@{{ message }}</div>
         <div class="input-frame">
-          <input type="text" v-model="account" placeholder="請輸入帳號...">
+          <span class="required"><i class="fas fa-star"></i></span>
+          <span v-if="accountConfirm" class="account-result result-green"><i class="fas fa-check-circle"></i></span>
+          <span v-if="accountConfirm == 0" class="account-result result-red"><i class="fas fa-times-circle"></i></span>
+          <input type="text" v-model="account" placeholder="請輸入帳號..." @keyup="checkAccount">
         </div>
 
         <div class="input-frame">
+          <span class="required"><i class="fas fa-star"></i></span>
           <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
           <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
         </div>
@@ -130,7 +137,7 @@
         </div>
         
         <div id="button-frame">
-          <button type="sumit">確定</button>
+          <button type="submit">確定</button>
         </div>
       </form>
 
@@ -149,6 +156,8 @@
   </div>
 
   @yield('content')
+
+  <mission-loading id="loading" v-if="show"></mission-loading>
 
   <footer id="footer">
     <div id="info-frame">
@@ -240,11 +249,14 @@
         eyeShow: 'fas fa-eye-slash',
         passwordType: 'password',
         message: '',
+        success: '',
 
-        registerTable: true,
+        registerTable: false,
         name: '',
         address: '',
-        phone: ''
+        phone: '',
+        timeOut: null,
+        accountConfirm: null
       },
       methods: {
         reset() {
@@ -256,6 +268,8 @@
           this.name = ''
           this.address = ''
           this.phone = ''
+          this.accountConfirm = null
+          this.success = ''
         },
         doLogin() {
           this.message = ''
@@ -323,8 +337,67 @@
           this.registerTable = false
           this.reset()
         },
+        checkAccount() {
+          if (this.timeOut) { clearTimeout(this.timeOut) }
+
+          this.timeOut = setTimeout(_ => {
+            if (!this.account.trim()) { return true }
+
+            $.ajax({
+              method: 'POST',
+              dataType: 'json',
+              url: '{{ config("app.url") }}' + '/api/auth/register-check',
+              data: { account: this.account.trim() },
+              success: (data) => {
+                this.accountConfirm = data
+              },
+              error: _ => {
+                this.accountConfirm = false
+              }
+            })
+          }, 500)
+        },
         doRegister() {
-          
+          this.message = ''
+          this.account = this.account.trim()
+          this.password = this.password.trim()
+
+          if (this.accountConfirm == 0) {
+            this.message = '帳號已存在'
+            return true
+          }
+          if (!this.account || !this.password) {
+            this.message = '帳號密碼不得為空'
+            return true
+          }
+
+          $.ajax({
+            method: 'POST',
+            dataType: 'json',
+            url: '{{ config("app.url") }}' + '/api/auth/create',
+            data: {
+              account: this.account,
+              password: this.password,
+              name: this.name,
+              address: this.address,
+              phone: this.phone,
+            },
+            beforeSend: _ => {
+              loading.show = true
+            },
+            complete: _ => {
+              loading.show = false
+            },
+            success: (data) => {
+              this.reset()
+              this.loginTable = true
+              this.registerTable = false
+              this.success = '註冊成功'
+            },
+            error: _ => {
+              this.message = '發生錯誤'
+            }
+          })
         },
         showLogin() {
           this.registerTable = false
@@ -332,8 +405,9 @@
           this.loginTable = true
         }
       }
-
     })
+
+    let loading = new Vue({ el: '#loading', data: { show: false } })
   </script>
   @yield('script')
 </body>

@@ -31,6 +31,7 @@
     </div>
   </div>
 </div>
+
 @endsection
 
 @section('script')
@@ -43,7 +44,6 @@
         offset: 0,
       },
       products: [],
-      loading: false,
       more: false
     },
     created() {
@@ -59,10 +59,10 @@
           dataType: 'json',
           url: '{{ config("app.url") }}' + '/api/product',
           beforeSend: _ => {
-            this.loading = true
+            loading.show = true
           },
           complete: _ => {
-            this.loading = false
+            loading.show = false
           },
           success: (data) => {
             this.products = this.products.concat(data.products)
