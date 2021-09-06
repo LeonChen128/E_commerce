@@ -1,4 +1,4 @@
-#info {
+#detail {
     padding-top: 60px;
     padding-bottom: 330px;
 }
@@ -8,13 +8,13 @@
 /*RWD*/
 
 @media (min-width: 0px) {
-    #info {
+    #detail {
         padding-top: 40px;
     }
 }
 
 @media (min-width: 576px) {
-    #info {
+    #detail {
         padding-top: 100px;
     }
 }
@@ -28,7 +28,7 @@
 }
 
 @media (min-width: 1200px) {
-    #info {
+    #detail {
         padding-top: 60px;
     }
 }

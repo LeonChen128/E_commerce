@@ -56,11 +56,45 @@
           </div>
         </div>
 
-        <div id="buger">
-          <p>
-            <i class="fas fa-bars"></i>
+        <div id="burger">
+          <p @click="switchBurger">
+            <span class="outer" :class="{'burger-none-true': burger, 'burger-none-false': !burger}"></span>
+            <span class="inner" :class="{'burger-right': burger, 'burger-static': !burger}"></span>
+            <span class="inner" :class="{'burger-left': burger, 'burger-static': !burger}"></span>
+            <span class="outer" :class="{'burger-none-true': burger, 'burger-none-false': !burger}"></span>
           </p>
         </div>
+
+        <div id="side-nav" :class="{'nav-show': burger, 'nav-hide': !burger}">
+          <div class="nav-title" @click="redirect('product')">
+            <i class="fas fa-home"></i>
+            <span>賣得好</span>
+          </div>
+          <div class="nav-title" @click="redirect('user')">
+            <i class="fas fa-user-circle"></i>
+            <span>會員中心</span>
+          </div>
+          <div class="nav-title" @click="redirect('cart')">
+            <i class="fas fa-shopping-cart"></i>
+            <span>購物車</span>
+          </div>
+          <div class="nav-title" @click="redirect('pay')">
+            <i class="fas fa-shopping-bag"></i>
+            <span>買單去</span>
+          </div>
+
+          <div v-if="user" class="nav-title" @click="showLogout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>登出</span>
+          </div>
+          <div v-else class="nav-title" @click="showLogin">
+            <i class="fas fa-sign-in-alt"></i>
+            <span>登入 / 註冊</span>
+          </div>
+        </div>
+
+
+
         <!-- header 右 -->
         <div id="search-frame">
           <form @submit.prevent="search">
@@ -208,6 +242,7 @@
         keyWord: '',
         url: null,
         user: null,
+        burger: false
       },
       created() {
         this.url = new URL(location.href)
@@ -244,9 +279,15 @@
           authFrame.loginTable = !authFrame.loginTable
           authFrame.registerTable = false
           authFrame.reset()
+          this.burger = false
         },
         showLogout() {
+          this.burger = false
           authFrame.logoutTable = !authFrame.logoutTable
+        },
+        switchBurger() {
+          this.burger = !this.burger
+          console.log(this.burger)
         }
       }
     })

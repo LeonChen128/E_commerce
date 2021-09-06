@@ -7,7 +7,7 @@
 @section('content')
 <div id="index">
   <template v-if="products.length">
-    <a :href="'/product/info/' + product.id" v-for="product in products">
+    <a :href="'/product/detail/' + product.id" v-for="product in products">
       <div class="product-outer">
         <div id="product-frame">
           <p id="product-title"><b>@{{ product.title }}</b></p>

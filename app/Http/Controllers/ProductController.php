@@ -20,12 +20,12 @@ class ProductController extends Controller
         return view('product/index');
     }
 
-    public function info(Request $request)
+    public function detail(Request $request)
     {
         $this->product->img = config('app.user_root') . $this->product->user_id . '/' . $this->product->img;
         $this->product->date = $this->product->updated_at->format('Y/m/d h:i:s');
         
-        return view('product/info', [
+        return view('product/detail', [
             'product' => $this->product
         ]);
     }

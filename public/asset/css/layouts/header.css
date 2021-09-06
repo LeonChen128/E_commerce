@@ -15,21 +15,95 @@
   margin: 10px auto;
 }
 
-#buger {
+#burger {
   display: none;
 }
 
-#buger > p {
+#burger > p {
   text-align: center;
   font-size: 28px;
   color: #064e46;
   margin: 0px auto;
   width: 80%;
   border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  position: relative;
 }
 
-#buger > p:hover {
-  background-color: #09a592;
+#burger > p > span {
+  position: absolute;
+  margin: 0 auto;
+  display: block;
+  width: 34px;
+  height: 6px;
+  background: #676767;
+  border-radius: 4px;
+  transition: all .2s;
+  left: 3px;
+  top: 4px;
+}
+
+#burger > p > [class^="inner"] {
+  top: 16px;
+}
+
+#burger > p > span:nth-child(4) {
+  top: 28px;
+}
+
+/* click */
+.burger-none-false {
+  display: block !important;
+}
+
+.burger-none-true {
+  display: none !important;
+}
+
+.burger-right {
+  transform: rotate(45deg);
+}
+
+.burger-left {
+  transform: rotate(-45deg);
+}
+
+.burger-static {
+  transform: rotate(0deg);
+}
+/* click */
+
+#side-nav {
+  position: absolute;
+  top: 60px;
+  width: 50%;
+  height: 800px;
+  background: #292929;
+  transition: all .3s;
+  padding: 12px;
+}
+
+/*click*/
+.nav-hide {
+  left: -100%;
+  opacity: 0;
+}
+
+.nav-show {
+  left: 0%;
+  opacity: 1;
+}
+/*click*/
+
+.nav-title {
+  color: white;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.nav-title:hover {
+  border-bottom: 1px solid white;
 }
 
 #menu, #search-frame {
@@ -105,7 +179,7 @@
 
 /*RWD*/
 @media (max-width: 575px) {
-  #buger {
+  #burger {
     display: block;
     float: left;
     width: 10%;

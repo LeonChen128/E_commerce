@@ -1,12 +1,12 @@
 
 @extends('layouts.common')
 
-@section('css', '/asset/css/product/info.css')
+@section('css', '/asset/css/product/detail.css')
 @section('title', '商品詳細頁')
 
 @section('content')
 
-<div id="info">
+<div id="detail">
   <p>ID：{{ $product->id }}</p>
   <p>標題：{{ $product->title }}</p>
   <p>敘述：{{ $product->description }}</p>

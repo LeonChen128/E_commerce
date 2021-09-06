@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::prefix('product')->group(function() {
     Route::get('', 'ProductController@index');
-    Route::get('info/{id}', 'ProductController@info');
+    Route::get('detail/{id}', 'ProductController@detail');
 });
 
 Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
