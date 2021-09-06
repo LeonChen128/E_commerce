@@ -24,32 +24,35 @@
       <div id="header-content">
         <!-- header 左 -->
         <div id="menu">
-          <div class="menu-sun" @click="redirect('product')">
+          <div class="menu-son" @click="redirect('product')">
             <i class="fas fa-home"></i>
             <span>賣得好</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun" @click="redirect('user')">
+          <div class="menu-son" @click="redirect('user')">
             <i class="fas fa-user-circle"></i>
             <span>會員中心</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-sun" @click="redirect('cart')">
+          <div class="menu-son" @click="redirect('cart')">
             <i class="fas fa-shopping-cart"></i>
             <span>購物車</span>
             <div class="menu-bar"></div>
+            <div v-if="cartCount" id="cart-count">
+              <span>@{{ cartCount }}</span>
+            </div>
           </div>
-          <div class="menu-sun" @click="redirect('pay')">
+          <div class="menu-son" @click="redirect('pay')">
             <i class="fas fa-shopping-bag"></i>
             <span>買單去</span>
             <div class="menu-bar"></div>
           </div>
-          <div v-if="user" class="menu-sun" @click="showLogout">
+          <div v-if="user" class="menu-son" @click="showLogout">
             <i class="fas fa-sign-out-alt"></i>
             <span>登出</span>
             <div class="menu-bar"></div>
           </div>
-          <div v-else class="menu-sun" @click="showLogin">
+          <div v-else class="menu-son" @click="showLogin">
             <i class="fas fa-sign-in-alt"></i>
             <span>登入 / 註冊</span>
             <div class="menu-bar"></div>
@@ -242,11 +245,17 @@
         keyWord: '',
         url: null,
         user: null,
-        burger: false
+        burger: false,
+        cartCount: null
       },
       created() {
         this.url = new URL(location.href)
         this.keyWord = this.url.searchParams.get('key')
+
+        this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('products')))
+          ? tmp.length > 9 ? '9+' : tmp.length
+          : null
+
         this.userCheck()
       },
       methods: {

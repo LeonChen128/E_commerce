@@ -64,7 +64,8 @@ class Fake extends Command
                 'description' => '全新，可面交',
                 'category' => '3c',
                 'price' => '15000',
-                'img' => 'iphone.jpg'
+                'img' => 'iphone.jpg',
+                'total' => 5
             ],
             [
                 'user_id' => 1,
@@ -72,7 +73,8 @@ class Fake extends Command
                 'description' => '正常使用一年，全程使用犀牛盾，外觀無損',
                 'category' => '3c',
                 'price' => '4000',
-                'img' => 'zenfone5z.jpg'
+                'img' => 'zenfone5z.jpg',
+                'total' => 1
             ],
             [
                 'user_id' => 1,
@@ -80,7 +82,8 @@ class Fake extends Command
                 'description' => '購買日期 2020/5，可面交',
                 'category' => '3c',
                 'price' => '6000',
-                'img' => 'ps4.jpg'
+                'img' => 'ps4.jpg',
+                'total' => 5
             ],
             [
                 'user_id' => 1,
@@ -88,7 +91,8 @@ class Fake extends Command
                 'description' => '公司尾牙獎項，全新',
                 'category' => '3c',
                 'price' => '10000',
-                'img' => 'switch.jpg'
+                'img' => 'switch.jpg',
+                'total' => 2
             ],
             [
                 'user_id' => 1,
@@ -96,7 +100,8 @@ class Fake extends Command
                 'description' => '2020 機型，有 touch bar，不喜勿入',
                 'category' => '3c',
                 'price' => '23000',
-                'img' => 'macbook_pro.jpg'
+                'img' => 'macbook_pro.jpg',
+                'total' => 1
             ],
         ]);
     }

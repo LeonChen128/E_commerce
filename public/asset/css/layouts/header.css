@@ -114,7 +114,7 @@
   padding: 0 10px;
 }
 
-.menu-sun {
+.menu-son {
   float: left;
   height: 100%;
   color: white;
@@ -122,6 +122,20 @@
   cursor: pointer;
   transition: all .3s;
   margin-right: 20px;
+  position: relative;
+}
+
+#cart-count {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 8px;
+  background: red;
+  font-size: 8px;
+  text-align: center;
+  top: 2px;
+  right: -8px;
 }
 
 .menu-bar {
@@ -132,7 +146,7 @@
   opacity: 0;
 }
 
-.menu-sun:hover .menu-bar {
+.menu-son:hover .menu-bar {
   top: -2px;
   opacity: 1;
 }
@@ -197,7 +211,7 @@
   #search-frame {
     width: 90%;
   }
-  .menu-sun {
+  .menu-son {
     width: 100%;
   }
 }
@@ -210,6 +224,10 @@
   }
   #menu, #search-frame {
     width: 100%;
+  }
+  #side-nav {
+    left: -100%;
+    opacity: 0;
   }
 }
 @media (min-width: 768px) {
