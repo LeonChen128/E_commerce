@@ -1,6 +1,7 @@
 #detail {
     padding-top: 60px;
     padding-bottom: 330px;
+    position: relative;
 }
 
 #detail-main {
@@ -9,16 +10,16 @@
     border-radius: 4px;
     padding: 12px;
     overflow: auto;
+    margin-bottom: 100px;
 }
 
 #detail-main > div {
     float: left;
-    border: 1px solid red;
 }
 
 #detail-main-l {
     width: 40%;
-    padding-right: 18px;
+    overflow: hidden;
 }
 
 #detail-main-l > img {
@@ -27,10 +28,9 @@
 
 #detail-main-r {
     width: 60%;
-    padding-left: 18px;
 }
 
-#detail-main-r > p {
+#detail-main-r > p:not(#detail-purchase) {
     margin: 0 0 12px 0;
 }
 
@@ -105,7 +105,7 @@ input[type=number] {
 
 #buy-btn {
     display: block;
-    margin-top: 16px;
+    margin-top: 20px;
     width: 200px;
     height: 45px;
     font-size: 20px;
@@ -121,11 +121,79 @@ input[type=number] {
     color: white;
 }
 
+#detail-purchase {
+    margin-top: 50px;
+}
+
+@keyframes cartNotice {
+    0% {transform: translate(-50%, -50%) scale(0);}
+    50% {transform: translate(-50%, -50%) scale(1);}
+    100% {transform: translate(-50%, -50%) scale(.98);}
+}
+
+#cart-notice {
+    width: 300px;
+    height: 200px;
+    background: #f5fffd;
+    position: absolute;
+    border-radius: 4px;
+    /*border: 1px solid gray;*/
+    box-shadow: 0px 0px 8px #cecccc;
+    padding: 12px;
+    text-align: center;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: cartNotice .3s;
+}
+
+#cart-notice > span:nth-child(1) {
+    display: block;
+    color: #3f99f6;
+    font-size: 40px;
+}
+
+#cart-notice > span:nth-child(2) {
+    color: #3f99f6;
+    font-size: 14px;
+}
+
+#cart-notice > button {
+    display: block;
+    margin: 40px auto;
+    width: 150px;
+    height: 35px;
+    background: #4385f5;
+    border-radius: 20px;
+    transition: all .3s;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    border: 0px;
+}
+
+#cart-notice > button:hover {
+    background: #3461ad;
+}
+
 /*RWD*/
+
+@media (min-width: 0px) and (max-width: 575px) {
+    #body {
+        width: 90%;
+    }
+}
 
 @media (min-width: 0px) {
     #detail {
         padding-top: 40px;
+    }
+    #detail-main-l, #detail-main-r {
+        width: 100%;
+        padding: 0px;
+    }
+    #detail-main-r {
+        margin-top: 20px;
     }
 }
 
@@ -140,7 +208,16 @@ input[type=number] {
 }
 
 @media (min-width: 992px) {
-
+    #detail-main-l {
+        width: 40%;
+        height: 360px;
+        padding-right: 18px;
+    }
+    #detail-main-r {
+        width: 60%;
+        height: 360px;
+        padding-left: 18px;
+    }
 }
 
 @media (min-width: 1200px) {

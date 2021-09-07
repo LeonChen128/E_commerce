@@ -100,6 +100,7 @@
   color: white;
   margin-top: 20px;
   font-size: 20px;
+  position: relative;
 }
 
 .nav-title:hover {
@@ -125,7 +126,7 @@
   position: relative;
 }
 
-#cart-count {
+.cart-count {
   position: absolute;
   width: 16px;
   height: 16px;
@@ -134,8 +135,16 @@
   background: red;
   font-size: 8px;
   text-align: center;
+}
+
+.cart-count-b {
   top: 2px;
   right: -8px;
+}
+
+.cart-count-s {
+  top: -2px;
+  left: 82px;
 }
 
 .menu-bar {

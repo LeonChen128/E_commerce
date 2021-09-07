@@ -32,7 +32,7 @@
           <span>數量：</span>
           <div id="count-selector">
             <button type="button" @click="decrease">－</button>
-            <input type="number" v-model="count" min="1">
+            <input type="number" v-model="count" min="1" max="{{ $product->total }}">
             <button type="button" @click="increase">＋</button>
           </div>
           <span id="count-rest">還剩 {{ $product->total }} 件</span>
@@ -41,6 +41,14 @@
       </p>
     </div>
   </div>
+
+  <template v-if="notice">
+    <div id="cart-notice">
+      <span><i class="far fa-check-circle"></i></span>
+      <span>商品加入成功！</span>
+      <button @click="noticeHide">繼續</button>
+    </div>
+  </template>
 </div>
 
 @endsection
@@ -52,7 +60,8 @@
     el: '#detail',
     data: {
       product: null,
-      count: 1
+      count: 1,
+      notice: false
     },
     created() {
       this.product = {
@@ -63,19 +72,29 @@
         category: '{{ $product->category }}',
         price: '{{ $product->price }}',
         img: '{{ $product->img }}',
+        total: '{{ $product->total }}',
       }
     },
     methods: {
       addCart() {
+        if (this.count > this.product.total || this.count < 1) {
+          alert('錯誤')
+          return false
+        }
         let products = (tmp = JSON.parse(localStorage.getItem('products'))) ? tmp : []
         products.push({ product: this.product, count: this.count })
         localStorage.setItem('products', JSON.stringify(products))
+
+        this.notice = true
       },
       decrease() {
         this.count != 1 && this.count--
       },
       increase() {
         this.count < "{{ $product->total }}" && this.count++
+      },
+      noticeHide() {
+        this.notice = false
       }
     }
   })

@@ -320,6 +320,7 @@ body {
 
 @media (min-width: 1200px) {
     #body {
+        width: 1200px;
         margin-top: -20px;
     }
 }

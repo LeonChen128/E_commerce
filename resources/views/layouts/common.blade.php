@@ -38,7 +38,7 @@
             <i class="fas fa-shopping-cart"></i>
             <span>購物車</span>
             <div class="menu-bar"></div>
-            <div v-if="cartCount" id="cart-count">
+            <div v-if="cartCount" class="cart-count cart-count-b">
               <span>@{{ cartCount }}</span>
             </div>
           </div>
@@ -80,6 +80,9 @@
           <div class="nav-title" @click="redirect('cart')">
             <i class="fas fa-shopping-cart"></i>
             <span>購物車</span>
+            <div v-if="cartCount" class="cart-count cart-count-s">
+              <span>@{{ cartCount }}</span>
+            </div>
           </div>
           <div class="nav-title" @click="redirect('pay')">
             <i class="fas fa-shopping-bag"></i>
