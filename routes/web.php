@@ -22,6 +22,10 @@ Route::prefix('product')->group(function() {
     Route::get('detail/{id}', 'ProductController@detail');
 });
 
+Route::prefix('cart')->group(function() {
+    Route::get('', 'CartController@index');
+});
+
 Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
 
     Route::prefix('product')->group(function() {

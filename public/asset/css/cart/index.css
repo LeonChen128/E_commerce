@@ -1,0 +1,38 @@
+#cart {
+    padding-top: 60px;
+    padding-bottom: 330px;
+    position: relative;
+}
+
+
+/*RWD*/
+
+@media (min-width: 0px) {
+    #cart {
+        padding-top: 40px;
+    }
+}
+
+@media (min-width: 576px) {
+    #cart {
+        padding-top: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+    
+}
+
+@media (min-width: 1200px) {
+    #cart {
+        padding-top: 60px;
+    }
+}
+
+@media (min-width: 1400px) {
+
+}
