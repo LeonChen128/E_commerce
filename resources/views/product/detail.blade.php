@@ -32,7 +32,7 @@
           <span>數量：</span>
           <div id="count-selector">
             <button type="button" @click="decrease">－</button>
-            <input type="number" v-model="count" min="1" max="{{ $product->total }}">
+            <input type="number" v-model.number="count" min="1" max="{{ $product->total }}">
             <button type="button" @click="increase">＋</button>
           </div>
           <span id="count-rest">還剩 {{ $product->total }} 件</span>
@@ -60,9 +60,9 @@
         title: '{{ $product->title }}',
         description: '{{ $product->description }}',
         category: '{{ $product->category }}',
-        price: '{{ $product->price }}',
+        price: Number('{{ $product->price }}'),
         img: '{{ $product->img }}',
-        total: '{{ $product->total }}',
+        total: Number('{{ $product->total }}'),
       }
     },
     methods: {
@@ -71,17 +71,25 @@
           notice.fail = '數量錯誤！'
           return false
         }
-        
+
         let items = (tmp = JSON.parse(localStorage.getItem('items'))) ? tmp : []
 
         let repeat = false
+        let over = false
         items = items.map((item) => {
-          if (item.product.id == this.product.id) {
+          if (repeat = (item.product.id == this.product.id)) {
+            if (over = ((item.count + this.count) > this.product.total)) {
+              notice.fail = (tmp = this.product.total - item.count) > 0
+                ? '最多可以再購買 ' + tmp + ' 件！'
+                : '購物車數量超過所剩數量！'
+              return false
+            }
             item.count += this.count
-            repeat = true
           }
           return item
         })
+
+        if (over) { return false }
 
         if (!repeat) { items.push({ product: this.product, count: this.count }) }
 
