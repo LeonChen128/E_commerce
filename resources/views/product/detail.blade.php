@@ -41,16 +41,7 @@
       </p>
     </div>
   </div>
-
-  <template v-if="notice">
-    <div id="cart-notice">
-      <span><i class="far fa-check-circle"></i></span>
-      <span>商品加入成功！</span>
-      <button @click="noticeHide">繼續</button>
-    </div>
-  </template>
 </div>
-
 @endsection
 
 
@@ -61,7 +52,6 @@
     data: {
       product: null,
       count: 1,
-      notice: false
     },
     created() {
       this.product = {
@@ -78,26 +68,34 @@
     methods: {
       addCart() {
         if (this.count > this.product.total || this.count < 1) {
-          alert('錯誤')
+          notice.fail = '數量錯誤！'
           return false
         }
-        let products = (tmp = JSON.parse(localStorage.getItem('products'))) ? tmp : []
-        products.push({ product: this.product, count: this.count })
-        localStorage.setItem('products', JSON.stringify(products))
+        
+        let items = (tmp = JSON.parse(localStorage.getItem('items'))) ? tmp : []
 
-        this.notice = true
+        let repeat = false
+        items = items.map((item) => {
+          if (item.product.id == this.product.id) {
+            item.count += this.count
+            repeat = true
+          }
+          return item
+        })
+
+        if (!repeat) { items.push({ product: this.product, count: this.count }) }
+
+        localStorage.setItem('items', JSON.stringify(items))
+
+        notice.success = '商品加入成功！'
       },
       decrease() {
         this.count != 1 && this.count--
       },
       increase() {
         this.count < "{{ $product->total }}" && this.count++
-      },
-      noticeHide() {
-        this.notice = false
       }
     }
   })
-
 </script>
 @endsection

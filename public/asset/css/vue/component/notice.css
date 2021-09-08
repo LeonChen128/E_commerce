@@ -1,0 +1,84 @@
+@keyframes notice {
+    0% {transform: translate(-50%, -50%) scale(0);}
+    50% {transform: translate(-50%, -50%) scale(1);}
+    100% {transform: translate(-50%, -50%) scale(.98);}
+}
+
+#success, #fail {
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px #cecccc;
+    padding: 12px;
+    text-align: center;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: notice .3s;
+}
+
+#success {
+    background: #f5fffd;
+}
+
+#fail {
+    background: #ffeaea;
+}
+
+#success > span:nth-child(1),
+#fail > span:nth-child(1) {
+    display: block;
+    font-size: 40px;
+}
+
+#success > span:nth-child(1) {
+    color: #3f99f6;
+}
+
+#fail > span:nth-child(1) {
+    color: #e1201f;
+}
+
+#success > span:nth-child(2),
+#fail > span:nth-child(2) {
+    font-size: 14px;
+}
+
+#success > span:nth-child(2) {
+    color: #3f99f6;
+}
+
+#fail > span:nth-child(2) {
+    color: #e1201f;
+}
+
+#success > button,
+#fail > button {
+    display: block;
+    margin: 40px auto;
+    width: 150px;
+    height: 35px;
+    border-radius: 20px;
+    transition: all .3s;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    border: 0px;
+}
+
+#success > button {
+    background: #4385f5;
+}
+
+#fail > button {
+    background: #e1201f;
+}
+
+#success > button:hover{
+    background: #3461ad;
+}
+
+#fail > button:hover {
+    background: #af1b1a;
+}

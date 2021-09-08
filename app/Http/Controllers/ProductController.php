@@ -23,7 +23,7 @@ class ProductController extends Controller
     public function detail(Request $request)
     {
         $this->product->img = config('app.user_root') . $this->product->user_id . '/' . $this->product->img;
-        $this->product->date = $this->product->updated_at->format('Y/m/d h:i:s');
+        $this->product->date = $this->product->updated_at->format('Y/m/d');
         
         return view('product/detail', [
             'product' => $this->product

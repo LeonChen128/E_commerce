@@ -8,9 +8,11 @@
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/header.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/footer.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/loading.css">
+  <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/notice.css">
   <link rel="stylesheet" type="text/css" href="/asset/icon/fontawesome/css/all.css">
   <script type="text/javascript" src="/asset/js/vue/vue.js"></script>
   <script type="text/javascript" src="/asset/js/vue/component/loading.js"></script>
+  <script type="text/javascript" src="/asset/js/vue/component/notice.js"></script>
   <script type="text/javascript" src="/asset/js/jQuery/jquery.js"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
@@ -210,6 +212,12 @@
   </div>
 
   <mission-loading id="loading" v-if="show"></mission-loading>
+  
+  <div id="notice" v-if="success || fail">
+    <success-notice :success="success"></success-notice>
+    <fail-notice :fail="fail"></fail-notice>
+  </div>
+  
 
   <footer id="footer">
     <div id="info-frame">
@@ -255,7 +263,7 @@
         this.url = new URL(location.href)
         this.keyWord = this.url.searchParams.get('key')
 
-        this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('products')))
+        this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('items'))) && tmp.length
           ? tmp.length > 9 ? '9+' : tmp.length
           : null
 
@@ -474,6 +482,15 @@
     })
 
     let loading = new Vue({ el: '#loading', data: { show: false } })
+
+    let notice = new Vue({
+      el: '#notice',
+      data: {
+        success: '',
+        fail: ''
+      }
+    })
+
   </script>
   @yield('script')
 </body>
