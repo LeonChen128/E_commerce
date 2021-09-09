@@ -64,6 +64,10 @@
         img: '{{ $product->img }}',
         total: Number('{{ $product->total }}'),
       }
+
+      if (this.product.total == 0) {
+        notice.fail = '目前已無庫存！'
+      }
     },
     methods: {
       addCart() {
