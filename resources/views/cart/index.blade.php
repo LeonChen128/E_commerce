@@ -8,14 +8,6 @@
 
 <div id="cart">
   <template v-if="items.length">
-    <!-- <div id="products-frame">
-      <div v-for="item in items" :key="item.product.id">
-        <p>商品：@{{ item.product.title }}</p>
-        <p><img :src="item.product.img" width="60"></p>
-        <p>數量：@{{ item.count }}</p>
-        <p @click="remove(item.product.id)" class="trash-can"><i class="fas fa-trash-alt"></i></p>
-      </div>
-    </div> -->
     <table>
       <tr>
         <th>移除</th>
@@ -38,6 +30,7 @@
         <td v-if="total">$@{{ total }}</td>
       </tr>
     </table>
+    <button id="buy-btn" @click="buy">結帳去</button>
   </template>
   <template v-else>
     <div id="no-cart">
@@ -79,6 +72,14 @@
         this.items.forEach((item) => {
           this.total += item.product.price * item.count
         })
+      },
+      buy() {
+        if (!header.user) {
+          authFrame.loginTable = true
+          authFrame.notice = '請先登入！'
+          return false
+        }
+        
       }
     }
 

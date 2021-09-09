@@ -28,10 +28,10 @@
         <div id="menu">
           <div class="menu-son" @click="redirect('product')">
             <i class="fas fa-home"></i>
-            <span>賣得好</span>
+            <span>首頁</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-son" @click="redirect('user')">
+          <div class="menu-son" @click="goUserInfo">
             <i class="fas fa-user-circle"></i>
             <span>會員中心</span>
             <div class="menu-bar"></div>
@@ -43,11 +43,6 @@
             <div v-if="cartCount" class="cart-count cart-count-b">
               <span>@{{ cartCount }}</span>
             </div>
-          </div>
-          <div class="menu-son" @click="redirect('pay')">
-            <i class="fas fa-shopping-bag"></i>
-            <span>買單去</span>
-            <div class="menu-bar"></div>
           </div>
           <div v-if="user" class="menu-son" @click="showLogout">
             <i class="fas fa-sign-out-alt"></i>
@@ -73,7 +68,7 @@
         <div id="side-nav" :class="{'nav-show': burger, 'nav-hide': !burger}">
           <div class="nav-title" @click="redirect('product')">
             <i class="fas fa-home"></i>
-            <span>賣得好</span>
+            <span>首頁</span>
           </div>
           <div class="nav-title" @click="redirect('user')">
             <i class="fas fa-user-circle"></i>
@@ -85,10 +80,6 @@
             <div v-if="cartCount" class="cart-count cart-count-s">
               <span>@{{ cartCount }}</span>
             </div>
-          </div>
-          <div class="nav-title" @click="redirect('pay')">
-            <i class="fas fa-shopping-bag"></i>
-            <span>買單去</span>
           </div>
 
           <div v-if="user" class="nav-title" @click="showLogout">
@@ -126,7 +117,8 @@
             <div class="login-title">使用者登入</div>
 
             <form @submit.prevent="doLogin">
-              <div v-if="message" class="auth-message">@{{ message }}</div>
+              <div v-if="alert" class="auth-alert">@{{ alert }}</div>
+              <div v-if="notice" class="auth-notice">@{{ notice }}</div>
               <div v-if="success" class="auth-success">@{{ success }}</div>
               <div class="input-frame">
                 <input type="text" v-model="account" placeholder="請輸入帳號...">
@@ -157,7 +149,7 @@
             <div class="login-title">註冊新帳號</div>
 
             <form @submit.prevent="doRegister">
-              <div v-if="message" class="auth-message">@{{ message }}</div>
+              <div v-if="alert" class="auth-alert">@{{ alert }}</div>
               <div class="input-frame">
                 <span class="required"><i class="fas fa-star"></i></span>
                 <span v-if="accountConfirm" class="account-result result-green"><i class="fas fa-check-circle"></i></span>
@@ -261,36 +253,17 @@
       },
       created() {
         this.url = new URL(location.href)
-        this.keyWord = this.url.searchParams.get('key')
+        this.keyWord = this.url.searchParams.get('keyWord')
 
         this.calculateCartCount()
-        this.userCheck()
+        this.user = JSON.parse(localStorage.getItem('user'))
       },
       methods: {
-        userCheck() {
-          $.ajax({
-            method: 'GET',
-            dataType: 'json',
-            url: '{{ config("app.url") }}' + '/api/auth/check',
-            success: (data) => {
-              this.user = data.id == undefined ? null : data
-            },
-            error: (data) => {
-              this.user = null
-            }
-          })
-        },
         redirect(uri) {
           window.location = '{{ config("app.url") }}/' + uri
         },
         search() {
-          if (this.url.href != ('{{ config("app.url") }}/' + 'product')) {
-            window.location = '{{ config("app.url") }}/' + uri + (this.keyWord ? ('?=' + this.keyWord) : '')
-          }
-          body.params.keyWord = this.keyWord
-          body.params.offset = 0
-          body.products = []
-          body.search()
+          window.location = '{{ config("app.url") }}/product?keyWord=' + this.keyWord
         },
         showLogin() {
           authFrame.loginTable = !authFrame.loginTable
@@ -309,6 +282,14 @@
           this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('items'))) && tmp.length
             ? tmp.length > 99 ? '99' : tmp.length
             : null
+        },
+        goUserInfo() {
+          if (!this.user) {
+            authFrame.loginTable = true
+            authFrame.notice = '請先登入！'
+            return false
+          }
+          window.location = '{{ config("app.url") }}/user/' + this.user.id
         }
       }
     })
@@ -322,7 +303,8 @@
         password: '',
         eyeShow: 'fas fa-eye-slash',
         passwordType: 'password',
-        message: '',
+        alert: '',
+        notice: '',
         success: '',
 
         registerTable: false,
@@ -338,18 +320,20 @@
           this.password = ''
           this.eyeShow = 'fas fa-eye-slash'
           this.passwordType = 'password'
-          this.message = ''
           this.name = ''
           this.address = ''
           this.phone = ''
           this.accountConfirm = null
+          this.alert = ''
+          this.notice = ''
           this.success = ''
         },
         doLogin() {
-          this.message = ''
+          this.alert = ''
+          this.notice = ''
           this.success = ''
           if(!this.account || !this.password) {
-            this.message = '欄位不得為空'
+            this.alert = '欄位不得為空'
             return true
           }
 
@@ -369,11 +353,12 @@
               
             },
             success: (data) => {
+              localStorage.setItem('user', JSON.stringify(data))
               window.location = '{{ config("app.url") }}/product'
             },
             error: (data) => {
               if (message = data.responseJSON.message) {
-                this.message = message
+                this.alert = message
               }
             }
           })
@@ -402,6 +387,8 @@
               this.user = null
             }
           })
+
+          localStorage.removeItem('user');
         },
         showRegister() {
           this.loginTable = false
@@ -433,16 +420,16 @@
           }, 500)
         },
         doRegister() {
-          this.message = ''
+          this.alert = ''
           this.account = this.account.trim()
           this.password = this.password.trim()
 
           if (this.accountConfirm == 0) {
-            this.message = '帳號已存在'
+            this.alert = '帳號已存在'
             return true
           }
           if (!this.account || !this.password) {
-            this.message = '帳號密碼不得為空'
+            this.alert = '帳號密碼不得為空'
             return true
           }
 
@@ -470,7 +457,7 @@
               this.success = '註冊成功'
             },
             error: _ => {
-              this.message = '發生錯誤'
+              this.alert = '發生錯誤'
             }
           })
         },

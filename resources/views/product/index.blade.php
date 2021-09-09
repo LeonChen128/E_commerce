@@ -47,8 +47,7 @@
       more: false
     },
     created() {
-      let url = new URL(location.href)
-      this.params.keyWord = url.searchParams.get('key')
+      this.params.keyWord = header.keyWord
       this.search()
     },
     methods: {
