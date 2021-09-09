@@ -74,28 +74,30 @@
 
         let items = (tmp = JSON.parse(localStorage.getItem('items'))) ? tmp : []
 
-        let repeat = false
+        let repeat = 0
         let over = false
         items = items.map((item) => {
-          if (repeat = (item.product.id == this.product.id)) {
+          if (item.product.id == this.product.id) {
             if (over = ((item.count + this.count) > this.product.total)) {
               notice.fail = (tmp = this.product.total - item.count) > 0
                 ? '最多可以再購買 ' + tmp + ' 件！'
                 : '購物車數量超過所剩數量！'
               return false
             }
+            repeat++
             item.count += this.count
           }
           return item
         })
 
         if (over) { return false }
-
         if (!repeat) { items.push({ product: this.product, count: this.count }) }
 
         localStorage.setItem('items', JSON.stringify(items))
 
         notice.success = '商品加入成功！'
+        
+        header.calculateCartCount()
       },
       decrease() {
         this.count != 1 && this.count--

@@ -127,6 +127,12 @@ input[type=number] {
 
 /*RWD*/
 
+@media (min-width: 0px) and (max-width: 991px) {
+    #success, #fail {
+        top: 100%;
+    }
+}
+
 @media (min-width: 0px) and (max-width: 575px) {
     #body {
         width: 90%;

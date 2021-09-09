@@ -38,10 +38,8 @@ class AuthController extends \App\Http\Controllers\Controller
 
     public function check(Request $request)
     {
-        $user = Auth::user();
-
         return response()->json(
-            $user ? [
+            ($user = Auth::user()) ? [
                 'id' => $user->id,
                 'name' => $user->name,
                 'account' => $user->account,

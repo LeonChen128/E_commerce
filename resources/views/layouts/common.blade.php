@@ -263,10 +263,7 @@
         this.url = new URL(location.href)
         this.keyWord = this.url.searchParams.get('key')
 
-        this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('items'))) && tmp.length
-          ? tmp.length > 9 ? '9+' : tmp.length
-          : null
-
+        this.calculateCartCount()
         this.userCheck()
       },
       methods: {
@@ -307,7 +304,11 @@
         },
         switchBurger() {
           this.burger = !this.burger
-          console.log(this.burger)
+        },
+        calculateCartCount() {
+          this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('items'))) && tmp.length
+            ? tmp.length > 99 ? '99' : tmp.length
+            : null
         }
       }
     })
