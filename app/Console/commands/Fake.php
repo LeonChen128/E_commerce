@@ -118,7 +118,7 @@ class Fake extends Command
 
         Order::insert([
             'user_id' => 2,
-            'no' => 'o20210910',
+            'no' => 'PO-20210910',
             'hash' => 1,
             'price' => 21000
         ]);
