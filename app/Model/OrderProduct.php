@@ -4,15 +4,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class OrderProduct extends Model
 {
-    protected $table = 'product';
+    protected $table = 'order_product';
     protected $fillable = [];
     protected $guarded = [];
     protected $hidden = ['updated_at', 'created_at'];
-
-    public function orderProducts()
-    {
-        return $this->hasMany('App\Model\OrderProduct');
-    }
 }

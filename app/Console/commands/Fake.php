@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Artisan;
 // table model
 use App\Model\User;
 use App\Model\Product;
+use App\Model\Order;
+use App\Model\OrderProduct;
 
 class Fake extends Command
 {
@@ -48,12 +50,21 @@ class Fake extends Command
 
         // User
         User::insert([
-            'name' => 'super administrator',
-            'account' => 'aaa',
-            'password' => md5(1234),
-            'address' => '台北市大安區',
-            'phone' => '0958123123',
-            // 'token' => md5('aaa' . config('app.user_token_hash') . '1234')
+            [
+                'name' => 'Leon',
+                'account' => 'aaa',
+                'password' => md5(1234),
+                'address' => '台北市大安區',
+                'phone' => '0958123123',
+                // 'token' => md5('aaa' . config('app.user_token_hash') . '1234')
+            ],
+            [
+                'name' => 'Ada',
+                'account' => 'bbb',
+                'password' => md5(1234),
+                'address' => '新北市板橋區',
+                'phone' => '0958121121',
+            ]
         ]);
 
         // Product
@@ -65,7 +76,7 @@ class Fake extends Command
                 'category' => '3c',
                 'price' => '15000',
                 'img' => 'iphone.jpg',
-                'total' => 5
+                'total' => 4
             ],
             [
                 'user_id' => 1,
@@ -83,7 +94,7 @@ class Fake extends Command
                 'category' => '3c',
                 'price' => '6000',
                 'img' => 'ps4.jpg',
-                'total' => 5
+                'total' => 4
             ],
             [
                 'user_id' => 1,
@@ -103,6 +114,26 @@ class Fake extends Command
                 'img' => 'macbook_pro.jpg',
                 'total' => 1
             ],
+        ]);
+
+        Order::insert([
+            'user_id' => 2,
+            'no' => 'o20210910',
+            'hash' => 1,
+            'price' => 21000
+        ]);
+
+        OrderProduct::insert([
+            [
+                'order_id' => 1,
+                'product_id' => 1,
+                'count' => 1
+            ],
+            [
+                'order_id' => 1,
+                'product_id' => 3,
+                'count' => 1
+            ]
         ]);
     }
 }

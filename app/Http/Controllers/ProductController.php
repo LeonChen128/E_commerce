@@ -24,7 +24,7 @@ class ProductController extends Controller
     {
         $this->product->img = config('app.user_root') . $this->product->user_id . '/' . $this->product->img;
         $this->product->date = $this->product->updated_at->format('Y/m/d');
-        
+
         return view('product/detail', [
             'product' => $this->product
         ]);
