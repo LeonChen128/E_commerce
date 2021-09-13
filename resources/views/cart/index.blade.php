@@ -87,6 +87,8 @@
           return false
         }
 
+        if (!localStorage.getItem('items')) { return false }
+
         let data = {
           products: this.items.map((item) => {
             return {
@@ -113,7 +115,6 @@
               window.location = '{{ config("app.url") }}/product'
             }, 1000)
 
-            this.items = []
             localStorage.removeItem('items');
           },
           error: ({responseJSON}) => {

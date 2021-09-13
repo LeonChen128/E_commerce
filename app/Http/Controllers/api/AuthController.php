@@ -26,13 +26,7 @@ class AuthController extends \App\Http\Controllers\Controller
 
         Auth::login($user);
         
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'account' => $user->account,
-            'address' => $user->address,
-            'phone' => $user->phone,
-        ]);
+        return response()->json(['message' => '成功']);
     }
 
     public function logout(Request $request)
@@ -49,6 +43,8 @@ class AuthController extends \App\Http\Controllers\Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'account' => $user->account,
+                'address' => $user->address,
+                'phone' => $user->phone,
             ] : null
         );
     }

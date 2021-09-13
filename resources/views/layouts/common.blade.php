@@ -256,9 +256,22 @@
         this.keyWord = this.url.searchParams.get('keyWord')
 
         this.calculateCartCount()
-        this.user = JSON.parse(localStorage.getItem('user'))
+        this.getUser()
       },
       methods: {
+        getUser() {
+          $.ajax({
+            method: 'GET',
+            dataType: 'JSON',
+            url: '{{ config("app.url") }}' + '/api/auth/check',
+            success: (data) => {
+              this.user = data.id === undefined ? null : data
+            },
+            error: (data) => {
+              this.user = null
+            }
+          })
+        },
         redirect(uri) {
           window.location = '{{ config("app.url") }}/' + uri
         },
@@ -346,18 +359,11 @@
             },
             dataType: 'json',
             url: '{{ config("app.url") }}' + '/api/auth/login',
-            beforeSend: _ => {
-              
-            },
-            complete: _ => {
-              
-            },
             success: (data) => {
-              localStorage.setItem('user', JSON.stringify(data))
-              window.location = '{{ config("app.url") }}/product'
+              window.location = header.url.href
             },
-            error: (data) => {
-              if (message = data.responseJSON.message) {
+            error: ({responseJSON}) => {
+              if (message = responseJSON.message) {
                 this.alert = message
               }
             }
@@ -387,8 +393,6 @@
               this.user = null
             }
           })
-
-          localStorage.removeItem('user');
         },
         showRegister() {
           this.loginTable = false
