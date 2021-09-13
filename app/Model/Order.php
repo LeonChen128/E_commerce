@@ -21,4 +21,9 @@ class Order extends Model
         self::STATUS_CANCEL => '取消',
         self::STATUS_FINISH => '完成',
     ];
+
+    public function orderProducts()
+    {
+        return $this->hasMany('App\Model\OrderProduct');
+    }
 }

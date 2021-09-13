@@ -12,9 +12,11 @@ use \App\Model\OrderProduct;
 
 class OrderController extends \App\Http\Controllers\Controller
 {
+    private $order;
+
     public function __construct(Request $request)
     {
-
+        $request->route('id') && $this->order = Order::findOrFail($request->route('id'));
     }
 
     public function create(Request $request)
@@ -78,6 +80,28 @@ class OrderController extends \App\Http\Controllers\Controller
             OrderProduct::insert($insertODs);
         });
 
+        return response()->json(['message' => '成功']);
+    }
+
+    public function cancel(Request $request)
+    {
+        if (in_array($this->order->status, [Order::STATUS_CANCEL, Order::STATUS_FINISH])) {
+            return response()->json(['message' => '該訂單無法取消'], 400);
+        }
+
+        DB::transaction(function() {
+            $this->order->update(['status' => Order::STATUS_CANCEL]);
+
+            $orderProducts = $this->order->orderProducts->groupBy('product_id')->map(function($group) {
+                $group->first()->count = $group->sum('count');
+                return $group->first();
+            });
+
+            Product::whereIn('id', $orderProducts->keys()->toArray())->get()->map(function($product) use ($orderProducts) {
+                $product->update(['total' => $product->total + $orderProducts[$product->id]->count]);
+            });
+        });
+        
         return response()->json(['message' => '成功']);
     }
 }

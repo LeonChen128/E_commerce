@@ -42,6 +42,7 @@ Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
 
     Route::prefix('order')->group(function() {
         Route::post('', 'OrderController@create');
+        Route::put('{id}/cancel', 'OrderController@cancel');
     });
 });
 
