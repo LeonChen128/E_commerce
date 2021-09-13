@@ -48,6 +48,10 @@ class OrderController extends \App\Http\Controllers\Controller
             $price = $products->map(function($product) use ($orderProducts, &$insertODs) {
                 $orderProduct = $orderProducts[$product->id];
 
+                if (!$product->total) {
+                    throw new Error('選購商品 ' . $product->title . '，已無庫存');
+                }
+
                 if ($orderProduct['count'] > $product->total) {
                     throw new Error('選購商品 ' . $product->title . '，數量須小於 ' . $product->total);
                 }
