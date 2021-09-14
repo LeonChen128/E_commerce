@@ -26,12 +26,16 @@ Route::prefix('cart')->group(function() {
     Route::get('', 'CartController@index');
 });
 
+Route::prefix('user')->middleware('auth')->group(function() {
+    Route::get('', 'UserController@index');
+});
+
 Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
 
     Route::prefix('auth')->group(function() {
         Route::post('login', 'AuthController@login');
         Route::post('logout', 'AuthController@logout');
-        Route::get('check', 'AuthController@check');
+        Route::get('login-check', 'AuthController@loginCheck');
         Route::post('register-check', 'AuthController@registerCheck');
         Route::post('create', 'AuthController@create');
     });

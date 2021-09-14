@@ -36,7 +36,7 @@ class AuthController extends \App\Http\Controllers\Controller
         return response()->json(['message' => '登出成功']);
     }
 
-    public function check(Request $request)
+    public function loginCheck(Request $request)
     {
         return response()->json(
             ($user = Auth::user()) ? [

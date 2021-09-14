@@ -113,7 +113,7 @@
             notice.success = '訂單成立成功，即將返回首頁...'
             setTimeout(function() {
               window.location = '{{ config("app.url") }}/product'
-            }, 1000)
+            }, 1500)
 
             localStorage.removeItem('items');
           },

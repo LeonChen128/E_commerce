@@ -1,0 +1,86 @@
+#user {
+    padding-top: 60px;
+    padding-bottom: 330px;
+    position: relative;
+}
+
+#user > div {
+    float: left;
+}
+
+#user-menu {
+    padding: 24px 48px 24px 0;
+    width: 20%;
+    color: #3f3f3f;
+}
+
+.user-menu-title {
+    cursor: pointer;
+    margin: 0 0 8px 0;
+}
+
+.user-menu-title > i {
+    font-size: 20px;
+    color: black;
+}
+
+.user-menu-title:hover span {
+    color: tomato;
+}
+
+.user-menu-content {
+    margin: 0px;
+    padding-left: 28px;
+}
+
+.user-menu-content > span {
+    display: block;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.user-menu-content > span:hover {
+    color: tomato;
+}
+
+#user-content {
+    width: 80%;
+}
+
+/*RWD*/
+
+@media (min-width: 0px) and (max-width: 576px) {
+    #body {
+        width: 95%;
+    }
+}
+
+@media (min-width: 0px) {
+    #user {
+        padding-top: 40px;
+    }
+}
+
+@media (min-width: 576px) {
+    #user {
+        padding-top: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    
+}
+
+@media (min-width: 992px) {
+    
+}
+
+@media (min-width: 1200px) {
+    #user {
+        padding-top: 60px;
+    }
+}
+
+@media (min-width: 1400px) {
+    
+}

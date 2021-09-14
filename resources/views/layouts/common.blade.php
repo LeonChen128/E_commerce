@@ -263,7 +263,7 @@
           $.ajax({
             method: 'GET',
             dataType: 'JSON',
-            url: '{{ config("app.url") }}' + '/api/auth/check',
+            url: '{{ config("app.url") }}' + '/api/auth/login-check',
             success: (data) => {
               this.user = data.id === undefined ? null : data
             },
@@ -302,7 +302,7 @@
             authFrame.notice = '請先登入！'
             return false
           }
-          window.location = '{{ config("app.url") }}/user/' + this.user.id
+          window.location = '{{ config("app.url") }}/user'
         }
       }
     })
