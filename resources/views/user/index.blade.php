@@ -15,7 +15,7 @@
       </p>
 
       <p class="user-menu-content" style="border: 1px solid gray">
-        <span>個人檔案</span>
+        <span style="color: tomato">個人檔案</span>
         <span>地址</span>
         <span>更改密碼</span>
       </p>
@@ -24,8 +24,8 @@
 
   </div>
 
-  <div id="user-content" style="border: 1px solid green">
-    <div >
+  <div id="user-info">
+    <div>
       
     </div>
   </div>
