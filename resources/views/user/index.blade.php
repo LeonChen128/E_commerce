@@ -26,7 +26,21 @@
 
   <div id="user-info">
     <div>
-      
+      <div id="user-info-title">
+        <span>我的檔案</span>
+      </div>
+
+      <div id="user-info-content">
+        <div style="border: 1px solid red">
+          <span>大頭照</span>
+        </div>
+        <div style="border: 1px solid red">
+          <span>帳號</span>
+        </div>
+        <div style="border: 1px solid red">
+          <span>姓名</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
