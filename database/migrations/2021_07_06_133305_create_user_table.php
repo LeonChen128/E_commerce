@@ -21,6 +21,7 @@ class CreateUserTable extends Migration
             $table->string('password', 190)->comment('使用者密碼');
             $table->string('address', 190)->nullable()->comment('使用者地址');
             $table->string('phone', 50)->nullable()->comment('使用者電話');
+            $table->string('head', 50)->nullable()->comment('使用者大頭照');
             $table->rememberToken();
 
             $table->timestamp('updated_at')->useCurrent();

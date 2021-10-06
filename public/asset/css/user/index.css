@@ -69,8 +69,30 @@
     font-size: 20px;
 }
 
+#user-info-content {
+    overflow: auto;
+}
+
 #user-info-content > div {
     padding: 8px 16px;
+    float: left;
+}
+
+#user-info-content > div:nth-child(1) {
+    width: 70%;
+}
+
+#user-info-content > div:nth-child(2) {
+    width: 30%;
+}
+
+#head-photo {
+    display: block;
+    margin: 10px auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    border: 1px solid gray;
 }
 
 /*RWD*/

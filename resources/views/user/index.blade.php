@@ -30,16 +30,20 @@
         <span>我的檔案</span>
       </div>
 
-      <div id="user-info-content">
-        <div style="border: 1px solid red">
-          <span>大頭照</span>
+      <div id="user-info-content" style="border: 1px solid green">
+        <div style="border: 2px solid black">
+          <div style="border: 1px solid red">
+            <span>帳號</span>
+          </div>
+          <div style="border: 1px solid red">
+            <span>姓名</span>
+          </div>
         </div>
-        <div style="border: 1px solid red">
-          <span>帳號</span>
+
+        <div style="border: 2px solid black">
+          <img id="head-photo" src="{{ $user['head'] }}">
         </div>
-        <div style="border: 1px solid red">
-          <span>姓名</span>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -49,7 +53,13 @@
 @section('script')
 <script>
   let user = new Vue({
-    el: '#user'
+    el: '#user',
+    data: {
+
+    },
+    created() {
+
+    }
   })
 </script>
 

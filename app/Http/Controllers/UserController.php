@@ -23,6 +23,9 @@ class UserController extends Controller
                 'account' => Auth::user()->account,
                 'address' => Auth::user()->address,
                 'phone' => Auth::user()->phone,
+                'head' => Auth::user()->head
+                    ? config('app.user_root') . Auth::user()->id . '/' . Auth::user()->head
+                    : config('app.user_root') . 'default.jpg',
             ]
         ]);
     }
