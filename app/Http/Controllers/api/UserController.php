@@ -32,4 +32,17 @@ class UserController extends \App\Http\Controllers\Controller
 
         return response()->json(['message' => '上傳成功']);
     }
+
+    public function update(Request $request)
+    {
+        $params = $this->validate($request, [
+            'name' => 'string|nullable|max:190',
+            'address' => 'string|nullable|max:190',
+            'phone' => 'string|nullable|max:50'
+        ]);
+
+        $this->user->update($params);
+
+        return response()->json(['message' => '修改成功']);
+    }
 }

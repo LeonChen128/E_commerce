@@ -70,7 +70,7 @@
             <i class="fas fa-home"></i>
             <span>首頁</span>
           </div>
-          <div class="nav-title" @click="redirect('user')">
+          <div class="nav-title" @click="redirect('user/profile')">
             <i class="fas fa-user-circle"></i>
             <span>會員中心</span>
           </div>
@@ -302,7 +302,7 @@
             authFrame.notice = '請先登入！'
             return false
           }
-          window.location = '{{ config("app.url") }}/user'
+          window.location = '{{ config("app.url") }}/user/profile'
         }
       }
     })

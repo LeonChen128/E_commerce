@@ -1,4 +1,4 @@
-#user {
+#profile {
     padding-top: 60px;
     padding-bottom: 330px;
     position: relative;
@@ -6,7 +6,7 @@
     margin-bottom: 100px;
 }
 
-#user > div {
+#profile > div {
     float: left;
 }
 
@@ -14,10 +14,10 @@
     padding: 24px 48px 24px 0;
     width: 20%;
     color: #3f3f3f;
+    text-align: right;
 }
 
 .user-menu-title {
-    cursor: pointer;
     margin: 0 0 8px 0;
 }
 
@@ -26,22 +26,19 @@
     color: black;
 }
 
-.user-menu-title:hover span {
-    color: tomato;
-}
-
 .user-menu-content {
     margin: 0px;
     padding-left: 28px;
 }
 
-.user-menu-content > span {
+.user-menu-content > a {
     display: block;
     margin-bottom: 4px;
     cursor: pointer;
+    color: #3f3f3f;
 }
 
-.user-menu-content > span:hover {
+.user-menu-content > a:hover {
     color: tomato;
 }
 
@@ -62,7 +59,8 @@
 
 #user-info-title {
     border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 8px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 #user-info-title > span {
@@ -86,13 +84,19 @@
     width: 30%;
 }
 
+#head-photo-frame {
+    border-left: 1px solid #e5e5e5;
+    margin-top: 32px;
+    position: relative;
+}
+
 #head-photo {
     display: block;
-    margin: 10px auto;
+    margin: 0px auto;
     width: 120px;
     height: 120px;
     border-radius: 60px;
-    border: 1px solid gray;
+    border: 1px solid #e5e5e5;
 }
 
 #head-input {
@@ -119,11 +123,52 @@
 
 #update-head {
     background: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }
 
-#update-head:hover {
+#update-head:hover, #profile-save-btn:hover {
     background: #36ccb4;
     color: white;
+}
+
+.user-left-div {
+    margin-top: 28px;
+}
+
+.user-left-div input {
+    width: 80%;
+    height: 40px;
+    margin-left: 24px;
+    border-radius: 0px;
+    border: 1px solid #b7b7b7;
+    outline: none;
+    padding: 0 12px;
+    transition: all .3s;
+}
+
+.user-left-div input:focus {
+    box-shadow: 0px 0px 6px #2196f3;
+}
+
+.user-left-div span:nth-child(2) {
+    margin-left: 24px;
+}
+
+#profile-save-btn {
+    display: block;
+    border: 1px solid #d9d8d8;
+    width: 80px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .3s;
+    font-size: 14px;
+    margin-top: 32px;
+    background: white;
 }
 
 /*RWD*/
@@ -135,13 +180,13 @@
 }
 
 @media (min-width: 0px) {
-    #user {
+    #profile {
         padding-top: 40px;
     }
 }
 
 @media (min-width: 576px) {
-    #user {
+    #profile {
         padding-top: 100px;
     }
 }
@@ -155,7 +200,7 @@
 }
 
 @media (min-width: 1200px) {
-    #user {
+    #profile {
         padding-top: 60px;
     }
 }

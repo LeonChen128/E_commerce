@@ -14,9 +14,9 @@ class UserController extends Controller
 
     }
 
-    public function index(Request $request)
+    public function profile(Request $request)
     {
-        return view('user/index', [
+        return view('user/profile', [
             'user' => [
                 'id' => Auth::user()->id,
                 'name' => Auth::user()->name,

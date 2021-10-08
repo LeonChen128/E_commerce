@@ -27,7 +27,7 @@ Route::prefix('cart')->group(function() {
 });
 
 Route::prefix('user')->middleware('auth')->group(function() {
-    Route::get('', 'UserController@index');
+    Route::get('profile', 'UserController@profile');
 });
 
 Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
@@ -51,6 +51,7 @@ Route::prefix('api')->middleware('web')->namespace('API')->group(function() {
 
     Route::prefix('user')->group(function() {
         Route::post('{id}', 'UserController@updateHead');
+        Route::put('{id}', 'UserController@update');
     });
 });
 
