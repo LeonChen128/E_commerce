@@ -41,7 +41,13 @@
         </div>
 
         <div style="border: 2px solid black">
-          <img id="head-photo" src="{{ $user['head'] }}">
+          <img v-if="previewImg" id="head-photo" :src="previewImg">
+          <img v-else id="head-photo" src="{{ $user['head'] }}">
+          <form @submit.prevent enctype="multipart/form-data">
+            <input type="file" id="head-input" accept="image/*" multiple="multiple" @change="preview">
+            <label id="head-input-btn" for="head-input">選擇圖片</label>
+            <button v-if="previewImg" id="update-head" @click="updateHead">確定上傳</button>
+          </form>
         </div>
         
       </div>
@@ -55,10 +61,47 @@
   let user = new Vue({
     el: '#user',
     data: {
-
+      formData: null,
+      file: null,
+      previewImg: null
     },
     created() {
 
+    },
+    methods: {
+      updateHead() {
+        if (this.formData == null) return true
+
+        let formData = this.formData
+
+        $.ajax({
+          method: 'POST',
+          dataType: 'JSON',
+          url: '{{ config("app.url") }}' + '/api/user/{{ $user["id"] }}',
+          processData: false,
+          contentType: false,
+          data: formData,
+          success(data) {
+            notice.success = '上傳成功'
+          },
+          error() {
+            notice.fail = '上傳失敗'
+          }
+        })
+
+      },
+      preview(e) {
+        if (e.target.files[0] === undefined) return true
+        
+        let render = new FileReader()
+        render.readAsDataURL(this.file = e.target.files[0])
+        render.onload = e => {
+          this.previewImg = e.target.result
+        }
+
+        this.formData = new FormData()
+        this.formData.append('img', this.file)
+      }
     }
   })
 </script>

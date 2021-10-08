@@ -95,6 +95,37 @@
     border: 1px solid gray;
 }
 
+#head-input {
+    display: none;
+}
+
+#head-input-btn, #update-head {
+    display: block;
+    border: 1px solid #d9d8d8;
+    width: 80px;
+    height: 40px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all .3s;
+    font-size: 14px;
+    margin: 12px auto;
+}
+
+#head-input-btn:hover {
+    background: #f1f1f1;
+}
+
+#update-head {
+    background: white;
+}
+
+#update-head:hover {
+    background: #36ccb4;
+    color: white;
+}
+
 /*RWD*/
 
 @media (min-width: 0px) and (max-width: 576px) {
