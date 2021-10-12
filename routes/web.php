@@ -28,6 +28,7 @@ Route::prefix('cart')->group(function() {
 
 Route::prefix('user')->middleware('auth')->group(function() {
     Route::get('profile', 'UserController@profile');
+    Route::get('password', 'UserController@password');
 });
 
 Route::prefix('api')->middleware('web')->namespace('API')->group(function() {

@@ -29,4 +29,11 @@ class UserController extends Controller
             ]
         ]);
     }
+
+    public function password(Request $request)
+    {
+        return view('user/password', [
+        
+        ]);
+    }
 }

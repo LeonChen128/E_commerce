@@ -8,7 +8,6 @@
 <div id="profile">
   <div id="user-menu">
     <div>
-
       <p class="user-menu-title">
         <i class="far fa-user"></i>
         <span>我的帳戶</span>
@@ -17,8 +16,9 @@
       <p class="user-menu-content">
         <a href="/user/profile" style="color: tomato; text-decoration: none">個人檔案</a>
         <a href="/user/password" style="text-decoration: none">更改密碼</a>
+        <a href="/user/order" style="text-decoration: none">訂單查詢</a>
+        <a href="/user/record" style="text-decoration: none">購買紀錄</a>
       </p>
-
     </div>
 
   </div>
@@ -57,7 +57,7 @@
           <img v-else id="head-photo" src="{{ $user['head'] }}">
           <form @submit.prevent enctype="multipart/form-data">
             <input type="file" id="head-input" accept="image/*" multiple="multiple" @change="preview">
-            <label id="head-input-btn" for="head-input">選擇圖片</label>
+            <label id="head-input-btn" for="head-input">選擇頭像</label>
             <button v-if="previewImg" id="update-head" @click="updateHead">確定上傳</button>
           </form>
         </div>
