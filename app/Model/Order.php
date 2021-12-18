@@ -26,4 +26,20 @@ class Order extends Model
     {
         return $this->hasMany('App\Model\OrderProduct');
     }
+
+    // 成立訂單時，商品參數的驗證
+    public static function verifyOrderProducts(array $products)
+    {
+        $orderProducts = [];
+        foreach ($products as $product) {
+            if (!isset($product['id'], $product['count'])) {
+                return false;
+            }
+            $orderProducts[$product['id']] = [
+                'id' => $product['id'],
+                'count' => $product['count'] + ($orderProducts[$product['id']]['count'] ?? 0)
+            ];
+        }
+        return $orderProducts;
+    }
 }

@@ -21,25 +21,18 @@ class OrderController extends \App\Http\Controllers\Controller
 
     public function create(Request $request)
     {
-        $user = Auth::user();
-        if(!$user) { return response()->json(['message' => '請先登入帳號'], 400); }
+        if(!$user = Auth::user()) { return response()->json(['message' => '請先登入帳號'], 400); }
 
-        $params = $this->validate($request, [
-            'products' => 'required|array',
-        ]);
+        $params = $this->validate($request, [ 'products' => 'required|array' ]);
 
-        $orderProducts = [];
-        foreach ($params['products'] as $product) {
-            if (!(isset($product['id']) && isset($product['count']))) {
-                throw new Error('參數 products 陣列須有 『id』及『count』key');
-            }
-            $orderProducts[$product['id']] = $product;
+        if (!$orderProducts = Order::verifyOrderProducts($params['products'])) {
+            return response()->json(['message' => '成立訂單的商品參數有誤'], 400);
         }
 
         $products = Product::whereIn('id', array_keys($orderProducts))->get()->keyBy('id');
 
         if ($products->count() != count($orderProducts)) {
-            return response()->json(['message' => '找不到商品'], 400);
+            return response()->json(['message' => '查無此商品 ID'], 400);
         }
 
         DB::transaction(function() use ($products, $orderProducts, $user) {
@@ -53,7 +46,7 @@ class OrderController extends \App\Http\Controllers\Controller
                 }
 
                 if ($orderProduct['count'] > $product->total) {
-                    throw new Error('選購商品 ' . $product->title . '，數量須小於 ' . $product->total);
+                    throw new Error('選購商品 ' . $product->title . '，庫存只剩 ' . $product->total);
                 }
 
                 // update product total
