@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::middleware('web')->namespace('API')->group(function() {
 
     Route::prefix('auth')->group(function() {
