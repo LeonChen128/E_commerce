@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        $this->call([
+            CityAndAreaTableSeeder::class // 初始縣市區資料
+        ]);
     }
 }
