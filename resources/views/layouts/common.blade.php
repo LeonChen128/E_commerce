@@ -92,8 +92,6 @@
           </div>
         </div>
 
-
-
         <!-- header 右 -->
         <div id="search-frame">
           <form @submit.prevent="search">
@@ -105,96 +103,82 @@
     </div>
   </header>
 
-  <div id="auth-frame">
-    <template v-if="loginTable || logoutTable || registerTable">
-      <div class="auth-frame">
-        <template v-if="loginTable">
-          <div id="login">
-            <div class="cross">
-              <i class="fas fa-times" @click="closeLogin"></i>
+  <div id="auth-frame" class="auth-frame" v-if="table">
+    <template v-if="index != 2">
+      <div class="auth-table">
+        <div class="cross">
+          <i class="fas fa-times" @click="closeAuth"></i>
+        </div>
+
+        <div class="title">@{{ index == 0 ? '使用者登入' : '使用者註冊' }}</div>
+
+        <template v-if="index == 0">
+          <form @submit.prevent="doLogin">
+            <div v-if="alert" class="auth-alert">@{{ alert }}</div>
+            <div v-if="notice" class="auth-notice">@{{ notice }}</div>
+            <div v-if="success" class="auth-success">@{{ success }}</div>
+            <div class="input-frame">
+              <input type="text" v-model="loginForm.account" placeholder="請輸入帳號...">
             </div>
 
-            <div class="login-title">使用者登入</div>
-
-            <form @submit.prevent="doLogin">
-              <div v-if="alert" class="auth-alert">@{{ alert }}</div>
-              <div v-if="notice" class="auth-notice">@{{ notice }}</div>
-              <div v-if="success" class="auth-success">@{{ success }}</div>
-              <div class="input-frame">
-                <input type="text" v-model="account" placeholder="請輸入帳號...">
-              </div>
-
-              <div class="input-frame">
-                <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
-                <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
-              </div>
-              
-              <div id="button-frame">
-                <button type="submit">確定</button>
-              </div>
-            </form>
-
-            <div class="switch-table">
-              <span @click="showRegister">註冊新帳號</span>
+            <div class="input-frame">
+              <input :type="passwordType" v-model="loginForm.password" placeholder="請輸入密碼..." class="password-input">
+              <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
             </div>
-          </div>
+            
+            <div id="button-frame">
+              <button type="submit">確定</button>
+            </div>
+          </form>
         </template>
 
-        <template v-if="registerTable">
-          <div id="register">
-            <div class="cross">
-              <i class="fas fa-times" @click="closeRegister"></i>
+        <template v-else>
+          <form @submit.prevent="doRegister">
+            <div v-if="alert" class="auth-alert">@{{ alert }}</div>
+            <div class="input-frame">
+              <span class="required"><i class="fas fa-star"></i></span>
+              <span v-if="accountConfirm" class="account-result result-green"><i class="fas fa-check-circle"></i></span>
+              <span v-if="accountConfirm == 0" class="account-result result-red"><i class="fas fa-times-circle"></i></span>
+              <input type="text" v-model="registerForm.account" placeholder="請輸入帳號..." @keyup="checkAccount">
             </div>
 
-            <div class="login-title">註冊新帳號</div>
-
-            <form @submit.prevent="doRegister">
-              <div v-if="alert" class="auth-alert">@{{ alert }}</div>
-              <div class="input-frame">
-                <span class="required"><i class="fas fa-star"></i></span>
-                <span v-if="accountConfirm" class="account-result result-green"><i class="fas fa-check-circle"></i></span>
-                <span v-if="accountConfirm == 0" class="account-result result-red"><i class="fas fa-times-circle"></i></span>
-                <input type="text" v-model="account" placeholder="請輸入帳號..." @keyup="checkAccount">
-              </div>
-
-              <div class="input-frame">
-                <span class="required"><i class="fas fa-star"></i></span>
-                <input :type="passwordType" v-model="password" placeholder="請輸入密碼..." class="password-input">
-                <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
-              </div>
-
-              <div class="input-frame">
-                <input type="text" v-model="name" placeholder="請輸入名字...">
-              </div>
-
-              <div class="input-frame">
-                <input type="text" v-model="address" placeholder="請輸入地址...">
-              </div>
-
-              <div class="input-frame">
-                <input type="text" v-model="phone" placeholder="請輸入電話...">
-              </div>
-              
-              <div id="button-frame">
-                <button type="submit">確定</button>
-              </div>
-            </form>
-
-            <div class="switch-table">
-              <span @click="showLogin">已有帳號去登入</span>
+            <div class="input-frame">
+              <span class="required"><i class="fas fa-star"></i></span>
+              <input :type="passwordType" v-model="registerForm.password" placeholder="請輸入密碼..." class="password-input">
+              <div class="password-eye" @click="showPassword"><i :class="eyeShow"></i></div>
             </div>
-          </div>
+
+            <div class="input-frame">
+              <input type="text" v-model="registerForm.name" placeholder="請輸入名字...">
+            </div>
+
+            <div class="input-frame">
+              <input type="text" v-model="registerForm.address" placeholder="請輸入地址...">
+            </div>
+
+            <div class="input-frame">
+              <input type="text" v-model="registerForm.phone" placeholder="請輸入電話...">
+            </div>
+            
+            <div id="button-frame">
+              <button type="submit">確定</button>
+            </div>
+          </form>
         </template>
 
-        <template v-if="logoutTable">
-          <div id="logout">
-            <div id="logout-title">是否確定要登出？</div>
-            <div id="logout-button-frame">
-              <button id="cancel-btn" @click="cancelLogout">取消</button>
-              <button id="submit-btn" @click="doLogout">確定</button>
-            </div>
-          </div>
-        </template>
+        <div class="login-register-switch">
+          <span @click="loginRegisterSwitch">@{{ index == 0 ? '註冊新帳號' : '已有帳號去登入' }}</span>
+        </div>
+      </div>
+    </template>
+
+    <template v-else>
+      <div id="logout">
+        <div id="logout-title">是否確定要登出？</div>
+        <div id="logout-button-frame">
+          <button id="cancel-btn" @click="closeAuth">取消</button>
+          <button id="submit-btn" @click="doLogout">確定</button>
+        </div>
       </div>
     </template>
   </div>
@@ -264,12 +248,8 @@
             method: 'GET',
             dataType: 'JSON',
             url: '{{ config("app.url") }}' + '/api/auth/login-check',
-            success: (data) => {
-              this.user = data.id === undefined ? null : data
-            },
-            error: (data) => {
-              this.user = null
-            }
+            success: data => this.user = data.id === undefined ? null : data,
+            error: data => this.user = null
           })
         },
         redirect(uri) {
@@ -279,14 +259,12 @@
           window.location = '{{ config("app.url") }}/product?keyWord=' + this.keyWord
         },
         showLogin() {
-          authFrame.loginTable = !authFrame.loginTable
-          authFrame.registerTable = false
-          authFrame.reset()
+          authFrame.showTable(0)
           this.burger = false
         },
         showLogout() {
+          authFrame.showTable(2)
           this.burger = false
-          authFrame.logoutTable = !authFrame.logoutTable
         },
         switchBurger() {
           this.burger = !this.burger
@@ -310,42 +288,46 @@
     let authFrame = new Vue({
       el: '#auth-frame',
       data: {
-        loginTable: false,
-        logoutTable: false,
-        account: '',
-        password: '',
+        table: false,
+        index: 0,
+        loginForm: {
+          account: '',
+          password: ''
+        },
+        registerForm: {
+          account: '',
+          password: '',
+          name: '',
+          address: '',
+          phone: '',
+        },
         eyeShow: 'fas fa-eye-slash',
         passwordType: 'password',
         alert: '',
         notice: '',
         success: '',
-
-        registerTable: false,
-        name: '',
-        address: '',
-        phone: '',
         timeOut: null,
         accountConfirm: null
       },
       methods: {
+        messageReset() {
+          this.alert = this.notice = this.success = ''
+        },
         reset() {
-          this.account = ''
-          this.password = ''
-          this.eyeShow = 'fas fa-eye-slash'
-          this.passwordType = 'password'
-          this.name = ''
-          this.address = ''
-          this.phone = ''
-          this.accountConfirm = null
-          this.alert = ''
-          this.notice = ''
-          this.success = ''
+          this.loginForm.account = this.loginForm.password = ''
+          this.registerForm.account = this.registerForm.password = ''
+          this.registerForm.name = this.registerForm.address = ''
+          this.registerForm.phone = ''
+          this.messageReset()
+        },
+        showTable(index) {
+          this.table = true
+          this.index = index
+          this.reset()
         },
         doLogin() {
-          this.alert = ''
-          this.notice = ''
-          this.success = ''
-          if(!this.account || !this.password) {
+          this.messageReset()
+          if(!this.loginForm.account || !this.loginForm.password) {
             this.alert = '欄位不得為空'
             return true
           }
@@ -354,31 +336,22 @@
           $.ajax({
             method: 'POST',
             data: {
-              account: this.account,
-              password: this.password,
+              account: this.loginForm.account,
+              password: this.loginForm.password,
             },
             dataType: 'json',
             url: '{{ config("app.url") }}' + '/api/auth/login',
-            success: (data) => {
-              window.location = header.url.href
-            },
-            error: ({responseJSON}) => {
-              if (message = responseJSON.message) {
-                this.alert = message
-              }
-            }
+            success: data => window.location = header.url.href,
+            error: ({ responseJSON }) => this.alert = responseJSON.message ?? ''
           })
         },
-        closeLogin() {
-          this.loginTable = false
+        closeAuth() {
+          this.table = false
           this.reset()
         },
         showPassword() {
           this.eyeShow = this.eyeShow == 'fas fa-eye-slash' ? 'fas fa-eye' : 'fas fa-eye-slash'
           this.passwordType = this.passwordType == 'password' ? 'text' : 'password'
-        },
-        cancelLogout() {
-          this.logoutTable = false
         },
         doLogout() {
           $.ajax({
@@ -389,50 +362,39 @@
               this.user = null
               window.location = '{{ config("app.url") }}/product'
             },
-            error: (data) => {
-              this.user = null
-            }
+            error: data => this.user = null
           })
         },
-        showRegister() {
-          this.loginTable = false
-          this.reset()
-          this.registerTable = true
-        },
-        closeRegister() {
-          this.registerTable = false
+        loginRegisterSwitch() {
+          this.index = this.index == 0 ? 1 : 0
           this.reset()
         },
         checkAccount() {
           if (this.timeOut) { clearTimeout(this.timeOut) }
 
           this.timeOut = setTimeout(_ => {
-            if (!this.account.trim()) { return true }
+            if (!this.registerForm.account.trim()) { return true }
 
             $.ajax({
               method: 'POST',
               dataType: 'json',
               url: '{{ config("app.url") }}' + '/api/auth/register-check',
-              data: { account: this.account.trim() },
-              success: (data) => {
-                this.accountConfirm = data
-              },
-              error: _ => {
-                this.accountConfirm = false
-              }
+              data: { account: this.registerForm.account.trim() },
+              success: data => this.accountConfirm = data,
+              error: _ => this.accountConfirm = false
             })
           }, 500)
         },
         doRegister() {
-          this.alert = ''
-          this.account = this.account.trim()
-          this.password = this.password.trim()
+          this.messageReset()
+          this.registerForm.account = this.registerForm.account.trim()
+          this.registerForm.password = this.registerForm.password.trim()
 
           if (this.accountConfirm == 0) {
             this.alert = '帳號已存在'
             return true
           }
-          if (!this.account || !this.password) {
+          if (!this.registerForm.account || !this.registerForm.password) {
             this.alert = '帳號密碼不得為空'
             return true
           }
@@ -442,33 +404,22 @@
             dataType: 'json',
             url: '{{ config("app.url") }}' + '/api/auth/create',
             data: {
-              account: this.account,
-              password: this.password,
-              name: this.name,
-              address: this.address,
-              phone: this.phone,
+              account: this.registerForm.account,
+              password: this.registerForm.password,
+              name: this.registerForm.name,
+              address: this.registerForm.address,
+              phone: this.registerForm.phone,
             },
-            beforeSend: _ => {
-              loading.show = true
-            },
-            complete: _ => {
-              loading.show = false
-            },
-            success: (data) => {
+            beforeSend: _ => loading.show = true,
+            complete: _ => loading.show = false,
+            success: data => {
               this.reset()
-              this.loginTable = true
-              this.registerTable = false
+              this.accountConfirm = null
+              this.index = 0
               this.success = '註冊成功'
             },
-            error: _ => {
-              this.alert = '發生錯誤'
-            }
+            error: _ => this.alert = '發生錯誤'
           })
-        },
-        showLogin() {
-          this.registerTable = false
-          this.reset()
-          this.loginTable = true
         }
       }
     })
