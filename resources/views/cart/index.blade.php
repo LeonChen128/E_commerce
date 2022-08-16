@@ -78,13 +78,6 @@
 
         if (!this.products.length) return false
 
-        // let data = {
-        //   products: this.products.map(product => { return { id: product.id, count: product.count } } )
-        // }
-
-        // console.log(data)
-        // return
-
         $.ajax({
           method: "POST",
           data: {
@@ -103,7 +96,6 @@
         })
       }
     }
-
   })
 
 </script>
