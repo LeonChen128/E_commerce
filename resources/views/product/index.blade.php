@@ -20,7 +20,7 @@
   </template>
 
   <template v-else>
-    <div id="no-products"><i>尚無資料...</i></div>
+    <div id="no-products"><i>@{{ this.params.keyWord ? '查無相關關鍵字 ' + this.params.keyWord : '尚無資料...' }}</i></div>
   </template>
 
   <div id="load-products">

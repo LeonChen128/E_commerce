@@ -26,30 +26,32 @@
       <div id="header-content">
         <!-- header 左 -->
         <div id="menu">
-          <div class="menu-son" @click="redirect('product')">
+          <div class="menu-son" @click="redirectTo('product')">
             <i class="fas fa-home"></i>
             <span>首頁</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-son" @click="goUserInfo">
+          <div class="menu-son" @click="toUserProfile">
             <i class="fas fa-user-circle"></i>
             <span>會員中心</span>
             <div class="menu-bar"></div>
           </div>
-          <div class="menu-son" @click="redirect('cart')">
+          <div class="menu-son" @click="redirectTo('cart')">
             <i class="fas fa-shopping-cart"></i>
             <span>購物車</span>
             <div class="menu-bar"></div>
-            <div v-if="cartCount" class="cart-count cart-count-b">
-              <span>@{{ cartCount }}</span>
-            </div>
+            <template v-if="cartCount">
+              <div class="cart-count cart-count-b">
+                <span>@{{ cartCount }}</span>
+              </div>
+            </template>
           </div>
-          <div v-if="user" class="menu-son" @click="showLogout">
+          <div v-if="user" class="menu-son" @click="showAuthTable(2)">
             <i class="fas fa-sign-out-alt"></i>
             <span>登出</span>
             <div class="menu-bar"></div>
           </div>
-          <div v-else class="menu-son" @click="showLogin">
+          <div v-if="user === null" class="menu-son" @click="showAuthTable(0)">
             <i class="fas fa-sign-in-alt"></i>
             <span>登入 / 註冊</span>
             <div class="menu-bar"></div>
@@ -66,15 +68,15 @@
         </div>
 
         <div id="side-nav" :class="{'nav-show': burger, 'nav-hide': !burger}">
-          <div class="nav-title" @click="redirect('product')">
+          <div class="nav-title" @click="redirectTo('product')">
             <i class="fas fa-home"></i>
             <span>首頁</span>
           </div>
-          <div class="nav-title" @click="redirect('user/profile')">
+          <div class="nav-title" @click="redirectTo('user/profile')">
             <i class="fas fa-user-circle"></i>
             <span>會員中心</span>
           </div>
-          <div class="nav-title" @click="redirect('cart')">
+          <div class="nav-title" @click="redirectTo('cart')">
             <i class="fas fa-shopping-cart"></i>
             <span>購物車</span>
             <div v-if="cartCount" class="cart-count cart-count-s">
@@ -82,11 +84,11 @@
             </div>
           </div>
 
-          <div v-if="user" class="nav-title" @click="showLogout">
+          <div v-if="user" class="nav-title" @click="showAuthTable(2)">
             <i class="fas fa-sign-out-alt"></i>
             <span>登出</span>
           </div>
-          <div v-else class="nav-title" @click="showLogin">
+          <div v-if="user === null" class="nav-title" @click="showAuthTable(0)">
             <i class="fas fa-sign-in-alt"></i>
             <span>登入 / 註冊</span>
           </div>
@@ -94,7 +96,7 @@
 
         <!-- header 右 -->
         <div id="search-frame">
-          <form @submit.prevent="search">
+          <form @submit.prevent="redirectTo('product?keyWord=' + keyWord)">
             <input type="text" v-model="keyWord" placeholder="找商品...">
             <button><i class="fas fa-search"></i></button>
           </form>
@@ -226,12 +228,14 @@
   </footer>
 
   <script type="text/javascript">
+    const appUrl = '{{ config("app.url") }}'
+
     let header = new Vue({
       el: '#header',
       data: {
         keyWord: '',
         url: null,
-        user: null,
+        user: false,
         burger: false,
         cartCount: null
       },
@@ -247,23 +251,16 @@
           $.ajax({
             method: 'GET',
             dataType: 'JSON',
-            url: '{{ config("app.url") }}' + '/api/auth/login-check',
+            url: appUrl + '/api/auth/login-check',
             success: data => this.user = data.id === undefined ? null : data,
             error: data => this.user = null
           })
         },
-        redirect(uri) {
-          window.location = '{{ config("app.url") }}/' + uri
+        redirectTo(uri) {
+          window.location = appUrl + '/' + uri
         },
-        search() {
-          window.location = '{{ config("app.url") }}/product?keyWord=' + this.keyWord
-        },
-        showLogin() {
-          authFrame.showTable(0)
-          this.burger = false
-        },
-        showLogout() {
-          authFrame.showTable(2)
+        showAuthTable(index, notice) {
+          authFrame.showTable(index, notice)
           this.burger = false
         },
         switchBurger() {
@@ -274,13 +271,12 @@
             ? tmp.length > 99 ? '99' : tmp.length
             : null
         },
-        goUserInfo() {
+        toUserProfile() {
           if (!this.user) {
-            authFrame.loginTable = true
-            authFrame.notice = '請先登入！'
-            return false
+            this.showAuthTable(0, { type: 'notice', msg: '請先登入' })
+            return
           }
-          window.location = '{{ config("app.url") }}/user/profile'
+          this.redirectTo('user/profile')
         }
       }
     })
@@ -320,10 +316,11 @@
           this.registerForm.phone = ''
           this.messageReset()
         },
-        showTable(index) {
+        showTable(index, notice) {
           this.table = true
           this.index = index
-          this.reset()
+          notice && notice.type && notice.msg && (this[notice.type] = notice.msg)
+          typeof notice === undefined && this.reset()
         },
         doLogin() {
           this.messageReset()
@@ -340,7 +337,7 @@
               password: this.loginForm.password,
             },
             dataType: 'json',
-            url: '{{ config("app.url") }}' + '/api/auth/login',
+            url: appUrl + '/api/auth/login',
             success: data => window.location = header.url.href,
             error: ({ responseJSON }) => this.alert = responseJSON.message ?? ''
           })
@@ -357,10 +354,10 @@
           $.ajax({
             method: 'POST',
             dataType: 'json',
-            url: '{{ config("app.url") }}' + '/api/auth/logout',
+            url: appUrl + '/api/auth/logout',
             success: (data) => {
               this.user = null
-              window.location = '{{ config("app.url") }}/product'
+              header.redirectTo('product')
             },
             error: data => this.user = null
           })
@@ -378,7 +375,7 @@
             $.ajax({
               method: 'POST',
               dataType: 'json',
-              url: '{{ config("app.url") }}' + '/api/auth/register-check',
+              url: appUrl + '/api/auth/register-check',
               data: { account: this.registerForm.account.trim() },
               success: data => this.accountConfirm = data,
               error: _ => this.accountConfirm = false
@@ -402,7 +399,7 @@
           $.ajax({
             method: 'POST',
             dataType: 'json',
-            url: '{{ config("app.url") }}' + '/api/auth/create',
+            url: appUrl + '/api/auth/create',
             data: {
               account: this.registerForm.account,
               password: this.registerForm.password,
