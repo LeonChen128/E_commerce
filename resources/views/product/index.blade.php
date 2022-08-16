@@ -25,7 +25,7 @@
 
   <div id="load-products">
     <template v-if="more">
-      <div id="more-product" @click="search()">
+      <div id="more-product" @click="load()">
         <span>更多商品...</span>
       </div>
     </template>
@@ -48,29 +48,23 @@
     },
     created() {
       this.params.keyWord = header.keyWord
-      this.search()
+      this.load()
     },
     methods: {
-      search() {
+      load() {
         $.ajax({
           method: 'GET',
           data: this.params,
-          dataType: 'json',
-          url: '{{ config("app.url") }}' + '/api/product',
-          beforeSend: _ => {
-            loading.show = true
-          },
-          complete: _ => {
-            loading.show = false
-          },
-          success: (data) => {
+          dataType: 'JSON',
+          url: appUrl + '/api/product',
+          beforeSend: _ => loading.show = true,
+          complete: _ => loading.show = false,
+          success: data => {
             this.products = this.products.concat(data.products)
             this.params.offset = data.offset
             this.more = data.more
           },
-          error: () => {
-            this.products = []
-          }
+          error: _ => this.products = []
         })
       }
     }

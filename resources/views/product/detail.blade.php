@@ -35,7 +35,9 @@
             <input type="number" v-model.number="count" min="1" max="{{ $product->total }}">
             <button type="button" @click="increase">＋</button>
           </div>
-          <span id="count-rest">還剩 {{ $product->total }} 件</span>
+          <template v-if="rest !== null">
+            <span id="count-rest">還剩 @{{ rest }} 件</span>
+          </template>
           <button id="buy-btn">加入購物車</button>
         </form>
       </p>
@@ -52,6 +54,7 @@
     data: {
       product: null,
       count: 1,
+      rest: null
     },
     created() {
       this.product = {
@@ -65,49 +68,54 @@
         total: Number('{{ $product->total }}'),
       }
 
-      if (this.product.total == 0) {
-        notice.fail = '目前已無庫存！'
-      }
+      this.rest = this.product.total
+
+      Array.isArray(products = Data.get('products')) && products.forEach(product => {
+        product.id == this.product.id && (this.rest -= product.count)
+      })
+
+      this.product.total == 0 && alert.fail('目前已無庫存！')
     },
     methods: {
       addCart() {
-        if (this.count > this.product.total || this.count < 1) {
-          notice.fail = '數量錯誤！'
-          return false
+        if (this.rest <= 0) {
+          alert.fail('已無庫存！')
+          return
         }
 
-        let items = (tmp = JSON.parse(localStorage.getItem('items'))) ? tmp : []
+        if (this.count < 1) {
+          alert.fail('數量不可低於 1')
+          return
+        }
 
-        let repeat = 0
-        let over = false
-        items = items.map((item) => {
-          if (item.product.id == this.product.id) {
-            if (over = ((item.count + this.count) > this.product.total)) {
-              notice.fail = (tmp = this.product.total - item.count) > 0
-                ? '最多可以再購買 ' + tmp + ' 件！'
-                : '購物車數量超過所剩數量！'
-              return false
-            }
-            repeat++
-            item.count += this.count
+        if (this.count > this.rest) {
+          alert.fail('數量不可超過 ' + this.rest)
+          return
+        }
+
+        let exist = false
+        let products = (Data.get('products') ?? []).map(product => {
+          if (product.id == this.product.id) {
+            product.count += this.count
+            this.rest -= this.count
+            exist = true
           }
-          return item
+          return product
         })
 
-        if (over) { return false }
-        if (!repeat) { items.push({ product: this.product, count: this.count }) }
+        !exist && (this.product.count = this.count) && products.push(this.product)
+          && (this.rest -= this.count)
 
-        localStorage.setItem('items', JSON.stringify(items))
+        Data.set('products', products)
 
-        notice.success = '商品加入成功！'
-        
+        alert.success('商品加入成功！')
         header.calculateCartCount()
       },
       decrease() {
         this.count != 1 && this.count--
       },
       increase() {
-        this.count < "{{ $product->total }}" && this.count++
+        this.count < this.rest && this.count++
       }
     }
   })

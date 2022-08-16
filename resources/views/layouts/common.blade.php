@@ -8,12 +8,13 @@
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/header.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/layouts/footer.css">
   <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/loading.css">
-  <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/notice.css">
+  <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/alert.css">
   <link rel="stylesheet" type="text/css" href="/asset/icon/fontawesome/css/all.css">
   <script type="text/javascript" src="/asset/js/vue/vue.js"></script>
   <script type="text/javascript" src="/asset/js/vue/component/loading.js"></script>
-  <script type="text/javascript" src="/asset/js/vue/component/notice.js"></script>
+  <script type="text/javascript" src="/asset/js/vue/component/alert.js"></script>
   <script type="text/javascript" src="/asset/js/jQuery/jquery.js"></script>
+  <script type="text/javascript" src="/asset/js/core.js"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
   <script type="text/javascript" src="@yield('js')"></script>
@@ -105,7 +106,7 @@
     </div>
   </header>
 
-  <div id="auth-frame" class="auth-frame" v-if="table">
+  <div id="auth-frame" class="auth-frame" :class="{ 'auth-frame-bgc': table }" v-if="table">
     <template v-if="index != 2">
       <div class="auth-table">
         <div class="cross">
@@ -191,12 +192,10 @@
 
   <mission-loading id="loading" v-if="show"></mission-loading>
   
-  <div id="notice" v-if="success || fail">
-    <success-notice :success="success"></success-notice>
-    <fail-notice :fail="fail"></fail-notice>
+  <div id="alert" v-if="msg && type">
+    <message-alert :msg="msg" :type="type" @close="close"></message-alert>
   </div>
   
-
   <footer id="footer">
     <div id="info-frame">
       <div id="info">
@@ -267,8 +266,10 @@
           this.burger = !this.burger
         },
         calculateCartCount() {
-          this.cartCount = Array.isArray(tmp = JSON.parse(localStorage.getItem('items'))) && tmp.length
-            ? tmp.length > 99 ? '99' : tmp.length
+          this.cartCount = Array.isArray(products = Data.get('products')) && products.length
+            ? products.length > 99
+              ? '99'
+              : products.length
             : null
         },
         toUserProfile() {
@@ -423,11 +424,24 @@
 
     let loading = new Vue({ el: '#loading', data: { show: false } })
 
-    let notice = new Vue({
-      el: '#notice',
+    let alert = new Vue({
+      el: '#alert',
       data: {
-        success: '',
-        fail: ''
+        msg: '',
+        type: ''
+      },
+      methods: {
+        success(msg) {
+          this.msg = msg
+          this.type = 'success'
+        },
+        fail(msg) {
+          this.msg = msg
+          this.type = 'fail'
+        },
+        close() {
+          this.msg = this.type = ''
+        }
       }
     })
 
