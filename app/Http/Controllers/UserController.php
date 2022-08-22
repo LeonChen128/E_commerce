@@ -17,23 +17,14 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         return view('user/profile', [
-            'user' => [
-                'id' => Auth::user()->id,
-                'name' => Auth::user()->name,
-                'account' => Auth::user()->account,
-                'address' => Auth::user()->address,
-                'phone' => Auth::user()->phone,
-                'head' => Auth::user()->head
-                    ? config('app.user_root') . Auth::user()->id . '/' . Auth::user()->head
-                    : config('app.user_root') . 'default.jpg',
-            ]
+            'user' => Auth::user()->jsonFormat()
         ]);
     }
 
     public function password(Request $request)
     {
         return view('user/password', [
-        
+            'user' => Auth::user()->jsonFormat()
         ]);
     }
 }

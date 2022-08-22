@@ -32,22 +32,12 @@ class AuthController extends \App\Http\Controllers\Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         return response()->json(['message' => '登出成功']);
     }
 
     public function loginCheck(Request $request)
     {
-        return response()->json(
-            ($user = Auth::user()) ? [
-                'id' => $user->id,
-                'name' => $user->name,
-                'account' => $user->account,
-                'address' => $user->address,
-                'phone' => $user->phone,
-                'head' => $user->head,
-            ] : null
-        );
+        return response()->json(Auth::user() ? Auth::user()->jsonFormat() : null);
     }
 
     public function registerCheck(Request $request)

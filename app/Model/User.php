@@ -15,4 +15,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Model\Product');
     }
+
+    public function jsonFormat()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'account' => $this->account,
+            'address' => $this->address,
+            'phone' => $this->phone,
+            'head' => config('app.user_root') . ($this->head ? $this->id . '/' . $this->head : 'default.jpg'),
+        ];
+    }
 }

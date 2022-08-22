@@ -38,7 +38,8 @@ class UserController extends \App\Http\Controllers\Controller
         $params = $this->validate($request, [
             'name' => 'string|nullable|max:190',
             'address' => 'string|nullable|max:190',
-            'phone' => 'string|nullable|max:50'
+            'phone' => 'string|nullable|max:50',
+            'password' => 'string|nullable|max:190'
         ]);
 
         $this->user->update($params);
