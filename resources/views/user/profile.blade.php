@@ -88,40 +88,30 @@
         $.ajax({
           method: 'PUT',
           dataType: 'JSON',
-          url: '{{ config("app.url") }}' + '/api/user/{{ $user["id"] }}',
+          url: appUrl + '/api/user/{{ $user["id"] }}',
           data: {
             name: this.name,
             address: this.address,
             phone: this.phone,
           },
-          success(data) {
-            notice.success = '修改成功'
-          },
-          error(data) {
-            notice.fail = data.message
-          }
+          success: data => alert.success(data.message),
+          error: data => alert.fail(data.responseJSON.message)
         })
       },
       updateHead() {
         if (this.formData == null) return true
-
         let formData = this.formData
 
         $.ajax({
           method: 'POST',
           dataType: 'JSON',
-          url: '{{ config("app.url") }}' + '/api/user/{{ $user["id"] }}',
+          url: appUrl + '/api/user/{{ $user["id"] }}',
           processData: false,
           contentType: false,
           data: formData,
-          success(data) {
-            notice.success = '上傳成功'
-          },
-          error() {
-            notice.fail = '上傳失敗'
-          }
+          success: data => alert.success(data.message),
+          error: data => alert.fail(data.responseJSON.message)
         })
-
       },
       preview(e) {
         if (e.target.files[0] === undefined) return true

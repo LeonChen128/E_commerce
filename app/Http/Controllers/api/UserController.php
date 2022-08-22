@@ -19,15 +19,15 @@ class UserController extends \App\Http\Controllers\Controller
 
     public function updateHead(Request $request)
     {
-        if (!$img = $request->file('img')) {
-            return response()->json(['message' => '參數錯誤'], 400);
-        }
+        if (!$img = $request->file('img'))
+            return response()->json(['message' => 'img 為必要參數'], 400);
 
-        if (!in_array($img->extension(), ['jpg', 'jpeg', 'png'])) {
-            return response()->json(['message' => '檔案格式有誤'], 400);
-        }
+        if (!in_array($img->extension(), ['jpg', 'jpeg', 'png']))
+            return response()->json(['message' => '上傳格式須為 【jpg, jpeg, png】之圖片檔案'], 400);
 
-        move_uploaded_file($_FILES['img']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/asset/photo/user/' . $this->user->id . '/head.jpg');
+        !is_dir($dir = config('app.user_dir') . $this->user->id) && mkdir($dir);
+
+        move_uploaded_file($_FILES['img']['tmp_name'], $dir . '/head.jpg');
         $this->user->update(['head' => 'head.jpg']);
 
         return response()->json(['message' => '上傳成功']);
