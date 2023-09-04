@@ -4,17 +4,17 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="/asset/css/layouts/common.css">
-  <link rel="stylesheet" type="text/css" href="/asset/css/layouts/header.css">
-  <link rel="stylesheet" type="text/css" href="/asset/css/layouts/footer.css">
-  <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/loading.css">
-  <link rel="stylesheet" type="text/css" href="/asset/css/vue/component/alert.css">
-  <link rel="stylesheet" type="text/css" href="/asset/icon/fontawesome/css/all.css">
-  <script type="text/javascript" src="/asset/js/vue/vue.js"></script>
-  <script type="text/javascript" src="/asset/js/vue/component/loading.js"></script>
-  <script type="text/javascript" src="/asset/js/vue/component/alert.js"></script>
-  <script type="text/javascript" src="/asset/js/jQuery/jquery.js"></script>
-  <script type="text/javascript" src="/asset/js/core.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/common.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/header.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/footer.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/vue/component/loading.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/vue/component/alert.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('asset/icon/fontawesome/css/all.css') }}">
+  <script type="text/javascript" src="{{ url('asset/js/vue/vue.js') }}"></script>
+  <script type="text/javascript" src="{{ url('asset/js/vue/component/loading.js') }}"></script>
+  <script type="text/javascript" src="{{ url('asset/js/vue/component/alert.js') }}"></script>
+  <script type="text/javascript" src="{{ url('asset/js/jQuery/jquery.js') }}"></script>
+  <script type="text/javascript" src="{{ url('asset/js/core.js') }}"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
   <script type="text/javascript" src="@yield('js')"></script>
