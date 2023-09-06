@@ -12,13 +12,19 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
-    - name: Set up SSH key
-      uses: webfactory/ssh-agent@v0.7.0
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Create SSH key file
+      run: |
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > my-key.pem
+        chmod 600 my-key.pem
+        ssh-keyscan -t rsa -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
 
     - name: Deploy to EC2
       run: |
-        ssh -i /tmp/ssh-key ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/www/E_commerce && git pull origin master"
+        ssh -i my-key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/www/E_commerce && git pull origin master"
+
+    - name: Clean up
+      run: |
+        rm my-key.pem

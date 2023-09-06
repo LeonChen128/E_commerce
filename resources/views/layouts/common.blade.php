@@ -29,7 +29,7 @@
         <div id="menu">
           <div class="menu-son" @click="redirectTo('product')">
             <i class="fas fa-home"></i>
-            <span>首頁123</span>
+            <span>首頁</span>
             <div class="menu-bar"></div>
           </div>
           <div class="menu-son" @click="toUserProfile">
