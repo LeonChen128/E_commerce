@@ -14,17 +14,32 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Create SSH key file
+    - name: Setup SSH key
       run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > my-key.pem
-        chmod 600 my-key.pem
-        ssh-keyscan -t rsa -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
-        chmod 644 ~/.ssh/known_hosts
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
 
-    - name: Deploy to EC2
+    - name: Install dependencies and deploy
       run: |
-        ssh -i my-key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/www/E_commerce && git pull origin master"
+        ssh ubuntu@${{ secrets.EC2_IP }} 'cd /home/ubuntu/www/E_commerce && git pull origin main && composer install && php artisan migrate'
 
-    - name: Clean up
-      run: |
-        rm my-key.pem
+
+
+
+
+    # - name: Create SSH key file
+    #   run: |
+    #     echo "${{ secrets.SSH_PRIVATE_KEY }}" > my-key.pem
+    #     chmod 600 my-key.pem
+    #     ssh-keyscan -t rsa -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
+    #     chmod 644 ~/.ssh/known_hosts
+
+    # - name: Deploy to EC2
+    #   run: |
+    #     ssh -i my-key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/www/E_commerce && git pull origin master"
+
+    # - name: Clean up
+    #   run: |
+    #     rm my-key.pem
