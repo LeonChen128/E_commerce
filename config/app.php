@@ -230,6 +230,6 @@ return [
     ],
 
     'user_token_hash' => env('USER_TOKEN_HASH'),
-    'user_root' => asset('asset/photo/user'),
+    'user_root' => env('APP_URL') . '/asset/photo/user',
     'user_dir' => $_SERVER['DOCUMENT_ROOT'] . '/asset/photo/user/'
 ];
