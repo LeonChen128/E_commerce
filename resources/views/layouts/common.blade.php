@@ -3,6 +3,9 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:image" content="{{ asset('asset/photo/縮圖.jpg') }}" />
+  <meta property="og:title" content="Leon's Website" />
+  <meta property="og:description" content="這是個電商網站作品" />
 
   <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/common.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/header.css') }}">
