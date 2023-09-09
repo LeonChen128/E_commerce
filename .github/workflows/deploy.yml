@@ -25,7 +25,3 @@ jobs:
     - name: Deploy to EC2
       run: |
         ssh -i my-key.pem ubuntu@${{ secrets.EC2_IP }} "cd /home/ubuntu/www/E_commerce && git pull origin master"
-
-    - name: Clean up
-      run: |
-        rm my-key.pem

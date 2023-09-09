@@ -1,7 +1,7 @@
 
 @extends('layouts.common')
 
-@section('css', '/asset/css/user/profile.css')
+@section('css', url('asset/css/user/profile.css'))
 @section('title', '個人頁面')
 
 @section('content')

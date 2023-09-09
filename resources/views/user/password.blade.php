@@ -1,7 +1,7 @@
 
 @extends('layouts.common')
 
-@section('css', '/asset/css/user/password.css')
+@section('css', url('asset/css/user/password.css'))
 @section('title', '修改個人密碼')
 
 @section('content')

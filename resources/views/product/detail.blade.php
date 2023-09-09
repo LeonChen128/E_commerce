@@ -1,7 +1,7 @@
 
 @extends('layouts.common')
 
-@section('css', '/asset/css/product/detail.css')
+@section('css', url('asset/css/product/detail.css'))
 @section('title', '商品詳細頁')
 
 @section('content')
