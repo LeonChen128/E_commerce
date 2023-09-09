@@ -36,7 +36,7 @@ class ProductController extends \App\Http\Controllers\Controller
                     'description' => $product->description,
                     'category' => $product->category,
                     'price' => $product->price,
-                    'img' => config('app.user_root') . $product->user_id . '/' . $product->img,
+                    'img' => config('app.user_root') . '/' . $product->user_id . '/' . $product->img,
                     'date' => $product->updated_at->format('Y/m/d h:i:s'),
                 ];
             }),
