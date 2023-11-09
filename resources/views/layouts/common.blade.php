@@ -7,17 +7,18 @@
   <meta property="og:title" content="Leon's Website" />
   <meta property="og:description" content="這是個電商網站作品" />
 
-  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/common.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/header.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/layouts/footer.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/vue/component/loading.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('asset/css/vue/component/alert.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('asset/icon/fontawesome/css/all.css') }}">
-  <script type="text/javascript" src="{{ url('asset/js/vue/vue.js') }}"></script>
-  <script type="text/javascript" src="{{ url('asset/js/vue/component/loading.js') }}"></script>
-  <script type="text/javascript" src="{{ url('asset/js/vue/component/alert.js') }}"></script>
-  <script type="text/javascript" src="{{ url('asset/js/jQuery/jquery.js') }}"></script>
-  <script type="text/javascript" src="{{ url('asset/js/core.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/common.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/header.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/footer.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/vue/component/loading.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/vue/component/alert.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('asset/icon/fontawesome/css/all.css') }}">
+  <script type="text/javascript" src="{{ asset('asset/js/vue/vue.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('asset/js/vue/component/loading.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('asset/js/vue/component/alert.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('asset/js/jQuery/jquery.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('asset/js/core.js') }}"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
   <script type="text/javascript" src="@yield('js')"></script>
@@ -25,7 +26,48 @@
 </head>
 <body>
 
-  <header id="header">
+  <header>
+    <div id="navBar">
+      <div>
+        <div id="navMenu">
+          <div>
+            <a href="{{ url('') }}"><i class="fas fa-home"> 首頁</i></a>
+          </div>
+
+          <div>
+            <a href="{{ url('user') }}"><i class="fas fa-user-circle"> 會員中心</i></a>
+          </div>
+
+          <div>
+            <a href="{{ url('cart') }}"><i class="fas fa-shopping-cart"> 購物車</i></a>
+            {{-- <template v-if="cartCount">
+              <div class="cart-count cart-count-b">
+                <span>@{{ cartCount }}</span>
+              </div>
+            </template> --}}
+          </div>
+
+          <div v-if="user">
+            <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
+          </div>
+
+          <div v-if="user === null" @click="showAuthTable(0)">
+            <a href="javascript:void(0)"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
+          </div>
+        </div>
+
+        <div id="navSearch">
+          <form @submit.prevent="redirectTo('product?keyWord=' + keyWord)">
+            <input type="text" v-model="keyWord" placeholder="找商品...">
+            <button><i class="fas fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+  {{-- <header id="header">
     <div id="header-frame">
       <div id="header-content">
         <!-- header 左 -->
@@ -107,9 +149,9 @@
         </div>
       </div>
     </div>
-  </header>
+  </header> --}}
 
-  <div id="auth-frame" class="auth-frame" :class="{ 'auth-frame-bgc': table }" v-if="table">
+  {{-- <div id="auth-frame" class="auth-frame" :class="{ 'auth-frame-bgc': table }" v-if="table">
     <template v-if="index != 2">
       <div class="auth-table">
         <div class="cross">
@@ -189,7 +231,7 @@
     </template>
   </div>
 
-  <div id="body">
+  <div id="container">
     @yield('content')
   </div>
 
@@ -227,7 +269,7 @@
         </p>
       </div>
     </div>
-  </footer>
+  </footer> --}}
 
   <script type="text/javascript">
     const appUrl = '{{ config("app.url") }}'

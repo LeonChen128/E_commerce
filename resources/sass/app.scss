@@ -1,1 +1,95 @@
-//
+@import "./_/core";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0px;
+  height: 100%;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+// header
+header {
+  #navBar {
+    width: 100%;
+    height: var(--header-height-1);
+    background-color: var(--header-color);
+    position: fixed;
+    z-index: 80;
+
+    > div {
+      display: flex;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: var(--header-height-1);
+
+      > div {
+        flex: 1;
+        border: 2px solid gray;
+      }
+
+      #navMenu {
+        display: flex;
+
+        > div {
+          position: relative;
+          flex: 1;
+
+          > a {
+            @extend %-center-all;
+            color: white;
+            white-space: nowrap;
+
+            &::after {
+              @extend %-center-x;
+              content: '';
+              width: 100%;
+              height: 2px;
+              top: 30px;
+              background-color: white;
+              opacity: 0;
+              transition: top .3s, opacity .3s;
+            }
+
+            &:hover::after {
+              top: 26px;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      #navSearch {
+
+      }
+    }
+  }
+}
+
+// container
+#container {
+  margin-top: 800px;
+  border: 1px solid gray;
+}
+
+// RWD
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 992px) {
+  
+}
+
+@media (max-width: 768px) {
+  
+}
+
+@media (max-width: 576px) {
+  
+}

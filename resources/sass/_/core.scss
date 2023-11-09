@@ -1,0 +1,20 @@
+:root {
+  --background-color: #f4f7f6;
+  --header-color: #00ccb4;
+
+  --header-height-1: 60px;
+  --header-height-2: 100px;
+}
+
+%-center-all {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+%-center-x {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

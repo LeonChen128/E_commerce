@@ -1,16 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    margin: 0px;
-    height: 100%;
-}
-
-body {
-    background-color: #f4f7f6;
-}
-
 .auth-frame {
     position: fixed;
     height: 100%;
@@ -285,8 +272,8 @@ body {
     background: #1862c6;
 }
 
-#body {
-    margin: 40px auto;
+#container {
+/*    margin: 40px auto;*/
     overflow: auto;
     min-height: 100%;
     margin-top: -20px;
@@ -305,40 +292,40 @@ body {
 /*RWD*/
 
 @media (min-width: 0px) {
-    #body {
-        margin-top: 0px;
+    #container {
+/*        margin-top: 0px;*/
         width: 80%;
     }
 }
 
 @media (min-width: 576px) {
-    #body {
-        margin-top: -60px;
+    #container {
+/*        margin-top: -60px;*/
         width: 576px;
     }
 }
 
 @media (min-width: 768px) {
-    #body {
+    #container {
         width: 768px;
     }
 }
 
 @media (min-width: 992px) {
-    #body {
+    #container {
         width: 992px;
     }
 }
 
 @media (min-width: 1200px) {
-    #body {
+    #container {
         width: 1200px;
-        margin-top: -20px;
+/*        margin-top: -20px;*/
     }
 }
 
 @media (min-width: 1400px) {
-    #body {
+    #container {
         width: 1400px;
     }
 }
