@@ -29,6 +29,10 @@
   <header id="header">
     <div id="navBar">
       <div>
+        <div id="hamburger">
+          <div><span></span></div>
+        </div>
+
         <div id="navMenu">
           <div>
             <a href="{{ url('') }}"><i class="fas fa-home"> 首頁</i></a>
@@ -63,10 +67,6 @@
           </form>
         </div>
       </div>
-    </div>
-
-    <div id="hamburger">
-      <div><span></span></div>
     </div>
 
   </header>
@@ -275,6 +275,7 @@
     </div>
   </footer> --}}
 
+  <script src="{{ asset('js/app.js') }}"></script>
   <script type="text/javascript">
     const appUrl = '{{ config("app.url") }}'
 
@@ -331,168 +332,168 @@
       }
     })
 
-    let authFrame = new Vue({
-      el: '#auth-frame',
-      data: {
-        table: false,
-        index: 0,
-        loginForm: {
-          account: '',
-          password: ''
-        },
-        registerForm: {
-          account: '',
-          password: '',
-          name: '',
-          address: '',
-          phone: '',
-        },
-        eyeShow: 'fas fa-eye-slash',
-        passwordType: 'password',
-        alert: '',
-        notice: '',
-        success: '',
-        timeOut: null,
-        accountConfirm: null
-      },
-      methods: {
-        messageReset() {
-          this.alert = this.notice = this.success = ''
-        },
-        reset() {
-          this.loginForm.account = this.loginForm.password = ''
-          this.registerForm.account = this.registerForm.password = ''
-          this.registerForm.name = this.registerForm.address = ''
-          this.registerForm.phone = ''
-          this.messageReset()
-        },
-        showTable(index, notice) {
-          this.table = true
-          this.index = index
-          notice && notice.type && notice.msg && (this[notice.type] = notice.msg)
-          typeof notice === undefined && this.reset()
-        },
-        doLogin() {
-          this.messageReset()
-          if(!this.loginForm.account || !this.loginForm.password) {
-            this.alert = '欄位不得為空'
-            return true
-          }
+    // let authFrame = new Vue({
+    //   el: '#auth-frame',
+    //   data: {
+    //     table: false,
+    //     index: 0,
+    //     loginForm: {
+    //       account: '',
+    //       password: ''
+    //     },
+    //     registerForm: {
+    //       account: '',
+    //       password: '',
+    //       name: '',
+    //       address: '',
+    //       phone: '',
+    //     },
+    //     eyeShow: 'fas fa-eye-slash',
+    //     passwordType: 'password',
+    //     alert: '',
+    //     notice: '',
+    //     success: '',
+    //     timeOut: null,
+    //     accountConfirm: null
+    //   },
+    //   methods: {
+    //     messageReset() {
+    //       this.alert = this.notice = this.success = ''
+    //     },
+    //     reset() {
+    //       this.loginForm.account = this.loginForm.password = ''
+    //       this.registerForm.account = this.registerForm.password = ''
+    //       this.registerForm.name = this.registerForm.address = ''
+    //       this.registerForm.phone = ''
+    //       this.messageReset()
+    //     },
+    //     showTable(index, notice) {
+    //       this.table = true
+    //       this.index = index
+    //       notice && notice.type && notice.msg && (this[notice.type] = notice.msg)
+    //       typeof notice === undefined && this.reset()
+    //     },
+    //     doLogin() {
+    //       this.messageReset()
+    //       if(!this.loginForm.account || !this.loginForm.password) {
+    //         this.alert = '欄位不得為空'
+    //         return true
+    //       }
 
-          //ajax
-          $.ajax({
-            method: 'POST',
-            data: {
-              account: this.loginForm.account,
-              password: this.loginForm.password,
-            },
-            dataType: 'json',
-            url: appUrl + '/api/auth/login',
-            success: data => window.location = header.url.href,
-            error: ({ responseJSON }) => this.alert = responseJSON.message ?? ''
-          })
-        },
-        closeAuth() {
-          this.table = false
-          this.reset()
-        },
-        showPassword() {
-          this.eyeShow = this.eyeShow == 'fas fa-eye-slash' ? 'fas fa-eye' : 'fas fa-eye-slash'
-          this.passwordType = this.passwordType == 'password' ? 'text' : 'password'
-        },
-        doLogout() {
-          $.ajax({
-            method: 'POST',
-            dataType: 'json',
-            url: appUrl + '/api/auth/logout',
-            success: (data) => {
-              this.user = null
-              header.redirectTo('product')
-            },
-            error: data => this.user = null
-          })
-        },
-        loginRegisterSwitch() {
-          this.index = this.index == 0 ? 1 : 0
-          this.reset()
-        },
-        checkAccount() {
-          if (this.timeOut) { clearTimeout(this.timeOut) }
+    //       //ajax
+    //       $.ajax({
+    //         method: 'POST',
+    //         data: {
+    //           account: this.loginForm.account,
+    //           password: this.loginForm.password,
+    //         },
+    //         dataType: 'json',
+    //         url: appUrl + '/api/auth/login',
+    //         success: data => window.location = header.url.href,
+    //         error: ({ responseJSON }) => this.alert = responseJSON.message ?? ''
+    //       })
+    //     },
+    //     closeAuth() {
+    //       this.table = false
+    //       this.reset()
+    //     },
+    //     showPassword() {
+    //       this.eyeShow = this.eyeShow == 'fas fa-eye-slash' ? 'fas fa-eye' : 'fas fa-eye-slash'
+    //       this.passwordType = this.passwordType == 'password' ? 'text' : 'password'
+    //     },
+    //     doLogout() {
+    //       $.ajax({
+    //         method: 'POST',
+    //         dataType: 'json',
+    //         url: appUrl + '/api/auth/logout',
+    //         success: (data) => {
+    //           this.user = null
+    //           header.redirectTo('product')
+    //         },
+    //         error: data => this.user = null
+    //       })
+    //     },
+    //     loginRegisterSwitch() {
+    //       this.index = this.index == 0 ? 1 : 0
+    //       this.reset()
+    //     },
+    //     checkAccount() {
+    //       if (this.timeOut) { clearTimeout(this.timeOut) }
 
-          this.timeOut = setTimeout(_ => {
-            if (!this.registerForm.account.trim()) { return true }
+    //       this.timeOut = setTimeout(_ => {
+    //         if (!this.registerForm.account.trim()) { return true }
 
-            $.ajax({
-              method: 'POST',
-              dataType: 'json',
-              url: appUrl + '/api/auth/register-check',
-              data: { account: this.registerForm.account.trim() },
-              success: data => this.accountConfirm = data,
-              error: _ => this.accountConfirm = false
-            })
-          }, 500)
-        },
-        doRegister() {
-          this.messageReset()
-          this.registerForm.account = this.registerForm.account.trim()
-          this.registerForm.password = this.registerForm.password.trim()
+    //         $.ajax({
+    //           method: 'POST',
+    //           dataType: 'json',
+    //           url: appUrl + '/api/auth/register-check',
+    //           data: { account: this.registerForm.account.trim() },
+    //           success: data => this.accountConfirm = data,
+    //           error: _ => this.accountConfirm = false
+    //         })
+    //       }, 500)
+    //     },
+    //     doRegister() {
+    //       this.messageReset()
+    //       this.registerForm.account = this.registerForm.account.trim()
+    //       this.registerForm.password = this.registerForm.password.trim()
 
-          if (this.accountConfirm == 0) {
-            this.alert = '帳號已存在'
-            return true
-          }
-          if (!this.registerForm.account || !this.registerForm.password) {
-            this.alert = '帳號密碼不得為空'
-            return true
-          }
+    //       if (this.accountConfirm == 0) {
+    //         this.alert = '帳號已存在'
+    //         return true
+    //       }
+    //       if (!this.registerForm.account || !this.registerForm.password) {
+    //         this.alert = '帳號密碼不得為空'
+    //         return true
+    //       }
 
-          $.ajax({
-            method: 'POST',
-            dataType: 'json',
-            url: appUrl + '/api/auth/create',
-            data: {
-              account: this.registerForm.account,
-              password: this.registerForm.password,
-              name: this.registerForm.name,
-              address: this.registerForm.address,
-              phone: this.registerForm.phone,
-            },
-            beforeSend: _ => loading.show = true,
-            complete: _ => loading.show = false,
-            success: data => {
-              this.reset()
-              this.accountConfirm = null
-              this.index = 0
-              this.success = '註冊成功'
-            },
-            error: _ => this.alert = '發生錯誤'
-          })
-        }
-      }
-    })
+    //       $.ajax({
+    //         method: 'POST',
+    //         dataType: 'json',
+    //         url: appUrl + '/api/auth/create',
+    //         data: {
+    //           account: this.registerForm.account,
+    //           password: this.registerForm.password,
+    //           name: this.registerForm.name,
+    //           address: this.registerForm.address,
+    //           phone: this.registerForm.phone,
+    //         },
+    //         beforeSend: _ => loading.show = true,
+    //         complete: _ => loading.show = false,
+    //         success: data => {
+    //           this.reset()
+    //           this.accountConfirm = null
+    //           this.index = 0
+    //           this.success = '註冊成功'
+    //         },
+    //         error: _ => this.alert = '發生錯誤'
+    //       })
+    //     }
+    //   }
+    // })
 
-    let loading = new Vue({ el: '#loading', data: { show: false } })
+    // let loading = new Vue({ el: '#loading', data: { show: false } })
 
-    let alert = new Vue({
-      el: '#alert',
-      data: {
-        msg: '',
-        type: ''
-      },
-      methods: {
-        success(msg) {
-          this.msg = msg
-          this.type = 'success'
-        },
-        fail(msg) {
-          this.msg = msg
-          this.type = 'fail'
-        },
-        close() {
-          this.msg = this.type = ''
-        }
-      }
-    })
+    // let alert = new Vue({
+    //   el: '#alert',
+    //   data: {
+    //     msg: '',
+    //     type: ''
+    //   },
+    //   methods: {
+    //     success(msg) {
+    //       this.msg = msg
+    //       this.type = 'success'
+    //     },
+    //     fail(msg) {
+    //       this.msg = msg
+    //       this.type = 'fail'
+    //     },
+    //     close() {
+    //       this.msg = this.type = ''
+    //     }
+    //   }
+    // })
 
   </script>
   @yield('script')

@@ -36,38 +36,38 @@
 
 @section('script')
 <script>
-  let index = new Vue({
-    el: '#index',
-    data: {
-      params: {
-        keyWord: null,
-        offset: 0,
-      },
-      products: [],
-      more: false
-    },
-    created() {
-      this.params.keyWord = header.keyWord
-      this.load()
-    },
-    methods: {
-      load() {
-        $.ajax({
-          method: 'GET',
-          data: this.params,
-          dataType: 'JSON',
-          url: appUrl + '/api/product',
-          beforeSend: _ => loading.show = true,
-          complete: _ => loading.show = false,
-          success: data => {
-            this.products = this.products.concat(data.products)
-            this.params.offset = data.offset
-            this.more = data.more
-          },
-          error: _ => this.products = []
-        })
-      }
-    }
-  })
+  // let index = new Vue({
+  //   el: '#index',
+  //   data: {
+  //     params: {
+  //       keyWord: null,
+  //       offset: 0,
+  //     },
+  //     products: [],
+  //     more: false
+  //   },
+  //   created() {
+  //     this.params.keyWord = header.keyWord
+  //     this.load()
+  //   },
+  //   methods: {
+  //     load() {
+  //       $.ajax({
+  //         method: 'GET',
+  //         data: this.params,
+  //         dataType: 'JSON',
+  //         url: appUrl + '/api/product',
+  //         beforeSend: _ => loading.show = true,
+  //         complete: _ => loading.show = false,
+  //         success: data => {
+  //           this.products = this.products.concat(data.products)
+  //           this.params.offset = data.offset
+  //           this.more = data.more
+  //         },
+  //         error: _ => this.products = []
+  //       })
+  //     }
+  //   }
+  // })
 </script>
 @endsection

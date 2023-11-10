@@ -154,21 +154,6 @@
   line-height: 100%;
 }
 
-#search-frame input {
-  
-  
-}
-
-#search-frame button {
-  
-}
-
-#search-frame button:hover {
-  
-}
-
-
-
 /*RWD*/
 @media (max-width: 575px) {
   #burger {
