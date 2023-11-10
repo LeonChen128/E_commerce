@@ -3,7 +3,7 @@
   --header-color: #00ccb4;
 
   --header-height-1: 60px;
-  --header-height-2: 100px;
+  --header-height-2: 110px;
 }
 
 %-center-all {
@@ -17,4 +17,10 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+%-center-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

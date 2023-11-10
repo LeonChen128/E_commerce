@@ -155,30 +155,16 @@
 }
 
 #search-frame input {
-  border-radius: 2px;
-  border: 0px;
-  padding: 0 10px;
-  font-size: 16px;
-  letter-spacing: 1px;
-  outline: none;
+  
+  
 }
 
 #search-frame button {
-  position: absolute;
-  width: 60px;
-  height: 30px;
-  right: 4px;
-  top: 5px;
-  background-color: #00ccb4;
-  border: 0px;
-  border-radius: 2px;
-  color: white;
-  cursor: pointer;
-  transition: all .3s;
+  
 }
 
 #search-frame button:hover {
-  background-color: #009e8c;
+  
 }
 
 

@@ -26,7 +26,7 @@
 </head>
 <body>
 
-  <header>
+  <header id="header">
     <div id="navBar">
       <div>
         <div id="navMenu">
@@ -63,6 +63,10 @@
           </form>
         </div>
       </div>
+    </div>
+
+    <div id="hamburger">
+      <div><span></span></div>
     </div>
 
   </header>
