@@ -29,10 +29,6 @@
   <header id="header">
     <div id="navBar">
       <div>
-        <div id="hamburger">
-          <div><span></span></div>
-        </div>
-
         <div id="navMenu">
           <div>
             <a href="{{ url('') }}"><i class="fas fa-home"> 首頁</i></a>
@@ -61,6 +57,10 @@
         </div>
 
         <div id="navSearch">
+          <div id="hamburger">
+            <div><span></span></div>
+          </div>
+
           <form @submit.prevent="redirectTo('product?keyWord=' + keyWord)">
             <input type="text" v-model="keyWord" placeholder="找商品...">
             <button><i class="fas fa-search"></i></button>

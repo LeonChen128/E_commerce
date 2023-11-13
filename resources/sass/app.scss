@@ -67,14 +67,55 @@ header {
 
       #navSearch {
         position: relative;
+        display: flex;
+
+        > #hamburger {
+          display: none;
+          position: relative;
+          width: 50px;
+
+          > div {
+            @extend %-center-all;
+            width: 32px;
+            height: 32px;
+
+            > span {
+              @extend %-center-y;
+              width: 100%;
+              height: 3px;
+              border-radius: 4px;
+              background-color: white;
+
+              &:before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                width: 100%;
+                height: 3px;
+                border-radius: 4px;
+                background-color: white;
+              }
+
+              &:after {
+                content: '';
+                position: absolute;
+                top: 10px;
+                width: 100%;
+                height: 3px;
+                border-radius: 4px;
+                background-color: white;
+              }
+            }
+          }
+        }
 
         > form {
-          width: 100%;
+          flex: 1;
           height: 100%;
           position: relative;
           display: flex;
           justify-content: flex-end;
-          padding-right: 20px;
+          padding-right: 20px; 
 
           > input {
             @extend %-center-y;
@@ -105,49 +146,6 @@ header {
               background-color: #009e8c;
             }
           }
-        }
-      }
-    }
-  }
-
-  #hamburger {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    z-index: 81;
-    display: none;
-
-    > div {
-      width: 32px;
-      height: 32px;
-      position: relative;
-      // border: 1px solid red;
-
-      > span {
-        @extend %-center-y;
-        width: 100%;
-        height: 3px;
-        border-radius: 4px;
-        background-color: white;
-
-        &:before {
-          content: '';
-          position: absolute;
-          top: -10px;
-          width: 100%;
-          height: 3px;
-          border-radius: 4px;
-          background-color: white;
-        }
-
-        &:after {
-          content: '';
-          position: absolute;
-          top: 10px;
-          width: 100%;
-          height: 3px;
-          border-radius: 4px;
-          background-color: white;
         }
       }
     }
@@ -199,7 +197,6 @@ header {
         height: var(--header-height-1) !important;
 
         form {
-          width: 90% !important;
           float: right !important;
           padding-right: 8px !important;
 
