@@ -27,7 +27,7 @@
 <body>
 
   <header id="header">
-    <div id="navBar">
+    <div id="navbar">
       <div>
         <div id="navMenu">
           <div>
@@ -39,12 +39,7 @@
           </div>
 
           <div>
-            <a href="{{ url('cart') }}"><i class="fas fa-shopping-cart"> 購物車</i></a>
-            {{-- <template v-if="cartCount">
-              <div class="cart-count cart-count-b">
-                <span>@{{ cartCount }}</span>
-              </div>
-            </template> --}}
+            <a href="{{ url('cart') }}"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
           </div>
 
           <div v-if="user">
@@ -57,7 +52,7 @@
         </div>
 
         <div id="navSearch">
-          <div id="hamburger">
+          <div id="hamburger" @click="toggleSidebar">
             <div><span></span></div>
           </div>
 
@@ -69,6 +64,31 @@
       </div>
     </div>
 
+    <div id="sidebar" :class="{ 'active': sidebarActive }">
+      <div class="cross" @click="toggleSidebar">
+        <i class="fas fa-times"></i>
+      </div>
+      
+      <div>
+        <a href="{{ url('') }}"><i class="fas fa-home"> 首頁</i></a>
+      </div>
+
+      <div>
+        <a href="{{ url('user') }}"><i class="fas fa-user-circle"> 會員中心</i></a>
+      </div>
+
+      <div>
+        <a href="{{ url('cart') }}"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
+      </div>
+
+      <div v-if="user">
+        <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
+      </div>
+
+      <div v-if="user === null" @click="showAuthTable(0)">
+        <a href="javascript:void(0)"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
+      </div>
+    </div>
   </header>
 
   {{-- <header id="header">
@@ -279,58 +299,58 @@
   <script type="text/javascript">
     const appUrl = '{{ config("app.url") }}'
 
-    let header = new Vue({
-      el: '#header',
-      data: {
-        keyWord: '',
-        url: null,
-        user: false,
-        burger: false,
-        cartCount: null
-      },
-      created() {
-        this.url = new URL(location.href)
-        this.keyWord = this.url.searchParams.get('keyWord')
+    // let header = new Vue({
+    //   el: '#header',
+    //   data: {
+    //     keyWord: '',
+    //     url: null,
+    //     user: false,
+    //     burger: false,
+    //     cartCount: null
+    //   },
+    //   created() {
+    //     this.url = new URL(location.href)
+    //     this.keyWord = this.url.searchParams.get('keyWord')
 
-        this.calculateCartCount()
-        this.getUser()
-      },
-      methods: {
-        getUser() {
-          $.ajax({
-            method: 'GET',
-            dataType: 'JSON',
-            url: appUrl + '/api/auth/login-check',
-            success: data => this.user = data.id === undefined ? null : data,
-            error: data => this.user = null
-          })
-        },
-        redirectTo(uri) {
-          window.location = appUrl + '/' + uri
-        },
-        showAuthTable(index, notice) {
-          authFrame.showTable(index, notice)
-          this.burger = false
-        },
-        switchBurger() {
-          this.burger = !this.burger
-        },
-        calculateCartCount() {
-          this.cartCount = Array.isArray(products = Data.get('products')) && products.length
-            ? products.length > 99
-              ? '99'
-              : products.length
-            : null
-        },
-        toUserProfile() {
-          if (!this.user) {
-            this.showAuthTable(0, { type: 'notice', msg: '請先登入' })
-            return
-          }
-          this.redirectTo('user/profile')
-        }
-      }
-    })
+    //     this.calculateCartCount()
+    //     this.getUser()
+    //   },
+    //   methods: {
+    //     getUser() {
+    //       $.ajax({
+    //         method: 'GET',
+    //         dataType: 'JSON',
+    //         url: appUrl + '/api/auth/login-check',
+    //         success: data => this.user = data.id === undefined ? null : data,
+    //         error: data => this.user = null
+    //       })
+    //     },
+    //     redirectTo(uri) {
+    //       window.location = appUrl + '/' + uri
+    //     },
+    //     showAuthTable(index, notice) {
+    //       authFrame.showTable(index, notice)
+    //       this.burger = false
+    //     },
+    //     switchBurger() {
+    //       this.burger = !this.burger
+    //     },
+    //     calculateCartCount() {
+    //       this.cartCount = Array.isArray(products = Data.get('products')) && products.length
+    //         ? products.length > 99
+    //           ? '99'
+    //           : products.length
+    //         : null
+    //     },
+    //     toUserProfile() {
+    //       if (!this.user) {
+    //         this.showAuthTable(0, { type: 'notice', msg: '請先登入' })
+    //         return
+    //       }
+    //       this.redirectTo('user/profile')
+    //     }
+    //   }
+    // })
 
     // let authFrame = new Vue({
     //   el: '#auth-frame',

@@ -2068,13 +2068,26 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
   el: '#header',
   data: {
+    sidebarActive: false,
     user: null,
-    cartCount: 0,
+    cartCount: 99,
     keyWord: ''
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    document.addEventListener('click', this.closeSidebarOnClickOutside);
+  },
   computed: {},
-  methods: {}
+  methods: {
+    toggleSidebar: function toggleSidebar() {
+      this.sidebarActive = !this.sidebarActive;
+    },
+    closeSidebarOnClickOutside: function closeSidebarOnClickOutside(event) {
+      console.log(event.target);
+      if (!this.$el.contains(event.target)) {
+        this.sidebarActive = false;
+      }
+    }
+  }
 });
 
 /***/ }),
