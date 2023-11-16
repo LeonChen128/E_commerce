@@ -2074,16 +2074,30 @@ new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
     keyWord: ''
   },
   mounted: function mounted() {
-    document.addEventListener('click', this.closeSidebarOnClickOutside);
+    var _this = this;
+    this.$nextTick(function () {
+      // 點擊 sidebar 以外區域關閉 sidebar
+      window.addEventListener('click', _this.closeSidebarOnClickOutside);
+    });
   },
   computed: {},
   methods: {
+    logout: function logout() {
+      console.log('do logout');
+    },
+    searchProduct: function searchProduct() {
+      console.log('do search:' + this.keyWord);
+    },
     toggleSidebar: function toggleSidebar() {
       this.sidebarActive = !this.sidebarActive;
     },
     closeSidebarOnClickOutside: function closeSidebarOnClickOutside(event) {
-      console.log(event.target);
-      if (!this.$el.contains(event.target)) {
+      var domHamburger = this.$refs.hamburger;
+      var domSidebar = this.$refs.sidebar;
+      if (domHamburger.contains(event.target)) {
+        return true;
+      }
+      if (!domSidebar.contains(event.target)) {
         this.sidebarActive = false;
       }
     }

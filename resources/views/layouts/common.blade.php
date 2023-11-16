@@ -31,32 +31,32 @@
       <div>
         <div id="navMenu">
           <div>
-            <a href="{{ url('') }}"><i class="fas fa-home"> 首頁</i></a>
+            <a href=""><i class="fas fa-home"> 首頁</i></a>
           </div>
 
           <div>
-            <a href="{{ url('user') }}"><i class="fas fa-user-circle"> 會員中心</i></a>
+            <a href="/user"><i class="fas fa-user-circle"> 會員中心</i></a>
           </div>
 
           <div>
-            <a href="{{ url('cart') }}"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
+            <a href="/cart"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
           </div>
 
-          <div v-if="user">
+          <div v-cloak v-show="user" @click="logout">
             <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
           </div>
 
-          <div v-if="user === null" @click="showAuthTable(0)">
-            <a href="javascript:void(0)"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
+          <div v-cloak v-show="user === null">
+            <a href="/login"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
           </div>
         </div>
 
         <div id="navSearch">
-          <div id="hamburger" @click="toggleSidebar">
+          <div id="hamburger" @click="toggleSidebar" ref="hamburger">
             <div><span></span></div>
           </div>
 
-          <form @submit.prevent="redirectTo('product?keyWord=' + keyWord)">
+          <form @submit.prevent="searchProduct">
             <input type="text" v-model="keyWord" placeholder="找商品...">
             <button><i class="fas fa-search"></i></button>
           </form>
@@ -64,29 +64,29 @@
       </div>
     </div>
 
-    <div id="sidebar" :class="{ 'active': sidebarActive }">
+    <div id="sidebar" :class="{ 'active': sidebarActive }" ref="sidebar">
       <div class="cross" @click="toggleSidebar">
         <i class="fas fa-times"></i>
       </div>
       
       <div>
-        <a href="{{ url('') }}"><i class="fas fa-home"> 首頁</i></a>
+        <a href=""><i class="fas fa-home"> 首頁</i></a>
       </div>
 
       <div>
-        <a href="{{ url('user') }}"><i class="fas fa-user-circle"> 會員中心</i></a>
+        <a href="/user"><i class="fas fa-user-circle"> 會員中心</i></a>
       </div>
 
       <div>
-        <a href="{{ url('cart') }}"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
+        <a href="/cart"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
       </div>
 
-      <div v-if="user">
+      <div v-show="user" @click="logout">
         <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
       </div>
 
-      <div v-if="user === null" @click="showAuthTable(0)">
-        <a href="javascript:void(0)"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
+      <div v-show="user === null">
+        <a href="/login"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
       </div>
     </div>
   </header>
@@ -295,7 +295,7 @@
     </div>
   </footer> --}}
 
-  <script src="{{ asset('js/app.js') }}"></script>
+  <script type="module" src="{{ asset('js/app.js') }}"></script>
   <script type="text/javascript">
     const appUrl = '{{ config("app.url") }}'
 

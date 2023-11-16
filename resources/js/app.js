@@ -11,18 +11,33 @@ new Vue({
     keyWord: ''
   },
   mounted() {
-    document.addEventListener('click', this.closeSidebarOnClickOutside);
+    this.$nextTick(() => {
+      // 點擊 sidebar 以外區域關閉 sidebar
+      window.addEventListener('click', this.closeSidebarOnClickOutside);
+    })
   },
   computed: {
 
   },
   methods: {
+    logout() {
+      console.log('do logout')
+    },
+    searchProduct() {
+      console.log('do search:' + this.keyWord)
+    },
     toggleSidebar() {
       this.sidebarActive = !this.sidebarActive
     },
     closeSidebarOnClickOutside(event) {
-      console.log(event.target)
-      if (!this.$el.contains(event.target)) {
+      const domHamburger = this.$refs.hamburger
+      const domSidebar = this.$refs.sidebar
+
+      if (domHamburger.contains(event.target)) {
+        return true
+      }
+
+      if (!domSidebar.contains(event.target)) {
         this.sidebarActive = false
       }
     }

@@ -24,6 +24,10 @@ header #sidebar > div:not(.cross) > a, header #navbar > div #navSearch > form > 
   transform: translateY(-50%);
 }
 
+[v-cloak] {
+  display: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -175,7 +179,7 @@ header #sidebar {
   z-index: 81;
   display: flex;
   flex-direction: column;
-  transition: left 0.3s;
+  transition: left 0.3s ease-in-out;
 }
 header #sidebar.active {
   left: 0%;
