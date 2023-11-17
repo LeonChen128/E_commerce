@@ -1,0 +1,14 @@
+@import "../_/core";
+
+#productIndex {
+  border: 2px solid red;
+  
+  > a {
+    display: block;
+    border: 1px solid blue;
+
+    img {
+      max-width: 300px;
+    }
+  }
+}

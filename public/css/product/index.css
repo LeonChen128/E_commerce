@@ -1,0 +1,17 @@
+:root {
+  --background-color: #f4f7f6;
+  --header-background-color: #24A09A;
+  --header-height-1: 60px;
+  --header-height-2: 110px;
+}
+
+#productIndex {
+  border: 2px solid red;
+}
+#productIndex > a {
+  display: block;
+  border: 1px solid blue;
+}
+#productIndex > a img {
+  max-width: 300px;
+}

@@ -8,12 +8,12 @@
   <meta property="og:description" content="這是個電商網站作品" />
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/common.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/header.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/footer.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/vue/component/loading.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/vue/component/alert.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('asset/icon/fontawesome/css/all.css') }}">
+  {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/common.css') }}"> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/header.css') }}"> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/layouts/footer.css') }}"> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/vue/component/loading.css') }}"> --}}
+  {{-- <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/vue/component/alert.css') }}"> --}}
   <script type="text/javascript" src="{{ asset('asset/js/vue/vue.js') }}"></script>
   <script type="text/javascript" src="{{ asset('asset/js/vue/component/loading.js') }}"></script>
   <script type="text/javascript" src="{{ asset('asset/js/vue/component/alert.js') }}"></script>
@@ -31,7 +31,7 @@
       <div>
         <div id="navMenu">
           <div>
-            <a href=""><i class="fas fa-home"> 首頁</i></a>
+            <a href="/"><i class="fas fa-home"> 首頁</i></a>
           </div>
 
           <div>
@@ -70,7 +70,7 @@
       </div>
       
       <div>
-        <a href=""><i class="fas fa-home"> 首頁</i></a>
+        <a href="/"><i class="fas fa-home"> 首頁</i></a>
       </div>
 
       <div>
@@ -90,6 +90,10 @@
       </div>
     </div>
   </header>
+
+  <div id="container">
+    @yield('content')
+  </div>
 
   {{-- <header id="header">
     <div id="header-frame">
@@ -255,10 +259,6 @@
     </template>
   </div>
 
-  <div id="container">
-    @yield('content')
-  </div>
-
   <mission-loading id="loading" v-if="show"></mission-loading>
   
   <div id="alert" v-if="msg && type">
@@ -297,6 +297,10 @@
 
   <script type="module" src="{{ asset('js/app.js') }}"></script>
   <script type="text/javascript">
+    const url = (str = '') => {
+      return @json(url('')) + '/' + (str.startsWith('/') ? str.substring(1) : str);
+    }
+
     const appUrl = '{{ config("app.url") }}'
 
     // let header = new Vue({
