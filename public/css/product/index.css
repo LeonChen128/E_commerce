@@ -1,12 +1,3 @@
-:root {
-  --background-color: #f4f7f6;
-  --header-background-color: #24A09A;
-  --header-height-1: 60px;
-  --header-height-2: 110px;
-  --product-title-color: #1127a2;
-  --product-price-color: #f50e5c;
-}
-
 #productIndex {
   display: flex;
   flex-wrap: wrap;
@@ -21,12 +12,21 @@
 }
 #productIndex > .product-unit > div {
   height: 400px;
-  padding: 16px;
+  padding: 4px 16px;
   position: relative;
   background-color: white;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px gray;
+  right: 0px;
+  bottom: 0px;
+}
+#productIndex > .product-unit > div:hover {
+  box-shadow: 6px 6px 8px gray;
+  right: 4px;
+  bottom: 4px;
 }
 #productIndex > .product-unit > div > .product-title {
-  text-align: center;
   color: var(--product-title-color);
 }
 #productIndex > .product-unit > div > img {
