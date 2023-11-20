@@ -3,6 +3,8 @@
   --header-background-color: #24A09A;
   --header-height-1: 60px;
   --header-height-2: 110px;
+  --product-title-color: #1127a2;
+  --product-price-color: #f50e5c;
 }
 
 #productIndex {
@@ -10,38 +12,51 @@
   flex-wrap: wrap;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 0px;
-  border: 2px solid red;
+  padding: 50px 0px;
 }
 #productIndex > .product-unit {
-  padding: 0 6px;
+  padding: 6px 6px;
   text-decoration: none;
-  border: 1px solid orange;
   flex-basis: 20%;
 }
 #productIndex > .product-unit > div {
   height: 400px;
   padding: 16px;
-  border: 1px solid yellow;
+  position: relative;
   background-color: white;
 }
 #productIndex > .product-unit > div > .product-title {
   text-align: center;
-  color: #1127a2;
-  border: 1px solid red;
+  color: var(--product-title-color);
 }
-#productIndex > .product-unit > div img {
+#productIndex > .product-unit > div > img {
   width: 100%;
-  max-height: 100px;
+  border-radius: 4px;
+  height: 208px;
 }
 #productIndex > .product-unit > div > .product-desc {
-  border: 1px solid red;
+  position: absolute;
+  width: calc(100% - 32px);
+  height: 56px;
+  bottom: 48px;
+  font-size: 13px;
+  color: gray;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 #productIndex > .product-unit > div > .product-price {
-  border: 1px solid red;
+  position: absolute;
+  width: calc(100% - 32px);
+  bottom: 0px;
+  font-size: 14px;
+  color: var(--product-price-color);
 }
 #productIndex #noProducts {
-  max-width: 576px;
+  width: 576px;
   height: 40px;
   line-height: 40px;
   margin: 0 auto;
