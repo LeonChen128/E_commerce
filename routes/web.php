@@ -28,10 +28,6 @@ Route::middleware('web')->prefix('api')->namespace('API')->group(function() {
         Route::post('create', 'AuthController@create');
     });
 
-    Route::prefix('product')->group(function() {
-        Route::get('', 'ProductController@index');
-    });
-
     Route::prefix('order')->group(function() {
         Route::post('', 'OrderController@create');
         Route::put('{id}/cancel', 'OrderController@cancel');

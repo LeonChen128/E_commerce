@@ -2,46 +2,39 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Resources\ProductResource;
+use App\Model\Product;
 use Illuminate\Http\Request;
-use \App\Model\Product;
 
-class ProductController extends \App\Http\Controllers\Controller
+class ProductController extends _APIController
 {
-    public function __construct(Request $request)
-    {
-        
-    }
-
+    /**
+     * 取得商品列表
+     * 
+     * @api {get} /api/product 取得商品列表
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
-        $params = $this->validate($request, [
-            'keyWord' => 'string|nullable|max:190',
-            'offset' => 'integer|min:0'
+        $params = $this->validatorTransfer($request, [
+            'key_word|關鍵字' => 'string|max:190',
+            'offset|位移' => 'integer|min:0'
         ]);
 
-        $build = isset($params['keyWord']) && $params['keyWord']
-            ? Product::where('title', 'like', '%' . $params['keyWord'] . '%') : new Product();
-        
-        $filterCount = $build->count();
-        
-        $build = isset($params['offset']) && $params['offset']
-            ? $build->skip($params['offset']) : $build;
+        $products = Product::when(isset($params['key_word']), function ($query) use ($params, &$likes) {
+            $likes = ['title', 'like', '%' . $params['key_word'] . '%'];
+            $query->where(...$likes);
+        })->when(isset($params['offset']), function ($query) use ($params) {
+            $query->skip($params['offset']);
+        })->take(10)->orderByDesc('updated_at')->get();
+
+        $matchCount = (isset($likes) ? Product::where(...$likes) : Product::query())->count();
 
         return response()->json([
-            'products' => $products = $build->take(10)->orderByDesc('updated_at')->get()->map(function($product) {
-                return [
-                    'id' => $product->id,
-                    'user_id' => $product->user_id,
-                    'title' => $product->title,
-                    'description' => $product->description,
-                    'category' => $product->category,
-                    'price' => $product->price,
-                    'img' => config('app.user_root') . '/' . $product->user_id . '/' . $product->img,
-                    'date' => $product->updated_at->format('Y/m/d h:i:s'),
-                ];
-            }),
-            'offset' => $offect = isset($params['offset']) && $params['offset'] ? ($params['offset'] + $products->count()) : $products->count(),
-            'more' => ($offect >= $filterCount) ? false : true
+            'products' => ProductResource::collection($products)->resolve(),
+            'offset' => $offect = ($params['offset'] ?? 0) + $products->count(),
+            'more' => $offect < $matchCount,
         ]);
     }
 }

@@ -51,7 +51,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof \Illuminate\Validation\ValidationException) {
-            return response()->json([ 'message' => '傳遞參數有誤' ], 400);
+            $errors = $exception->errors();
+            $firstError = reset($errors);
+
+            return response()->json(['message' => $firstError[0] ?? '請求參數有誤'], 400);
         }
 
         return parent::render($request, $exception);
