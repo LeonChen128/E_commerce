@@ -57,6 +57,12 @@ class Handler extends ExceptionHandler
             return response()->json(['message' => $firstError[0] ?? '請求參數有誤'], 400);
         }
 
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            if (strpos($request->route()->uri, 'api') !== false) {
+                return response()->json(['message' => 'API 資源找不到'], 404);
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }

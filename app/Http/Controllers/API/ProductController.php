@@ -37,4 +37,18 @@ class ProductController extends _APIController
             'more' => $offect < $matchCount,
         ]);
     }
+
+    /**
+     * 取得某商品詳情
+     * 
+     * @api {get} /api/product/{id} 取得某商品詳情
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id, Request $request)
+    {
+        $product = Product::findOrFail($id);
+
+        return response()->json((new ProductResource($product))->resolve());
+    }
 }

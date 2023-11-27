@@ -11,6 +11,11 @@ class Product extends Model
     protected $guarded = [];
     protected $hidden = ['updated_at', 'created_at'];
 
+    public function getImageUrl()
+    {
+        return config('app.user_root') . '/' . $this->user_id . '/' . $this->img;
+    }
+
     public function orderProducts()
     {
         return $this->hasMany('App\Model\OrderProduct');

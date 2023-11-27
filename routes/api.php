@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('product')->group(function () {
     Route::get('', [App\Http\Controllers\API\ProductController::class, 'index']);
+    Route::get('{id}', [App\Http\Controllers\API\ProductController::class, 'show']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
