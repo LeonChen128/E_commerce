@@ -114,6 +114,150 @@ class Fake extends Command
                 'img' => 'macbook_pro.jpg',
                 'total' => 1
             ],
+            [
+                'user_id' => 1,
+                'title' => '花紋抱枕',
+                'description' => '這是花紋抱枕描述....',
+                'category' => 'furniture',
+                'price' => '1099',
+                'img' => 'pillow.jpg',
+                'total' => 12
+            ],
+            [
+                'user_id' => 1,
+                'title' => '超好吃櫻桃 (200g)',
+                'description' => '這是超好吃櫻桃描述....',
+                'category' => 'food',
+                'price' => '399',
+                'img' => 'cherry.jpg',
+                'total' => 100
+            ],
+            [
+                'user_id' => 1,
+                'title' => '馬克杯 (附蓋子)',
+                'description' => '這是馬克杯描述....',
+                'category' => 'cup',
+                'price' => '699',
+                'img' => 'cup.jpg',
+                'total' => 56
+            ],
+            [
+                'user_id' => 1,
+                'title' => '超好吃蘋果 (200g)',
+                'description' => '這是超好吃蘋果描述....',
+                'category' => 'food',
+                'price' => '299',
+                'img' => 'apple.jpg',
+                'total' => 234
+            ],
+            [
+                'user_id' => 1,
+                'title' => '超好吃草莓 (200g)',
+                'description' => '這是超好吃草莓描述....',
+                'category' => 'food',
+                'price' => '399',
+                'img' => 'strawberry.jpg',
+                'total' => 333
+            ],
+            [
+                'user_id' => 1,
+                'title' => '復古鬧鐘',
+                'description' => '這是復古鬧鐘描述....',
+                'category' => 'furniture',
+                'price' => '799',
+                'img' => 'clock.jpg',
+                'total' => 432
+            ],
+            [
+                'user_id' => 1,
+                'title' => '歐洲風沙發',
+                'description' => '這是歐洲風格沙發描述....',
+                'category' => 'furniture',
+                'price' => '17999',
+                'img' => 'sofa.jpg',
+                'total' => 23
+            ],
+            [
+                'user_id' => 1,
+                'title' => '床頭櫃',
+                'description' => '這是床頭櫃描述....',
+                'category' => 'furniture',
+                'price' => '3999',
+                'img' => 'cabinet.jpg',
+                'total' => 23
+            ],
+            [
+                'user_id' => 1,
+                'title' => '麂皮貴妃椅',
+                'description' => '這是麂皮貴妃椅描述....',
+                'category' => 'furniture',
+                'price' => '6999',
+                'img' => 'chair.jpg',
+                'total' => 134
+            ],
+            [
+                'user_id' => 1,
+                'title' => '木製垃圾桶',
+                'description' => '這是木製垃圾桶描述....',
+                'category' => 'furniture',
+                'price' => '799',
+                'img' => 'garbage_can.jpg',
+                'total' => 222
+            ],
+            [
+                'user_id' => 1,
+                'title' => '吹風機',
+                'description' => '這是吹風機描述....',
+                'category' => 'furniture',
+                'price' => '1532',
+                'img' => 'hair_dryer.jpg',
+                'total' => 222
+            ],
+            [
+                'user_id' => 1,
+                'title' => '機械式手錶',
+                'description' => '這是機械式手錶描述....',
+                'category' => 'fitting',
+                'price' => '8999',
+                'img' => 'watch.jpg',
+                'total' => 321
+            ],
+            [
+                'user_id' => 1,
+                'title' => '領帶 (多色系)',
+                'description' => '這是領帶描述....',
+                'category' => 'fitting',
+                'price' => '999',
+                'img' => 'tie.jpg',
+                'total' => 1421
+            ],
+            [
+                'user_id' => 1,
+                'title' => '復古眼鏡',
+                'description' => '這是復古眼鏡描述....',
+                'category' => 'fitting',
+                'price' => '1324',
+                'img' => 'glass.jpg',
+                'total' => 1241
+            ],
+            [
+                'user_id' => 1,
+                'title' => '皮製保暖手套',
+                'description' => '這是皮製保暖手套描述....',
+                'category' => 'fitting',
+                'price' => '1065',
+                'img' => 'glove.jpg',
+                'total' => 3212
+            ],
+            [
+                'user_id' => 1,
+                'title' => 'NIKE 棒球帽',
+                'description' => '這是NIKE 棒球帽描述....',
+                'category' => 'fitting',
+                'price' => '999',
+                'img' => 'cap.jpg',
+                'total' => 123
+            ],
         ]);
 
         Order::insert([
