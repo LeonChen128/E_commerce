@@ -17,7 +17,7 @@
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.64.1",
     "sass-loader": "^12.6.0",
-    "vue": "^2.7.14",
+    "vue": "^3.3.9",
     "vue-loader": "^16.8.3",
     "vue-template-compiler": "^2.7.14"
   },
@@ -37,5 +37,8 @@
   "bugs": {
     "url": "https://github.com/LeonChen128/E_commerce/issues"
   },
-  "homepage": "https://github.com/LeonChen128/E_commerce#readme"
+  "homepage": "https://github.com/LeonChen128/E_commerce#readme",
+  "dependencies": {
+    "vuex": "^4.1.0"
+  }
 }

@@ -1,14 +1,15 @@
-import Vue from 'vue';
+import { createApp, ref } from 'vue';
 
-new Vue({
-  el: '#productIndex',
-  data: {
-    params: {
-      keyWord: null,
-      offset: 0,
-    },
-    products: [],
-    more: false
+const product = createApp({
+  data() {
+    return {
+      params: {
+        keyWord: null,
+        offset: 0,
+      },
+      products: [],
+      more: false
+    }
   },
   mounted() {
 
@@ -32,4 +33,4 @@ new Vue({
         });
     }
   }
-})
+}).mount('#productIndex')
