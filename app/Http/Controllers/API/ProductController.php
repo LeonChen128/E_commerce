@@ -18,12 +18,12 @@ class ProductController extends _APIController
     public function index(Request $request)
     {
         $params = $this->validatorTransfer($request, [
-            'key_word|關鍵字' => 'string|max:190',
+            'keyword|關鍵字' => 'string|max:190',
             'offset|位移' => 'integer|min:0'
         ]);
 
-        $products = Product::when(isset($params['key_word']), function ($query) use ($params, &$likes) {
-            $likes = ['title', 'like', '%' . $params['key_word'] . '%'];
+        $products = Product::when(isset($params['keyword']), function ($query) use ($params, &$likes) {
+            $likes = ['title', 'like', '%' . $params['keyword'] . '%'];
             $query->where(...$likes);
         })->when(isset($params['offset']), function ($query) use ($params) {
             $query->skip($params['offset']);

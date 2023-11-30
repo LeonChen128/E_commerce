@@ -21,78 +21,22 @@
   <script type="text/javascript" src="{{ asset('asset/js/core.js') }}"></script>
   
   <link rel="stylesheet" type="text/css" href="@yield('css')">
-  <script type="text/javascript" src="@yield('js')"></script>
   <title>@yield('title')</title>
 </head>
 <body>
+  <div id="app">
+    <header-component
+      ref="header"
+      :carts="cartCount"
+      :sidebar="sidebarActive"
+      :keyword="params.keyword"
+      :user="user"
+      @toggle="sidebarActive = !sidebarActive"
+      @logout="logout"></header-component>
 
-  <header id="header">
-    <div id="navbar">
-      <div>
-        <div id="navMenu">
-          <div>
-            <a href="/"><i class="fas fa-home"> 首頁</i></a>
-          </div>
-
-          <div>
-            <a href="/user"><i class="fas fa-user-circle"> 會員中心</i></a>
-          </div>
-
-          <div>
-            <a href="/cart"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
-          </div>
-
-          <div v-cloak v-show="user" @click="logout">
-            <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
-          </div>
-
-          <div v-cloak v-show="user === null">
-            <a href="/login"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
-          </div>
-        </div>
-
-        <div id="navSearch">
-          <div id="hamburger" @click="toggleSidebar" ref="hamburger">
-            <div><span></span></div>
-          </div>
-
-          <form @submit.prevent="searchProduct">
-            <input type="text" v-model="keyWord" placeholder="找商品...">
-            <button><i class="fas fa-search"></i></button>
-          </form>
-        </div>
-      </div>
+    <div id="container">
+      @yield('content')
     </div>
-
-    <div id="sidebar" :class="{ 'active': sidebarActive }" ref="sidebar">
-      <div class="cross" @click="toggleSidebar">
-        <i class="fas fa-times"></i>
-      </div>
-      
-      <div>
-        <a href="/"><i class="fas fa-home"> 首頁</i></a>
-      </div>
-
-      <div>
-        <a href="/user"><i class="fas fa-user-circle"> 會員中心</i></a>
-      </div>
-
-      <div>
-        <a href="/cart"><i class="fas fa-shopping-cart" :class="{ 'count-alert': cartCount > 0 }" :count="cartCount"> 購物車</i></a>
-      </div>
-
-      <div v-show="user" @click="logout">
-        <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
-      </div>
-
-      <div v-show="user === null">
-        <a href="/login"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
-      </div>
-    </div>
-  </header>
-
-  <div id="container">
-    @yield('content')
   </div>
 
   {{-- <header id="header">
@@ -295,7 +239,6 @@
     </div>
   </footer> --}}
 
-  <script type="module" src="{{ asset('js/app.js') }}"></script>
   <script type="text/javascript">
     const url = (str = '') => {
       return @json(url('')) + '/' + (str.startsWith('/') ? str.substring(1) : str);

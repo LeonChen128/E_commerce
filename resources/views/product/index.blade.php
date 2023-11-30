@@ -18,16 +18,16 @@
   </template>
 
   <template v-else>
-    <div id="noProducts"><i>@{{ this.params.keyWord ? '查無相關關鍵字 ' + this.params.keyWord : '尚無資料...' }}</i></div>
+    <div id="noProducts"><span>@{{ this.params.keyword ? '查無相關商品 「' + this.params.keyword + '」' : '尚無資料...' }}</span></div>
   </template>
 
-  <div id="load-products">
-    <template v-if="more">
-      <div id="more-product" @click="load()">
+  <template v-if="more">
+    <div id="loadProducts">
+      <div @click="load()">
         <span>更多商品...</span>
       </div>
-    </template>
-  </div>
+    </div>
+  </template>
 </div>
 
 @endsection

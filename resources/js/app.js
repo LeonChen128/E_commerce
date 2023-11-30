@@ -1,44 +1,107 @@
 require('./bootstrap');
 
-import { createApp, ref } from 'vue';
-import Vuex from 'vuex';
-
-const app = createApp({
-  data() {
-    return {
-      sidebarActive: false,
-      user: null,
-      cartCount: 99,
-      keyWord: ''
-    };
-  },
-  mounted() {
-    this.$nextTick(() => {
-      // 點擊 sidebar 以外區域關閉 sidebar
-      window.addEventListener('click', this.closeSidebarOnClickOutside);
-    });
+const header_params = {
+  data: {
+    cartCount: 0,
+    sidebarActive: false,
+    keyword: '',
+    user: null
   },
   methods: {
-    logout() {
-      console.log('do logout');
-    },
-    searchProduct() {
-      console.log('do search:' + this.keyWord);
-    },
-    toggleSidebar() {
-      this.sidebarActive = !this.sidebarActive;
-    },
-    closeSidebarOnClickOutside(event) {
-      const domHamburger = this.$refs.hamburger;
-      const domSidebar = this.$refs.sidebar;
+    init: () => {
 
-      if (domHamburger.contains(event.target)) {
-        return true;
-      }
-
-      if (!domSidebar.contains(event.target)) {
-        this.sidebarActive = false;
-      }
+    },
+    logout: () => {
+      console.log('doLogout')
     }
   }
-}).mount('#header')
+}
+
+const header = defineComponent({
+  props: {
+    carts: { type: Number, default: 0 },
+    sidebar: { type: Boolean, default: false },
+    keyword: { type: String, default: '' },
+    user: { type: Object, default: null }
+  },
+  data() {
+    return {
+      input: this.keyword
+    }
+  },
+  methods: {
+    searchProduct() {
+      window.location.href = this.input.trim() === ''
+        ? '/product'
+        : '/product?keyword=' + this.input
+    }
+  },
+  template: `
+    <header id="header">
+      <div id="navbar">
+        <div>
+          <div id="navMenu">
+            <div>
+              <a href="/"><i class="fas fa-home"> 首頁</i></a>
+            </div>
+
+            <div>
+              <a href="/user"><i class="fas fa-user-circle"> 會員中心</i></a>
+            </div>
+
+            <div>
+              <a href="/cart"><i class="fas fa-shopping-cart" :class="{ 'count-alert': carts > 0 }" :count="carts"> 購物車</i></a>
+            </div>
+
+            <div v-cloak v-show="user" @click="$emit('logout')">
+              <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
+            </div>
+
+            <div v-cloak v-show="user === null">
+              <a href="/login"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
+            </div>
+          </div>
+
+          <div id="navSearch">
+            <div id="hamburger" @click="$emit('toggle')" ref="hamburger">
+              <div><span></span></div>
+            </div>
+
+            <form @submit.prevent="searchProduct">
+              <input type="text" v-model="input" placeholder="找商品...">
+              <button><i class="fas fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="sidebar" :class="{ 'active': sidebar }" ref="sidebar">
+        <div class="cross" @click="$emit('toggle')">
+          <i class="fas fa-times"></i>
+        </div>
+        
+        <div>
+          <a href="/"><i class="fas fa-home"> 首頁</i></a>
+        </div>
+
+        <div>
+          <a href="/user"><i class="fas fa-user-circle"> 會員中心</i></a>
+        </div>
+
+        <div>
+          <a href="/cart"><i class="fas fa-shopping-cart" :class="{ 'count-alert': carts > 0 }" :count="carts"> 購物車</i></a>
+        </div>
+
+        <div v-show="user" @click="$emit('logout')">
+          <a href="javascript:void(0)"><i class="fas fa-sign-out-alt"> 登出</i></a>
+        </div>
+
+        <div v-show="user === null">
+          <a href="/login"><i class="fas fa-sign-in-alt"> 登入 / 註冊</i></a>
+        </div>
+      </div>
+    </header>
+  `
+})
+
+export { header, header_params };

@@ -35,27 +35,6 @@
     animation: move .3s;
 }
 
-/*.cross {
-    position: absolute;
-    font-size: 32px;
-    color: #d21b1b;
-    right: 6px;
-    top: 0px;
-}*/
-
-/*.cross > i {
-    text-align: center;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    cursor: pointer;
-    border-radius: 12px;
-}*/
-
-/*.cross > i:hover {
-    background: #f9bdbd;
-}*/
-
 .input-frame {
     width: 80%;
     margin: 20px auto;
