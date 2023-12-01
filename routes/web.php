@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('', [App\Http\Controllers\F2E\ProductController::class, 'index']);
 
 Route::prefix('product')->group(function() {
-    Route::get('', 'ProductController@index');
-    Route::get('detail/{id}', 'ProductController@detail');
+    Route::get('', [App\Http\Controllers\F2E\ProductController::class, 'index']);
+    Route::get('detail/{id}', [App\Http\Controllers\F2E\ProductController::class, 'detail']);
 });
 
 Route::prefix('cart')->group(function() {

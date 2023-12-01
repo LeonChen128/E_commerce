@@ -17,6 +17,7 @@ class ProductResource extends JsonResource
             'category' => $this->category,
             'price' => $this->price,
             'img' => $this->getImageUrl(),
+            'total' => $this->total,
             'date' => $this->updated_at->format('Y/m/d h:i:s'),
         ];
     }

@@ -29,7 +29,6 @@
       ref="header"
       :carts="cartCount"
       :sidebar="sidebarActive"
-      :keyword="params.keyword"
       :user="user"
       @toggle="sidebarActive = !sidebarActive"
       @logout="logout"></header-component>

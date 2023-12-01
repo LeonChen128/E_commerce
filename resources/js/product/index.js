@@ -1,13 +1,13 @@
-import { getParameterByName } from '../core';
 import { header, header_params } from '../app';
+import { getParameterByName } from '../core';
 
 const app = createApp({
   data() { 
     return {
       ...header_params.data,
       params: {
-        keyword: getParameterByName('keyword'),
-        offset: 0,
+        keyword: '',
+        offset: 0
       },
       products: [],
       more: false,
@@ -19,14 +19,14 @@ const app = createApp({
       window.addEventListener('click', this.closeSidebarOnClickOutside);
     });
 
-    console.log(getParameterByName('keyword'))
+    this.params.keyword = getParameterByName('keyword') ?? '';
 
-    this.cartCount = 12
+    // this.cartCount = 12
     // this.user = {}
+    this.load()
   },
   created() {
-    // this.params.keyword = header.keyword
-    this.load()
+
   },
   methods: {
     ...header_params.methods,
@@ -43,8 +43,15 @@ const app = createApp({
       }
     },
     load() {
+      let params = {}
+      if (this.params.keyword) {
+        params.keyword = this.params.keyword
+      }
+
+      params.offset = this.params.offset
+
       axios.get(url('api/product'), {
-        params: this.params
+        params: params
       })
         .then(({ data }) => {
           this.products = this.products.concat(data.products)

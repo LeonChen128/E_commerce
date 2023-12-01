@@ -1,0 +1,86 @@
+#productDetail {
+  border-radius: 4px;
+  background: white;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 20px;
+  display: flex;
+}
+#productDetail > div:nth-child(1) {
+  flex: 5;
+  padding-right: 10px;
+  max-height: 400px;
+  overflow: hidden;
+}
+#productDetail > div:nth-child(1) > img {
+  width: 100%;
+}
+#productDetail > div:nth-child(2) {
+  flex: 7;
+  padding-left: 10px;
+}
+#productDetail > div:nth-child(2) > * {
+  margin-bottom: 12px;
+}
+#productDetail > div:nth-child(2) #title {
+  font-size: 24px;
+}
+#productDetail > div:nth-child(2) #desc {
+  font-size: 14px;
+  color: #0d195c;
+}
+#productDetail > div:nth-child(2) #price {
+  background: #f4f7f6;
+  padding: 12px 20px;
+  font-size: 24px;
+  color: #f50e5c;
+}
+#productDetail > div:nth-child(2) #purchase {
+  margin-top: 72px;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame {
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  margin-bottom: 16px;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar {
+  position: relative;
+  top: -2px;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar input, #productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar button {
+  height: 24px;
+  background: white;
+  border: 1px solid #cacaca;
+  text-align: center;
+  padding: 0px;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar button {
+  width: 24px;
+  cursor: pointer;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar input {
+  width: 40px;
+  -moz-appearance: textfield;
+  outline: none;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > span:nth-child(3) {
+  font-size: 14px;
+  color: gray;
+  margin-left: 12px;
+}
+#productDetail > div:nth-child(2) #purchase > form > button {
+  display: block;
+  width: 200px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 4px;
+  border: 1px solid #f50e5c;
+  background: #fbd4e1;
+}
+#productDetail > div:nth-child(2) #purchase > form > button:hover {
+  background: #f50e5c;
+  color: white;
+}

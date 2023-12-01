@@ -1,10 +1,11 @@
 require('./bootstrap');
 
+import { getParameterByName } from './core';
+
 const header_params = {
   data: {
     cartCount: 0,
     sidebarActive: false,
-    keyword: '',
     user: null
   },
   methods: {
@@ -21,19 +22,18 @@ const header = defineComponent({
   props: {
     carts: { type: Number, default: 0 },
     sidebar: { type: Boolean, default: false },
-    keyword: { type: String, default: '' },
     user: { type: Object, default: null }
   },
   data() {
     return {
-      input: this.keyword
+      keyword: getParameterByName('keyword')
     }
   },
   methods: {
     searchProduct() {
-      window.location.href = this.input.trim() === ''
+      window.location.href = this.keyword.trim() === ''
         ? '/product'
-        : '/product?keyword=' + this.input
+        : '/product?keyword=' + this.keyword
     }
   },
   template: `
@@ -68,7 +68,7 @@ const header = defineComponent({
             </div>
 
             <form @submit.prevent="searchProduct">
-              <input type="text" v-model="input" placeholder="找商品...">
+              <input type="text" v-model="keyword" placeholder="找商品...">
               <button><i class="fas fa-search"></i></button>
             </form>
           </div>

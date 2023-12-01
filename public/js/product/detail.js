@@ -19093,122 +19093,6 @@ function getParameterByName(name) {
 
 /***/ }),
 
-/***/ "./resources/js/product/index.js":
-/*!***************************************!*\
-  !*** ./resources/js/product/index.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core */ "./resources/js/core.js");
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-
-
-var app = createApp({
-  data: function data() {
-    return _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_0__.header_params.data), {}, {
-      params: {
-        keyword: '',
-        offset: 0
-      },
-      products: [],
-      more: false
-    });
-  },
-  mounted: function mounted() {
-    var _this = this,
-      _getParameterByName;
-    this.$nextTick(function () {
-      // 點擊 sidebar 以外區域關閉 sidebar
-      window.addEventListener('click', _this.closeSidebarOnClickOutside);
-    });
-    this.params.keyword = (_getParameterByName = (0,_core__WEBPACK_IMPORTED_MODULE_1__.getParameterByName)('keyword')) !== null && _getParameterByName !== void 0 ? _getParameterByName : '';
-
-    // this.cartCount = 12
-    // this.user = {}
-    this.load();
-  },
-  created: function created() {},
-  methods: _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_0__.header_params.methods), {}, {
-    closeSidebarOnClickOutside: function closeSidebarOnClickOutside(event) {
-      var domHamburger = this.$refs.header.$refs.hamburger;
-      var domSidebar = this.$refs.header.$refs.sidebar;
-      if (domHamburger.contains(event.target)) {
-        return true;
-      }
-      if (!domSidebar.contains(event.target)) {
-        this.sidebarActive = false;
-      }
-    },
-    load: function load() {
-      var _this2 = this;
-      var params = {};
-      if (this.params.keyword) {
-        params.keyword = this.params.keyword;
-      }
-      params.offset = this.params.offset;
-      axios.get(url('api/product'), {
-        params: params
-      }).then(function (_ref) {
-        var data = _ref.data;
-        _this2.products = _this2.products.concat(data.products);
-        _this2.params.offset = data.offset;
-        _this2.more = data.more;
-      })["catch"](function (error) {
-        console.error(error);
-      });
-    }
-  })
-}).component('header-component', _app__WEBPACK_IMPORTED_MODULE_0__.header).mount('#app');
-
-/***/ }),
-
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/sass/product/index.scss":
-/*!*******************************************!*\
-  !*** ./resources/sass/product/index.scss ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/sass/product/detail.scss":
-/*!********************************************!*\
-  !*** ./resources/sass/product/detail.scss ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -19678,42 +19562,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -19754,72 +19603,133 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/js/product/index": 0,
-/******/ 			"css/product/detail": 0,
-/******/ 			"css/product/index": 0,
-/******/ 			"css/app": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkecommerce"] = self["webpackChunkecommerce"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/product/detail","css/product/index","css/app"], () => (__webpack_require__("./resources/js/product/index.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/product/detail","css/product/index","css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/product/detail","css/product/index","css/app"], () => (__webpack_require__("./resources/sass/product/index.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/product/detail","css/product/index","css/app"], () => (__webpack_require__("./resources/sass/product/detail.scss")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!****************************************!*\
+  !*** ./resources/js/product/detail.js ***!
+  \****************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./resources/js/core.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+var app = createApp({
+  data: function data() {
+    return _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_1__.header_params.data), {}, {
+      product: null
+    });
+  },
+  mounted: function mounted() {
+    var urls = location.href.split('/');
+    var id = urls[urls.length - 1];
+    this.getDetail(id);
+  },
+  methods: _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_1__.header_params.methods), {}, {
+    getDetail: function getDetail(id) {
+      var _this = this;
+      axios.get(url('api/product/' + id)).then(function (_ref) {
+        var data = _ref.data;
+        _this.product = data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    }
+  })
+}).component('header-component', _app__WEBPACK_IMPORTED_MODULE_1__.header).mount('#app');
+
+// const app = createApp({
+//   data: {
+//     product: null,
+//     count: 1,
+//     rest: 0
+//   },
+//   created() {
+//     this.product = {
+//       id: '{{ $product->id }}',
+//       userId: '{{ $product->user_id }}',
+//       title: '{{ $product->title }}',
+//       description: '{{ $product->description }}',
+//       category: '{{ $product->category }}',
+//       price: Number('{{ $product->price }}'),
+//       img: '{{ $product->img }}',
+//       total: Number('{{ $product->total }}'),
+//     }
+
+//     this.rest = this.product.total
+
+//     Array.isArray(products = Data.get('products')) && products.forEach(product => {
+//       product.id == this.product.id && (this.rest -= product.count)
+//     })
+
+//     this.product.total == 0 && alert.fail('目前已無庫存！')
+//   },
+//   mounted() {
+//     console.log(123)
+//     // axios.get(url('api/product'), {
+//     //     params: this.params
+//     //   })
+//     //     .then(({ data }) => {
+//     //       this.products = this.products.concat(data.products)
+//     //       this.params.offset = data.offset
+//     //       this.more = data.more
+//     //     })
+//     //     .catch(error => {
+//     //       console.error(error)
+//     //     });
+//   },
+//   methods: {
+//     addCart() {
+//       if (this.rest <= 0) {
+//         alert.fail('已無庫存！')
+//         return
+//       }
+
+//       if (this.count < 1) {
+//         alert.fail('數量不可低於 1')
+//         return
+//       }
+
+//       if (this.count > this.rest) {
+//         alert.fail('數量不可超過 ' + this.rest)
+//         return
+//       }
+
+//       let exist = false
+//       let products = (Data.get('products') ?? []).map(product => {
+//         if (product.id == this.product.id) {
+//           product.count += this.count
+//           this.rest -= this.count
+//           exist = true
+//         }
+//         return product
+//       })
+
+//       !exist && (this.product.count = this.count) && products.push(this.product)
+//         && (this.rest -= this.count)
+
+//       Data.set('products', products)
+
+//       alert.success('商品加入成功！')
+//       header.calculateCartCount()
+//     },
+//     decrease() {
+//       this.count != 1 && this.count--
+//     },
+//     increase() {
+//       this.count < this.rest && this.count++
+//     }
+//   }
+// }).component('header-component', header).mount('#app')
+})();
+
 /******/ })()
 ;
