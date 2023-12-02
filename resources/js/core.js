@@ -8,4 +8,10 @@ function getParameterByName(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-export { getParameterByName }
+const Data = {
+  set (key, val) { localStorage.setItem(key, JSON.stringify(val)) },
+  get (key) { return JSON.parse(localStorage.getItem(key)) },
+  del (key) { return localStorage.removeItem(key) }
+}
+
+export { getParameterByName, Data }

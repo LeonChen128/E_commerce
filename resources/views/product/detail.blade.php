@@ -28,9 +28,9 @@
             <span>數量：</span>
 
             <div id="countBar">
-              <button type="button" @click="decrease">－</button>
+              <button type="button" @click="count != 1 && count--">－</button>
               <input type="number" v-model.number="count" min="1" :max="product.total">
-              <button type="button" @click="increase">＋</button>
+              <button type="button" @click="count < rest && count++">＋</button>
             </div>
 
             <template v-if="rest !== null">

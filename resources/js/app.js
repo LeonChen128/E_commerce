@@ -1,19 +1,38 @@
 require('./bootstrap');
 
-import { getParameterByName } from './core';
+import { getParameterByName, Data } from './core';
 
-const header_params = {
+const app_params = {
   data: {
     cartCount: 0,
     sidebarActive: false,
     user: null
   },
   methods: {
-    init: () => {
-
+    init()  {
+      this.refreshCartCount()
+      this.$nextTick(() => {
+        // 點擊 sidebar 以外區域關閉 sidebar
+        window.addEventListener('click', this.closeSidebarOnClickOutside);
+      })
     },
-    logout: () => {
+    closeSidebarOnClickOutside(event) {
+      const domHamburger = this.$refs.header.$refs.hamburger;
+      const domSidebar = this.$refs.header.$refs.sidebar;
+
+      if (domHamburger.contains(event.target)) {
+        return true;
+      }
+
+      if (!domSidebar.contains(event.target)) {
+        this.sidebarActive = false;
+      }
+    },
+    logout() {
       console.log('doLogout')
+    },
+    refreshCartCount() {
+      this.cartCount = Object.keys(Data.get('cart') ?? {}).length
     }
   }
 }
@@ -104,4 +123,4 @@ const header = defineComponent({
   `
 })
 
-export { header, header_params };
+export { header, app_params };

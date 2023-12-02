@@ -1,10 +1,10 @@
-import { header, header_params } from '../app';
+import { header, app_params } from '../app';
 import { getParameterByName } from '../core';
 
 const app = createApp({
   data() { 
     return {
-      ...header_params.data,
+      ...app_params.data,
       params: {
         keyword: '',
         offset: 0
@@ -14,10 +14,7 @@ const app = createApp({
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      // 點擊 sidebar 以外區域關閉 sidebar
-      window.addEventListener('click', this.closeSidebarOnClickOutside);
-    });
+    this.init()
 
     this.params.keyword = getParameterByName('keyword') ?? '';
 
@@ -29,19 +26,7 @@ const app = createApp({
 
   },
   methods: {
-    ...header_params.methods,
-    closeSidebarOnClickOutside(event) {
-      const domHamburger = this.$refs.header.$refs.hamburger;
-      const domSidebar = this.$refs.header.$refs.sidebar;
-
-      if (domHamburger.contains(event.target)) {
-        return true;
-      }
-
-      if (!domSidebar.contains(event.target)) {
-        this.sidebarActive = false;
-      }
-    },
+    ...app_params.methods,
     load() {
       let params = {}
       if (this.params.keyword) {

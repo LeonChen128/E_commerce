@@ -18974,22 +18974,43 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   header: () => (/* binding */ header),
-/* harmony export */   header_params: () => (/* binding */ header_params)
+/* harmony export */   app_params: () => (/* binding */ app_params),
+/* harmony export */   header: () => (/* binding */ header)
 /* harmony export */ });
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./resources/js/core.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-var header_params = {
+var app_params = {
   data: {
     cartCount: 0,
     sidebarActive: false,
     user: null
   },
   methods: {
-    init: function init() {},
+    init: function init() {
+      var _this = this;
+      this.refreshCartCount();
+      this.$nextTick(function () {
+        // 點擊 sidebar 以外區域關閉 sidebar
+        window.addEventListener('click', _this.closeSidebarOnClickOutside);
+      });
+    },
+    closeSidebarOnClickOutside: function closeSidebarOnClickOutside(event) {
+      var domHamburger = this.$refs.header.$refs.hamburger;
+      var domSidebar = this.$refs.header.$refs.sidebar;
+      if (domHamburger.contains(event.target)) {
+        return true;
+      }
+      if (!domSidebar.contains(event.target)) {
+        this.sidebarActive = false;
+      }
+    },
     logout: function logout() {
       console.log('doLogout');
+    },
+    refreshCartCount: function refreshCartCount() {
+      var _Data$get;
+      this.cartCount = Object.keys((_Data$get = _core__WEBPACK_IMPORTED_MODULE_0__.Data.get('cart')) !== null && _Data$get !== void 0 ? _Data$get : {}).length;
     }
   }
 };
@@ -19077,6 +19098,7 @@ window.ref = vue__WEBPACK_IMPORTED_MODULE_0__.ref;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Data: () => (/* binding */ Data),
 /* harmony export */   getParameterByName: () => (/* binding */ getParameterByName)
 /* harmony export */ });
 // 取得 URL 之參數
@@ -19089,6 +19111,17 @@ function getParameterByName(name) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+var Data = {
+  set: function set(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+  },
+  get: function get(key) {
+    return JSON.parse(localStorage.getItem(key));
+  },
+  del: function del(key) {
+    return localStorage.removeItem(key);
+  }
+};
 
 
 /***/ }),
@@ -19624,24 +19657,44 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 var app = createApp({
   data: function data() {
-    return _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_1__.header_params.data), {}, {
-      product: null
+    return _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_1__.app_params.data), {}, {
+      product: null,
+      count: 1,
+      rest: 0
     });
   },
   mounted: function mounted() {
+    this.init();
     var urls = location.href.split('/');
     var id = urls[urls.length - 1];
     this.getDetail(id);
   },
-  methods: _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_1__.header_params.methods), {}, {
+  methods: _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_1__.app_params.methods), {}, {
     getDetail: function getDetail(id) {
       var _this = this;
       axios.get(url('api/product/' + id)).then(function (_ref) {
         var data = _ref.data;
         _this.product = data;
+        _this.countRest();
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    countRest: function countRest() {
+      var cart = _core__WEBPACK_IMPORTED_MODULE_0__.Data.get('cart');
+      var count = cart && typeof cart[this.product.id] !== 'undefined' ? cart[this.product.id] : 0;
+      this.rest = this.product.total - count;
+    },
+    addCart: function addCart() {
+      var _Data$get, _cart$this$product$id;
+      var cart = (_Data$get = _core__WEBPACK_IMPORTED_MODULE_0__.Data.get('cart')) !== null && _Data$get !== void 0 ? _Data$get : {};
+      cart[this.product.id] = this.count + ((_cart$this$product$id = cart[this.product.id]) !== null && _cart$this$product$id !== void 0 ? _cart$this$product$id : 0);
+      if (cart[this.product.id] > this.product.total) {
+        return console.error('購買數量已達上限');
+      }
+      _core__WEBPACK_IMPORTED_MODULE_0__.Data.set('cart', cart);
+      this.countRest();
+      this.refreshCartCount();
     }
   })
 }).component('header-component', _app__WEBPACK_IMPORTED_MODULE_1__.header).mount('#app');

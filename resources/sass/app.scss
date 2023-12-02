@@ -182,7 +182,7 @@ header {
   }
 
   #sidebar {
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: -50%;
     width: 50%;
@@ -215,6 +215,10 @@ header {
       position: relative;
       height: 50px;
       padding-left: 12px;
+
+      &:hover {
+        border-bottom: 1px solid white;
+      }
 
       > a {
         @extend %-center-y;

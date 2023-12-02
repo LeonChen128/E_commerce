@@ -18974,22 +18974,43 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   header: () => (/* binding */ header),
-/* harmony export */   header_params: () => (/* binding */ header_params)
+/* harmony export */   app_params: () => (/* binding */ app_params),
+/* harmony export */   header: () => (/* binding */ header)
 /* harmony export */ });
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./resources/js/core.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-var header_params = {
+var app_params = {
   data: {
     cartCount: 0,
     sidebarActive: false,
     user: null
   },
   methods: {
-    init: function init() {},
+    init: function init() {
+      var _this = this;
+      this.refreshCartCount();
+      this.$nextTick(function () {
+        // 點擊 sidebar 以外區域關閉 sidebar
+        window.addEventListener('click', _this.closeSidebarOnClickOutside);
+      });
+    },
+    closeSidebarOnClickOutside: function closeSidebarOnClickOutside(event) {
+      var domHamburger = this.$refs.header.$refs.hamburger;
+      var domSidebar = this.$refs.header.$refs.sidebar;
+      if (domHamburger.contains(event.target)) {
+        return true;
+      }
+      if (!domSidebar.contains(event.target)) {
+        this.sidebarActive = false;
+      }
+    },
     logout: function logout() {
       console.log('doLogout');
+    },
+    refreshCartCount: function refreshCartCount() {
+      var _Data$get;
+      this.cartCount = Object.keys((_Data$get = _core__WEBPACK_IMPORTED_MODULE_0__.Data.get('cart')) !== null && _Data$get !== void 0 ? _Data$get : {}).length;
     }
   }
 };
@@ -19077,6 +19098,7 @@ window.ref = vue__WEBPACK_IMPORTED_MODULE_0__.ref;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Data: () => (/* binding */ Data),
 /* harmony export */   getParameterByName: () => (/* binding */ getParameterByName)
 /* harmony export */ });
 // 取得 URL 之參數
@@ -19089,6 +19111,17 @@ function getParameterByName(name) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+var Data = {
+  set: function set(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+  },
+  get: function get(key) {
+    return JSON.parse(localStorage.getItem(key));
+  },
+  del: function del(key) {
+    return localStorage.removeItem(key);
+  }
+};
 
 
 /***/ }),
@@ -19113,7 +19146,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 var app = createApp({
   data: function data() {
-    return _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_0__.header_params.data), {}, {
+    return _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_0__.app_params.data), {}, {
       params: {
         keyword: '',
         offset: 0
@@ -19123,12 +19156,8 @@ var app = createApp({
     });
   },
   mounted: function mounted() {
-    var _this = this,
-      _getParameterByName;
-    this.$nextTick(function () {
-      // 點擊 sidebar 以外區域關閉 sidebar
-      window.addEventListener('click', _this.closeSidebarOnClickOutside);
-    });
+    var _getParameterByName;
+    this.init();
     this.params.keyword = (_getParameterByName = (0,_core__WEBPACK_IMPORTED_MODULE_1__.getParameterByName)('keyword')) !== null && _getParameterByName !== void 0 ? _getParameterByName : '';
 
     // this.cartCount = 12
@@ -19136,19 +19165,9 @@ var app = createApp({
     this.load();
   },
   created: function created() {},
-  methods: _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_0__.header_params.methods), {}, {
-    closeSidebarOnClickOutside: function closeSidebarOnClickOutside(event) {
-      var domHamburger = this.$refs.header.$refs.hamburger;
-      var domSidebar = this.$refs.header.$refs.sidebar;
-      if (domHamburger.contains(event.target)) {
-        return true;
-      }
-      if (!domSidebar.contains(event.target)) {
-        this.sidebarActive = false;
-      }
-    },
+  methods: _objectSpread(_objectSpread({}, _app__WEBPACK_IMPORTED_MODULE_0__.app_params.methods), {}, {
     load: function load() {
-      var _this2 = this;
+      var _this = this;
       var params = {};
       if (this.params.keyword) {
         params.keyword = this.params.keyword;
@@ -19158,9 +19177,9 @@ var app = createApp({
         params: params
       }).then(function (_ref) {
         var data = _ref.data;
-        _this2.products = _this2.products.concat(data.products);
-        _this2.params.offset = data.offset;
-        _this2.more = data.more;
+        _this.products = _this.products.concat(data.products);
+        _this.params.offset = data.offset;
+        _this.more = data.more;
       })["catch"](function (error) {
         console.error(error);
       });

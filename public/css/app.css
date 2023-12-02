@@ -170,7 +170,7 @@ header #navbar > div #navSearch > form > button:hover {
   background-color: #009e8c;
 }
 header #sidebar {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: -50%;
   width: 50%;
@@ -201,6 +201,9 @@ header #sidebar > div:not(.cross) {
   position: relative;
   height: 50px;
   padding-left: 12px;
+}
+header #sidebar > div:not(.cross):hover {
+  border-bottom: 1px solid white;
 }
 header #sidebar > div:not(.cross) > a {
   color: white;
