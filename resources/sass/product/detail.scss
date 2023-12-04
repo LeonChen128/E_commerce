@@ -79,10 +79,20 @@
 
             input {
               width: 40px;
-              -moz-appearance: textfield;
               outline: none;
               border-right: 0px;
               border-left: 0px;
+              text-align: center;
+            }
+
+            input[type=number]::-webkit-outer-spin-button,
+            input[type=number]::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+
+            input[type=number] {
+              -moz-appearance: textfield;
             }
           }
 

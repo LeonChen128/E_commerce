@@ -64,10 +64,18 @@
 }
 #productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar input {
   width: 40px;
-  -moz-appearance: textfield;
   outline: none;
   border-right: 0px;
   border-left: 0px;
+  text-align: center;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar input[type=number]::-webkit-outer-spin-button,
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#productDetail > div:nth-child(2) #purchase > form > #countBarFrame > #countBar input[type=number] {
+  -moz-appearance: textfield;
 }
 #productDetail > div:nth-child(2) #purchase > form > #countBarFrame > span:nth-child(3) {
   font-size: 14px;
